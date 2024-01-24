@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import ticket_filter_bg from '/src/assets/filter_ticket_bg.png';
+import TicketFilterForm from './TicketFilterForm';
 
 const TicketFilterBlock = styled('section')`
     height: calc(100vh + .5rem);
@@ -37,14 +38,11 @@ const BoldText = styled('span')`
     font-weight: 800;
 `
 
-const TicketFilterForm = styled('form')`
-    width: 574px;
-    height: calc(100vh - 43vh + .5rem);
-    background-color: rgba(41, 41, 41, .8);
-    `
+
 
 export default 
     () => {
+
         return(
         <TicketFilterBlock>
             <InnerBlock>
