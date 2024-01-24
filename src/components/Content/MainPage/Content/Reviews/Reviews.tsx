@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 // import ticket_filter_bg from '/src/assets/filter_ticket_bg.png';
-
+import Slider from './Slider'
 const ReviewsContainer = styled('section')`
     // height: 575px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -34,6 +34,7 @@ export default
         <ReviewsContainer>
             <InnerContainer>
                 <Title>Отзывы</Title>
+                <Slider></Slider>
             </InnerContainer>
         </ReviewsContainer>
         )

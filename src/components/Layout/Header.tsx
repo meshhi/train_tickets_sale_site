@@ -19,11 +19,18 @@ const HeaderMenu = styled('ul')`
 display: flex;
 flex-direction: row;
 width: 60%;
-gap: 1rem;
+gap: 83px;
+
 `
 
 const HeaderMenuItem = styled('li')`
-list-style-type: none;
+color: #FFF;
+font-family: Roboto;
+font-size: 30px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+cursor: pointer;
 `
 
 

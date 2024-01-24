@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import TicketFilterBlock from './Content/TicketFilterBlock'
 import About from './Content/About'
 import HowItWorks from './Content/HowItWorks'
-import Reviews from './Content/Reviews'
+import Reviews from './Content/Reviews/Reviews'
 
 const StyledMainPage = styled('main')``
 
