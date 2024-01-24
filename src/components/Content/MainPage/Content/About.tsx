@@ -19,9 +19,12 @@ const InnerContainer = styled('div')`
 `
 
 const Title = styled('h2')`
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 3rem;
+    font-family: Roboto;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase; 
 `
 
 const TextContainer = styled('div')`

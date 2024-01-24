@@ -4,6 +4,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    cursor: default;
 }
 
 body {
@@ -13,5 +14,10 @@ body {
 
 li {
     list-style-type: none;
+    cursor: pointer;
+}
+
+button {
+    background: none;
     cursor: pointer;
 }
