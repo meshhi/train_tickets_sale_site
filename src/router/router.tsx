@@ -3,10 +3,9 @@ import {
     RouterProvider,
   } from "react-router-dom";
 import Root from "../components/Layout/Root";
-import MainPage from "../components/Content/MainPage";
+import MainPage from "../components/Content/MainPage/MainPage";
 import ErrorPage from "../components/Layout/ErrorPage";
-
-  
+import OrderTicket from "../components/Content/OrderTicket/OrderTicket";
 
 export default createBrowserRouter([
     {
@@ -15,8 +14,12 @@ export default createBrowserRouter([
       errorElement: <ErrorPage></ErrorPage>,
       children: [
         {
-          path: "/",
+          path: "",
           element: <MainPage />,
+        },
+        {
+            path: "orderticket",
+            element: <OrderTicket />,
         },
       ]
     },
