@@ -117,6 +117,7 @@ font-weight: 400;
 line-height: normal;
 text-transform: uppercase;
 color: #E5E5E5;
+text-align: center;
 `
 
 const SubscribeIcons = styled('div')`

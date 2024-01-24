@@ -3,12 +3,15 @@ import how_it_works from "/src/assets/how_it_works_bg.png";
 
 const HowItWorksContainer = styled('section')`
     // height: 575px;
-    background: url(${how_it_works});
+    background: url(${how_it_works}), lightgray 50% / cover no-repeat;;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: center;
     align-items: center;
     padding-block: 75px;
+    // background-color: #FFD600;
+    background-color: orange;
+
 `
 
 const InnerContainer = styled('div')`
