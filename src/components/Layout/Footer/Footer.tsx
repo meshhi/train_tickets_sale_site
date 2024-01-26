@@ -74,7 +74,6 @@ const Footer = () => {
                         </SubscribeIcons>
                     </SubscribeBlock>
                 </InnerContainer>
-
             </FooterContent>
             <FooterInfo>
                 <LogoText>Лого</LogoText>

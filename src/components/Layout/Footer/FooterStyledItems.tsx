@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { LandingButton } from "../../Elements/Buttons/LandingButton"
 import { Icon } from "../../Elements/Icons/Icon"
+import { CustomStyledInput } from "../../Elements/Inputs/CustomStyledInput"
 
 export const FooterContainer = styled('div')`
     width: 100%;
@@ -106,7 +107,7 @@ width: 100%;
 height: 60px;
 `
 
-export const SubscribeFormInput = styled('input')`
+export const SubscribeFormInput = styled(CustomStyledInput)`
 width: 68%;
 `
 
