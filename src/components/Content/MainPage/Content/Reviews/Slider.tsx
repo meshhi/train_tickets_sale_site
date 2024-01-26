@@ -1,67 +1,11 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { Pagination, A11y, Autoplay } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import styled from 'styled-components';
-import review_1 from '/src/assets/review_1.png';
-import review_2 from '/src/assets/review_2.png';
-
-const Slider = styled(Swiper)`
-  width: 100%;
-  height: 360px;
-
-  --swiper-pagination-color: #C4C4C4;
-  --swiper-pagination-bullet-inactive-color: rgba(229, 229, 229, 1);
-  --swiper-pagination-bullet-inactive-opacity: 1;
-  --swiper-pagination-bullet-size: 19px;
-  --swiper-pagination-bullet-horizontal-gap: 6px;
-`
-const SliderItem = styled(SwiperSlide)`
-  display: flex;
-  flex-direction: row;
-`
-
-const SliderItemImage = styled('div')`
-  background-image: ${props => (`url(${props.image})`)};
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 50%;
-  min-width: 206px;
-  height: 206px;
-  margin-right: 22px;
-`
-
-const SliderItemContent = styled('div')``
-
-const SliderItemTitle = styled('div')`
-color: #000;
-font-family: Roboto;
-font-size: 24px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-margin-bottom: 30px;
-`
-
-const SliderItemText = styled('div')`
-color: #928F94;
-font-family: Roboto;
-font-size: 18px;
-font-style: italic;
-font-weight: 300;
-line-height: normal; 
-`
-
-const Quote = styled("span")`
-color: #928F94;
-font-family: Roboto;
-font-size: 36px;
-font-style: normal;
-font-weight: 500;
-line-height: normal; 
-`
+import review_1 from '/src/assets/png/review_1.png';
+import review_2 from '/src/assets/png/review_2.png';
+import { Slider, SliderItem, SliderItemImage, SliderItemContent, SliderItemTitle, SliderItemText, Quote } from './SliderStyledItems';
 
 export default () => {
   const reviewsData = [
@@ -97,21 +41,19 @@ export default () => {
   ]
   return (
     <Slider
-      // install Swiper modules
       modules={[Autoplay, Pagination, A11y]}
       spaceBetween={50}
       loop={true}
       slidesPerView={2}
       pagination={{ clickable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
       }}
     >
-      {reviewsData.map((review) => <SliderItem key={review.id}>
-        <SliderItemImage image={review.img}></SliderItemImage>
+      {reviewsData.map((review) => 
+      <SliderItem key={review.id}>
+        <SliderItemImage $image={review.img}></SliderItemImage>
         <SliderItemContent>
           <SliderItemTitle>
             {review.title}

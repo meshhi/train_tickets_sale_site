@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import ticket_filter_bg from '/src/assets/filter_ticket_bg.png';
-import TicketFilterForm from './TicketFilterForm';
+import ticket_filter_bg from '/src/assets/png/filter_ticket_bg.png';
+import TicketFilterForm from './TicketFilterForm/TicketFilterForm';
 
 const TicketFilterBlock = styled('section')`
     height: calc(100vh + .5rem);
@@ -38,17 +38,14 @@ const BoldText = styled('span')`
     font-weight: 800;
 `
 
-
-
-export default 
+export default
     () => {
-
-        return(
-        <TicketFilterBlock>
-            <InnerBlock>
-                <Title>Вся жизнь - <br></br><BoldText>путешествие!</BoldText></Title>
-                <TicketFilterForm></TicketFilterForm>
-            </InnerBlock>
-        </TicketFilterBlock>
+        return (
+            <TicketFilterBlock>
+                <InnerBlock>
+                    <Title>Вся жизнь - <br></br><BoldText>путешествие!</BoldText></Title>
+                    <TicketFilterForm></TicketFilterForm>
+                </InnerBlock>
+            </TicketFilterBlock>
         )
     };
