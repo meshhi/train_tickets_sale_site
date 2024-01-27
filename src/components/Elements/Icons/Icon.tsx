@@ -7,7 +7,7 @@ export const Icon = styled.div<{ $srcImg?: string; $width?: number; $height?: nu
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: contain;
-    background-color: #E5E5E5;
+    background-color: var(--smooth-grey);
     cursor: pointer;
     ${props => props.$margin ? `margin: ${props.$margin};` : ""}
 `

@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const ReviewsContainer = styled('section')`
-    // height: 575px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: center;
@@ -15,7 +14,7 @@ export const InnerContainer = styled('div')`
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        color: #292929;
+        color: var(--black);
         gap: 107px;
     `
 

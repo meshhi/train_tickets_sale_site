@@ -30,7 +30,7 @@ export const SliderItemImage = styled.div<{ $image?: string }>`
 export const SliderItemContent = styled('div')``
 
 export const SliderItemTitle = styled('div')`
-color: #000;
+color: var(--black);
 font-family: Roboto;
 font-size: 24px;
 font-style: normal;
@@ -40,7 +40,7 @@ margin-bottom: 30px;
 `
 
 export const SliderItemText = styled('div')`
-color: #928F94;
+color: var(--grey-text);
 font-family: Roboto;
 font-size: 18px;
 font-style: italic;
@@ -49,7 +49,7 @@ line-height: normal;
 `
 
 export const Quote = styled("span")`
-color: #928F94;
+color: var(--grey-text);
 font-family: Roboto;
 font-size: 36px;
 font-style: normal;

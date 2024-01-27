@@ -10,7 +10,7 @@ export const FooterContainer = styled('div')`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #292929;
+    background-color: var(--black);
     color: #FFF; 
 `
 
@@ -32,16 +32,15 @@ export const ContactUsBlock = styled('div')`
     height: 100%;
     display: flex;
     flex-direction: column;
-    // gap: 33px;
 `
 
 export const BlockHeader = styled('h3')`
-font-family: Roboto;
-font-size: 30px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-margin-bottom: 33px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 33px;
 `
 
 export const ContactUsList = styled('ul')`
@@ -69,12 +68,12 @@ export const ContactIcon = styled(Icon)`
 `
 
 export const ContactText = styled('span')`
-color: var(--smooth-grey);
-font-family: Roboto;
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal; 
+    color: var(--smooth-grey);
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
 `
 
 export const SubscribeBlock = styled('div')`
@@ -100,11 +99,11 @@ export const SubscribeForm = styled('form')`
 `
 
 export const SubscribeFormInputContainer = styled('div')`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-width: 100%;
-height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
 `
 
 export const SubscribeFormInput = styled(CustomStyledInput)`
@@ -152,21 +151,21 @@ export const ToTopIcon = styled(Icon)`
 `
 
 export const LogoText = styled('span')`
-display: inline-block;
-color: var(--smooth-grey);
-var(--smooth-yellow)
-font-family: Roboto;
-font-size: 36px;
-font-style: normal;
-font-weight: 900;
-line-height: normal; 
+    display: inline-block;
+    color: var(--smooth-grey);
+    var(--smooth-yellow)
+    font-family: Roboto;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal; 
 `
 
 export const CopyrightText = styled('span')`
-color: var(--smooth-grey);
-font-family: Roboto;
-font-size: 24px;
-font-style: normal;
-font-weight: 300;
-line-height: normal; 
+    color: var(--smooth-grey);
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal; 
 `

@@ -13,7 +13,7 @@ export const InnerContainer = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    color: #292929;
+    color: var(--black);
     gap: 33px;
 `
 
@@ -28,7 +28,7 @@ export const Title = styled('h2')`
 
 export const TextContainer = styled('div')`
     width: 100%;
-    border-left: .5rem solid orange;
+    border-left: .5rem solid var(--orange);
     padding-left: 19px;
 `
 

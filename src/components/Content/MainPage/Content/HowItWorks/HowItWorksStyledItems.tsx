@@ -11,7 +11,7 @@ export const HowItWorksContainer = styled('section')`
     justify-content: center;
     align-items: center;
     padding-block: 75px;
-    background-color: orange;
+    background-color: var(--orange);
 
 `
 
@@ -21,7 +21,7 @@ export const InnerContainer = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    color: #292929;
+    color: var(--black);
     gap: 107px;
 `
 
@@ -34,7 +34,7 @@ export const InnerContainerHeader = styled('header')`
 
 export const Title = styled('h2')`
     font-size: 36px;
-    color: #fff;
+    color: var(--main-color);
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -49,7 +49,7 @@ export const ListContainer = styled('ul')`
 `
 
 export const ListItem = styled('ul')`
-    color: #FFF;
+    color: var(--main-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,7 +58,7 @@ export const ListItem = styled('ul')`
     gap: 34px;
     transition: all 0.2s ease-out;
     &:hover {
-        color: #FFB726;
+        color: var(--yellow);
     }
 `
 
@@ -69,10 +69,9 @@ export const ListIcon = styled(Icon)`
 `
 
 export const ListText = styled('div')`
-// color: #FFF;
-text-align: center;
-font-family: Roboto;
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;`
+    text-align: center;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;`
