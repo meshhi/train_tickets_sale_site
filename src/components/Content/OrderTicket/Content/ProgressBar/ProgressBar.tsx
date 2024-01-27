@@ -7,6 +7,7 @@ export const ProgressBarContainer = styled.div`
     height: 98px;
     display: flex;
     position: relative;
+    background-color: var(--orange);
 `
 
 export const ProgressBar = () => {

@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect, useRef, MutableRefObject } from 'react'
 import styled from 'styled-components'
 import debounce from "lodash/debounce";
+import { useDispatch } from 'react-redux';
 // import { CustomStyledInput } from './CustomStyledInput'
 
 const CustomContainer = styled.div`
@@ -101,21 +102,26 @@ type CustomDebouncedDropdownInputProps = {
   callback?: (e: React.FormEvent<HTMLInputElement>) => void,
   debounceTime: number,
   options: {
-    id: string | number,
+    _id: string | number,
     name: string,
   }[],
   placeholder?: string,
-  $icon?: string
+  $icon?: string,
+  value?: string,
+  action?: any,
+  defaultValue?: string,
 }
 
 export const CustomDebouncedDropdownInput =
-  ({ callback, debounceTime, options, placeholder, $icon }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
+  ({ callback, debounceTime, options, placeholder, $icon, value, action, defaultValue }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
     const delayedInput = useCallback(debounce(callback, debounceTime), []);
     const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const [placeholderValue, setPlaceholderValue] = useState<string>("");
 
     const [isInputColor, setInputColor] = useState<boolean>(true);
     const inputRef = useRef<HTMLInputElement>(null) as MutableRefObject<HTMLInputElement>;
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
       if (options.length > 0 && inputRef.current === document.activeElement) {
@@ -137,12 +143,14 @@ export const CustomDebouncedDropdownInput =
             onChange={(e) => {
               // setPlaceholderValue("");
               delayedInput(e);
+              dispatch(action(e.target.value));
             }}
             $icon={$icon}
             ref={inputRef}
             placeholder={placeholder}
             $placeholderValue={placeholderValue}
             $color={isInputColor}
+            defaultValue={defaultValue}
           />
         </InputWrapper>
         <StyledDatalist
@@ -150,10 +158,10 @@ export const CustomDebouncedDropdownInput =
         >
           {options?.map(option =>
             <StyledOption
-              key={option.id}
-              // key={Math.random()}
+              key={option._id}
               onClick={(e) => {
                 inputRef.current.value = e.currentTarget.value;
+                dispatch(action(e.currentTarget.value));
                 setDropdownOpen(false);
                 setPlaceholderValue("");
               }}

@@ -1,10 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { useSelector, useDispatch } from 'react-redux';
-// Импортируем нужные действия
-import { decrement, increment, incrementByAmount } from '/src/store/slices/ticketSlice.ts';
-
 import { FilterBlock } from './Content/FilterBlock/FilterBlock';
 import { ProgressBar } from './Content/ProgressBar/ProgressBar';
 
@@ -16,10 +12,6 @@ const OrderTicketContainer = styled('div')`
 `
 
 export const OrderTicket = () => {
-  const count = useSelector((state) => state.tickets.value);
-  // Возвращает метод store.dispatch() текущего хранилища
-  const dispatch = useDispatch();
-  
   return(
     <OrderTicketContainer>
         {/* <button

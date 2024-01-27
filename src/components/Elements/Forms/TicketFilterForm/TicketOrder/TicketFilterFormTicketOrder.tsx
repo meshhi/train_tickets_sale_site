@@ -1,9 +1,10 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 // store
 import { useGetCityByNameQuery } from '/src/store/services/city.ts'
-
+import { useSelector, useDispatch } from 'react-redux';
+import { cityIn, cityOut } from '../../../../../store/slices/ticketSlice';
 // UI
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
 import calendar from '/src/assets/svg/icons/calendar.svg';
@@ -35,6 +36,9 @@ export const TicketFilterFormTicketOrder = () => {
         }
     }
 
+    const cityInValue = useSelector(state => state.tickets.cityIn);
+    const cityOutValue = useSelector(state => state.tickets.cityOut);
+
     return (
         <TicketFilterForm>
             <Inputs>
@@ -47,6 +51,8 @@ export const TicketFilterFormTicketOrder = () => {
                             options={Array.isArray(cities) ? cities : []}
                             placeholder="Куда..."
                             $icon={geo}
+                            action={cityIn}
+                            defaultValue={cityInValue}
                         ></CustomDebouncedDropdownInput>
                         <Icon
                             $srcImg={change_place}
@@ -61,6 +67,8 @@ export const TicketFilterFormTicketOrder = () => {
                             options={Array.isArray(cities) ? cities : []}
                             placeholder="Откуда..."
                             $icon={geo}
+                            action={cityOut}
+                            defaultValue={cityOutValue}
                         ></CustomDebouncedDropdownInput>
                     </InputsPlace>
                 </InputsRow>
