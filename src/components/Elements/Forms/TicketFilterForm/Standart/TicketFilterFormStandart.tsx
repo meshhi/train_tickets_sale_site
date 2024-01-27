@@ -8,10 +8,9 @@ import { useGetCityByNameQuery } from '/src/store/services/city.ts'
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
 import calendar from '/src/assets/svg/icons/calendar.svg';
 import change_place from '/src/assets/png/change_place.png';
-import { Icon } from '../../Icons/Icon';
-import { CustomDebouncedDropdownInput } from '../../Inputs/CustomDebouncedDropdownInput';
-import { CustomDatePickInput } from '../../Inputs/CustomDatePickInput';
-import { CustomStyledInput } from '../../Inputs/CustomStyledInput';
+import { Icon } from '../../../Icons/Icon';
+import { CustomDebouncedDropdownInput } from '../../../Inputs/CustomDebouncedDropdownInput';
+import { CustomDatePickInput } from '../../../Inputs/CustomDatePickInput';
 import { Inputs, InputsDate, InputsLabel, InputsPlace, TicketFilterForm, FindTicketsButton, InputsRow } from './TicketFilterFormStyledElements';
 
 export const TicketFilterFormStandart = () => {
@@ -22,7 +21,7 @@ export const TicketFilterFormStandart = () => {
     const navigate = useNavigate();
 
     const handleChangeCityInput = (e: React.FormEvent<HTMLInputElement>): void => {
-        setName(e.target?.value);
+        setName(e.target.value);
     }
 
     const handleChangeDirectionClick = (e: SyntheticEvent): void => {

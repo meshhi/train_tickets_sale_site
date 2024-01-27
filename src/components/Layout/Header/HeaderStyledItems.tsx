@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div<{ $scrolled?: boolean; }>`
 position: fixed;
-z-index: 99999;
+z-index: 9999999;
 width: 100%;
 height: 158px;
 top: ${props => props.$scrolled ? "-64px" : "0px"};

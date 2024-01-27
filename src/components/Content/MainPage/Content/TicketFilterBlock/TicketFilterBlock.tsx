@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import ticket_filter_bg from '/src/assets/png/filter_ticket_bg.png';
-import { TicketFilterFormStandart } from '../../../../Elements/Forms/TicketFilterForm/TicketFilterFormStandart';
+import { TicketFilterFormStandart } from '../../../../Elements/Forms/TicketFilterForm/Standart/TicketFilterFormStandart';
 
 const TicketFilterBlock = styled('section')`
     height: calc(100vh + .5rem);

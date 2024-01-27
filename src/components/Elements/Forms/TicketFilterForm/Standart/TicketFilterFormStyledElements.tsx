@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LandingButton } from "../../Buttons/LandingButton";
+import { LandingButton } from "../../../Buttons/LandingButton";
 
 export const TicketFilterForm = styled('form')`
     width: 729px;

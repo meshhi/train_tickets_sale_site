@@ -5,7 +5,7 @@ import {
 import Root from "../components/Layout/Root";
 import MainPage from "../components/Content/MainPage/MainPage";
 import ErrorPage from "../components/Layout/ErrorPage";
-import OrderTicket from "../components/Content/OrderTicket/OrderTicket";
+import { OrderTicket } from "../components/Content/OrderTicket/OrderTicket";
 
 export default createBrowserRouter([
     {
