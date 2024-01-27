@@ -3,7 +3,7 @@ import { AboutContainer, InnerContainer, Title, TextContainer, Bold, Text } from
 export default 
     () => {
         return(
-        <AboutContainer>
+        <AboutContainer id="about">
             <InnerContainer>
                 <Title>О нас</Title>
                 <TextContainer>

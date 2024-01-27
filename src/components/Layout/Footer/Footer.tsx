@@ -13,13 +13,19 @@ import arrow_up from '/src/assets/svg/icons/arrow_up.svg';
 // styled components
 import { BlockHeader, ContactIcon, ContactIconWrapper, ContactText, ContactUsBlock, ContactUsList, ContactUsListItem, CopyrightText, FooterContainer, FooterContent, FooterInfo, InnerContainer, LogoText, SubscribeBlock, SubscribeForm, SubscribeFormButton, SubscribeFormInput, SubscribeFormInputContainer, SubscribeIcon, SubscribeIcons, SubscribeIconsList } from "./FooterStyledItems";
 import { Icon } from '../../Elements/Icons/Icon';
+import { SyntheticEvent } from 'react';
 
 const Footer = () => {
+    const handleSubscribeClick = (e: SyntheticEvent) => {
+        e.preventDefault();
+        alert('Subscribe');
+    }
+
     return (
         <FooterContainer>
             <FooterContent>
                 <InnerContainer>
-                    <ContactUsBlock>
+                    <ContactUsBlock id="contacts">
                         <BlockHeader>Свяжитесь с нами</BlockHeader>
                         <ContactUsList>
                             <ContactUsListItem>
@@ -59,7 +65,7 @@ const Footer = () => {
                             <span style={{ "marginBottom": "22px" }}>Будьте в курсе событий</span>
                             <SubscribeFormInputContainer>
                                 <SubscribeFormInput></SubscribeFormInput>
-                                <SubscribeFormButton>Отправить</SubscribeFormButton>
+                                <SubscribeFormButton onClick={handleSubscribeClick}>Отправить</SubscribeFormButton>
                             </SubscribeFormInputContainer>
                         </SubscribeForm>
                         <SubscribeIcons>

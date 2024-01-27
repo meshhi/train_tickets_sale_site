@@ -1,30 +1,170 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState, useEffect, useRef, MutableRefObject } from 'react'
 import styled from 'styled-components'
 import debounce from "lodash/debounce";
-import { CustomStyledInput } from './CustomStyledInput'
+// import { CustomStyledInput } from './CustomStyledInput'
 
-const StyledDatalist = styled.datalist``;
-const StyledOption = styled.option``;
+const CustomContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`
+
+const InputWrapper = styled.div`
+  position: relative;
+  width: 325px;
+  height: 60px;
+  padding: 19px 73px 11px 21px;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  line-height: 10px;
+`
+
+const CustomStyledInput = styled.input<{$icon?: string, $placeholderValue?: string, $color?: boolean}>`
+  width: 325px;
+  height: 60px;
+  padding: 19px 73px 11px 21px;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  line-height: 10px;
+  background-image: url(${props => props.$icon});
+  background-repeat: no-repeat;
+  background-position: 95% center;
+  text-transform: capitalize;
+  
+  color: ${props => props.$color ? "var(--black)" : "transparent"};
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 999999;
+  background-color: transparent;
+
+  &:placeholder-shown {
+    color: ${props => props.$placeholderValue ? "transparent" : "black"};
+  }
+`;
+
+const CustomStyledInputPlaceholder = styled(CustomStyledInput)`
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+
+  background-color: white;
+  color: var(--black);
+`
+
+const StyledDatalist = styled.datalist<{$opened?: boolean}>`
+  display: ${props => props.$opened ? "flex" : "none"};
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  z-index: 99999;
+  padding: 14px 22px 15px 28px;
+  top: 60px;
+  left: 0;
+  right: 0;
+  font-family: sans-serif;
+  border-radius: 3px;
+  background: #F5F4F6;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+`;
+
+const StyledOption = styled.option`
+  width: 100%;
+  height: 23px;
+  color: var(--black);
+  text-transform: uppercase;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-variant: all-small-caps; 
+  cursor: pointer;
+  &:hover, &.active {
+    background-color: var(--smooth-grey);
+  }
+`;
 
 type CustomDebouncedDropdownInputProps = {
   callback?: (e: React.FormEvent<HTMLInputElement>) => void,
   debounceTime: number,
-  listId: string,
   options: {
     id: string | number,
     name: string,
   }[],
+  placeholder?: string,
+  $icon?: string
 }
 
-export const CustomDebouncedDropdownInput = ({callback, debounceTime, listId, options}: CustomDebouncedDropdownInputProps): React.JSX.Element => {
-    const delayedInput = useCallback(debounce(callback, debounceTime),[]);
+export const CustomDebouncedDropdownInput =
+  ({ callback, debounceTime, options, placeholder, $icon }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
+    const delayedInput = useCallback(debounce(callback, debounceTime), []);
+    const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
+    const [placeholderValue, setPlaceholderValue] = useState<string>("");
+
+    const [isInputColor, setInputColor] = useState<boolean>(true);
+    const inputRef = useRef<HTMLInputElement>(null) as MutableRefObject<HTMLInputElement>;
+
+    useEffect(() => {
+      if (options.length > 0 && inputRef.current === document.activeElement) {
+        let suitableOption = options.find(option => option.name.startsWith(inputRef.current.value.toLowerCase()));
+        setPlaceholderValue(suitableOption ? suitableOption.name : "");
+        setDropdownOpen(true);
+      } else {
+        setPlaceholderValue("");
+        setDropdownOpen(false);
+      }
+    }, [options])
 
     return (
-      <>
-          <CustomStyledInput type="text" list={listId} onChange={delayedInput}/>
-          <StyledDatalist id={listId}>
-              {options?.map(option => <StyledOption key={option.id}>{option.name}</StyledOption>)}
-          </StyledDatalist>
-      </>
-  )
-}
+      <CustomContainer>
+        <InputWrapper>
+          <CustomStyledInputPlaceholder defaultValue={placeholderValue}></CustomStyledInputPlaceholder>
+          <CustomStyledInput
+            type="text"
+            onChange={(e) => {
+              // setPlaceholderValue("");
+              delayedInput(e);
+            }}
+            $icon={$icon}
+            ref={inputRef}
+            placeholder={placeholder}
+            $placeholderValue={placeholderValue}
+            $color={isInputColor}
+          />
+        </InputWrapper>
+        <StyledDatalist
+          $opened={isDropdownOpen}
+        >
+          {options?.map(option =>
+            <StyledOption
+              key={option.id}
+              // key={Math.random()}
+              onClick={(e) => {
+                inputRef.current.value = e.currentTarget.value;
+                setDropdownOpen(false);
+                setPlaceholderValue("");
+              }}
+              onMouseEnter={(e) => {
+                setPlaceholderValue(e.currentTarget.value);
+                setInputColor(false);
+              }}
+              onMouseLeave={() => setInputColor(true)}
+            >{option.name}
+            </StyledOption>)}
+        </StyledDatalist>
+      </CustomContainer>
+    )
+  }

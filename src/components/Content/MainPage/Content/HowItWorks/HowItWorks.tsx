@@ -8,7 +8,7 @@ import web from "/src/assets/svg/how_it_works/web.svg";
 export default
     () => {
         return (
-            <HowItWorksContainer>
+            <HowItWorksContainer id="howitworks">
                 <InnerContainer>
                     <InnerContainerHeader>
                         <Title>Как это работает</Title>

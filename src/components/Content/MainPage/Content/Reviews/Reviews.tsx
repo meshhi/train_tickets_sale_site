@@ -4,7 +4,7 @@ import { ReviewsContainer, InnerContainer, Title } from './ReviewsStyledItems';
 export default
     () => {
         return (
-            <ReviewsContainer>
+            <ReviewsContainer id="reviews">
                 <InnerContainer>
                     <Title>Отзывы</Title>
                     <Slider></Slider>

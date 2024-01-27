@@ -2,8 +2,12 @@
 
 :root {
     --main-color: #fff;
+    --orange: #FFA800;
     --smooth-yellow: #FFCA62;
     --smooth-grey: #E5E5E5;
+    --smooth-grey-transparent: #e5e5e5d2;
+    --smooth-grey-inactive: #F7F5F9;
+    --black: #292929;
 }
 
 * {
@@ -24,5 +28,11 @@ li {
 
 button {
     background: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
     cursor: pointer;
 }
