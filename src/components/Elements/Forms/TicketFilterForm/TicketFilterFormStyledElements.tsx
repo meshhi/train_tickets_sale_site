@@ -1,20 +1,44 @@
 import styled from "styled-components";
-import { LandingButton } from "../../../Buttons/LandingButton";
+import { LandingButton } from "../../Buttons/LandingButton";
 
-export const TicketFilterForm = styled('form')`
-    width: 729px;
-    height: 566px;
-    background-color: rgba(41, 41, 41, .8);
-    display: flex;
-    flex-direction: column;
+export const TicketFilterFormTemplate = styled.form<{ $variant?: string }>`
+    ${props => props.$variant === "horizontal"
+    ?   `
+        width: 77%;
+        height: 323px;
+        background-color: rgba(41, 41, 41, .8);
+        display: flex;
+        flex-direction: column;
+        `
+    :
+        `
+        width: 729px;
+        height: 566px;
+        background-color: rgba(41, 41, 41, .8);
+        display: flex;
+        flex-direction: column;
+        `
+    }
 `
 
-export const Inputs = styled('div')`
-    min-height: 279px;
-    margin: 90px 21px 92px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+export const Inputs = styled.div<{ $variant?: string }>`
+    ${props => props.$variant === "horizontal"
+    ?   `
+        margin: 35px 45px 47px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 34px;
+        `   
+    :   
+        `
+        min-height: 279px;
+        margin: 90px 21px 92px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        `
+    }
 `
 
 export const InputsRow = styled('div')`
@@ -34,14 +58,14 @@ export const InputsLabel = styled('h2')`
     margin-left: 7px;
 `
 
-export const InputsPlace = styled.div<{$rightDirection?: boolean}>`
+export const InputsPlace = styled.div<{ $rightDirection?: boolean }>`
     display: flex;
     flex-direction: ${props => props.$rightDirection ? "row" : "row-reverse"};
     align-items: center;
     justify-content: space-between;
 `
 
-    export const InputsDate = styled.div<{$rightDirection?: boolean}>`
+export const InputsDate = styled.div<{ $rightDirection?: boolean }>`
     display: flex;
     align-items: center;
     justify-content: space-between;

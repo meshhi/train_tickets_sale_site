@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect, useRef, MutableRefObject } fro
 import styled from 'styled-components'
 import debounce from "lodash/debounce";
 import { useDispatch } from 'react-redux';
-// import { CustomStyledInput } from './CustomStyledInput'
 
 const CustomContainer = styled.div`
   display: flex;
@@ -113,7 +112,7 @@ type CustomDebouncedDropdownInputProps = {
 }
 
 export const CustomDebouncedDropdownInput =
-  ({ callback, debounceTime, options, placeholder, $icon, value, action, defaultValue }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
+  ({ callback, debounceTime, options, placeholder, $icon, action, defaultValue }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
     const delayedInput = useCallback(debounce(callback, debounceTime), []);
     const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const [placeholderValue, setPlaceholderValue] = useState<string>("");
@@ -141,7 +140,6 @@ export const CustomDebouncedDropdownInput =
           <CustomStyledInput
             type="text"
             onChange={(e) => {
-              // setPlaceholderValue("");
               delayedInput(e);
               dispatch(action(e.target.value));
             }}

@@ -14,14 +14,6 @@ const OrderTicketContainer = styled('div')`
 export const OrderTicket = () => {
   return(
     <OrderTicketContainer>
-        {/* <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
-          Прибавить
-        </button>
-        <span>{count}</span>
-      order ticket */}
       <FilterBlock></FilterBlock>
       <ProgressBar></ProgressBar>
     </OrderTicketContainer>

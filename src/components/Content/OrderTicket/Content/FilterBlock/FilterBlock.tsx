@@ -1,4 +1,4 @@
-import { TicketFilterFormTicketOrder } from "../../../../Elements/Forms/TicketFilterForm/TicketOrder/TicketFilterFormTicketOrder";
+import { TicketFilterForm } from "../../../../Elements/Forms/TicketFilterForm/TicketFilterForm";
 import styled from "styled-components";
 import filter_block_ticket_bg from '/src/assets/png/filter_ticket_order_bg.png';
 
@@ -18,9 +18,9 @@ export const FilterBlockContainer = styled.div`
 export const FilterBlock = () => {
     return(
         <FilterBlockContainer>
-            <TicketFilterFormTicketOrder>
+            <TicketFilterForm variant={"horizontal"}>
 
-            </TicketFilterFormTicketOrder>
+            </TicketFilterForm>
         </FilterBlockContainer>
     )
 }
