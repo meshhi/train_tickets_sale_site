@@ -61,7 +61,7 @@ const CustomStyledInputPlaceholder = styled(CustomStyledInput)`
   pointer-events: none;
 
   background-color: white;
-  color: var(--black);
+  color: var(--smooth-grey-placeholder);
 `
 
 const StyledDatalist = styled.datalist<{$opened?: boolean}>`
