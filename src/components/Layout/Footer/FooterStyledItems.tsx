@@ -145,6 +145,12 @@ export const FooterInfo = styled('div')`
     align-items: center;
 `
 
+export const ToTopIcon = styled(Icon)`
+    &:active {
+        background-color: var(--smooth-yellow);
+    }
+`
+
 export const LogoText = styled('span')`
 display: inline-block;
 color: var(--smooth-grey);

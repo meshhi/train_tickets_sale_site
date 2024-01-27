@@ -6,9 +6,11 @@ import { useGetCityByNameQuery } from '/src/store/services/city.ts'
 
 // UI
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
+import calendar from '/src/assets/svg/icons/calendar.svg';
 import change_place from '/src/assets/png/change_place.png';
 import { Icon } from '../../Icons/Icon';
 import { CustomDebouncedDropdownInput } from '../../Inputs/CustomDebouncedDropdownInput';
+import { CustomDatePickInput } from '../../Inputs/CustomDatePickInput';
 import { CustomStyledInput } from '../../Inputs/CustomStyledInput';
 import { Inputs, InputsDate, InputsLabel, InputsPlace, TicketFilterForm, FindTicketsButton, InputsRow } from './TicketFilterFormStyledElements';
 
@@ -66,8 +68,16 @@ export const TicketFilterFormStandart = () => {
                 <InputsRow>
                     <InputsLabel>Дата</InputsLabel>
                     <InputsDate $rightDirection={rightDirection}>
-                        <CustomStyledInput type="date"></CustomStyledInput>
-                        <CustomStyledInput type="date"></CustomStyledInput>
+                        <CustomDatePickInput 
+                        type="text" 
+                        $icon={calendar}
+                        placeholder="ДД/ММ/ГГ"
+                        ></CustomDatePickInput>
+                        <CustomDatePickInput 
+                        type="text" 
+                        $icon={calendar}
+                        placeholder="ДД/ММ/ГГ"
+                        ></CustomDatePickInput>
                     </InputsDate>
                 </InputsRow>
             </Inputs>

@@ -11,8 +11,7 @@ import skype from '/src/assets/svg/footer_contacts/skype.svg';
 import arrow_up from '/src/assets/svg/icons/arrow_up.svg';
 
 // styled components
-import { BlockHeader, ContactIcon, ContactIconWrapper, ContactText, ContactUsBlock, ContactUsList, ContactUsListItem, CopyrightText, FooterContainer, FooterContent, FooterInfo, InnerContainer, LogoText, SubscribeBlock, SubscribeForm, SubscribeFormButton, SubscribeFormInput, SubscribeFormInputContainer, SubscribeIcon, SubscribeIcons, SubscribeIconsList } from "./FooterStyledItems";
-import { Icon } from '../../Elements/Icons/Icon';
+import { BlockHeader, ContactIcon, ContactIconWrapper, ContactText, ContactUsBlock, ContactUsList, ContactUsListItem, CopyrightText, FooterContainer, FooterContent, FooterInfo, InnerContainer, LogoText, SubscribeBlock, SubscribeForm, SubscribeFormButton, SubscribeFormInput, SubscribeFormInputContainer, SubscribeIcon, SubscribeIcons, SubscribeIconsList, ToTopIcon } from "./FooterStyledItems";
 import { SyntheticEvent } from 'react';
 
 const Footer = () => {
@@ -83,7 +82,15 @@ const Footer = () => {
             </FooterContent>
             <FooterInfo>
                 <LogoText>Лого</LogoText>
-                <Icon $srcImg={arrow_up} $width={36} $height={36}></Icon>
+                <ToTopIcon 
+                $srcImg={arrow_up} 
+                $width={36} 
+                $height={36}
+                onClick={() => window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                })}
+                ></ToTopIcon>
                 <CopyrightText>2024 WEB</CopyrightText>
             </FooterInfo>
         </FooterContainer>
