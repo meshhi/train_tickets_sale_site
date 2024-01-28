@@ -27,7 +27,7 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleChangeCityInput = (e: React.FormEvent<HTMLInputElement>): void => {
+    const handleCityInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
         setName(e.target.value);
     }
 
@@ -39,7 +39,7 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
         e.preventDefault();
 
         if (location.pathname === "/") {
-            setTimeout(() => navigate("/orderticket"), 1000);
+            setTimeout(() => navigate("/orderticket"), 0);
         }
     }
 
@@ -53,7 +53,7 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                             <InputsLabel>Направление</InputsLabel>
                             <InputsPlace $rightDirection={rightDirection}>
                                 <CustomDebouncedDropdownInput
-                                    callback={handleChangeCityInput}
+                                    callback={handleCityInputChange}
                                     debounceTime={500}
                                     options={Array.isArray(cities) ? cities : []}
                                     placeholder="Куда..."
@@ -69,7 +69,7 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                                     onClick={handleChangeDirectionClick}
                                 ></Icon>
                                 <CustomDebouncedDropdownInput
-                                    callback={handleChangeCityInput}
+                                    callback={handleCityInputChange}
                                     debounceTime={500}
                                     options={Array.isArray(cities) ? cities : []}
                                     placeholder="Откуда..."

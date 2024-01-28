@@ -7,11 +7,14 @@
     --yellow: #FFB726;
     --smooth-yellow: #FFCA62;
     --smooth-grey: #E5E5E5;
+    --smooth-grey-2: #F4F3F6;
     --smooth-grey-placeholder: #acacac;
+    --hard-grey: #C4C4C4;
     --grey-text: #928F94;
     --smooth-grey-inactive: #F7F5F9;
     --black: #292929;
     --smooth-black: #2D2B2F;
+    --smooth-black-2: #3E3C41;
 }
 
 * {

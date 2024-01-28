@@ -17,7 +17,6 @@ const ArrowBody = styled.div<{ $color?: string, $isActive?: boolean}>`
     flex-grow: 1;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
 `
 
