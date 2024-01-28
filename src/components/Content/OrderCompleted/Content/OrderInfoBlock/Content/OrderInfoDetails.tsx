@@ -238,7 +238,8 @@ const OrderInfoDetails = () => {
                     <OrderInfoGiveMarkText>Оценить сервис</OrderInfoGiveMarkText>
                     <OrderInfoGiveMarkStars>
                         {
-                            [1, 2, 3, 4, 5].map(mark => <Star 
+                            [1, 2, 3, 4, 5].map(mark => <Star
+                                key={mark}
                                 $srcImg={star} 
                                 onClick={(e) => {
                                 handleGiveMarkClick(e, mark);

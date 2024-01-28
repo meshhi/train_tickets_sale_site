@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
+import { ProgressBar } from './ProgressBar/ProgressBar'
 
 const TicketOrderWindowContainer = styled.div`
     width: 100%;
@@ -11,7 +12,7 @@ const TicketOrderWindowContainer = styled.div`
 const TicketOrderWindow = () => {
   return (
     <TicketOrderWindowContainer>
-        <span>TicketOrderWindow</span>
+        <ProgressBar></ProgressBar>
         <Outlet></Outlet>
     </TicketOrderWindowContainer>
   )

@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import PictureBlock from './Content/PictureBlock'
 import OrderInfoBlock from './Content/OrderInfoBlock/OrderInfoBlock'

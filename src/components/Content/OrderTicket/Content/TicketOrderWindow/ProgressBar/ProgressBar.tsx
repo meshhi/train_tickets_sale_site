@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import ProgressBarArrow from "../../../../Elements/ProgressBar/ProgressBarArrow";
-import ProgressBarText from "../../../../Elements/ProgressBar/ProgressBarText";
+import ProgressBarArrow from "../../../../../Elements/ProgressBar/ProgressBarArrow";
+import ProgressBarText from "../../../../../Elements/ProgressBar/ProgressBarText";
 
 export const ProgressBarContainer = styled.div`
     width: 100%;
