@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const CustomStyledInput = styled.input<{$icon?: string}>`
+export const CustomStyledInput = styled.input<{$icon?: string, $backgroundSize?: string}>`
   width: 325px;
   height: 60px;
   padding: 19px 73px 11px 21px;
@@ -13,6 +13,10 @@ export const CustomStyledInput = styled.input<{$icon?: string}>`
   background-image: url(${props => props.$icon});
   background-repeat: no-repeat;
   background-position: 95% center;
+  background-size: ${props => props.$backgroundSize ? props.$backgroundSize : "30px 30px"};
   text-transform: capitalize;
   color: var(--black);
+  border-radius: 3px;
+  outline: none;
+  border: 0px;
 `;
