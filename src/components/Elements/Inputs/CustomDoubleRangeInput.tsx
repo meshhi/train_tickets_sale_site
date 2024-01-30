@@ -32,11 +32,11 @@ const Track = styled.div`
     border: 1px solid white;
 `
 
-const RangeBetween = styled.div<{ $left?: string, $right?: string }>`
+const RangeBetween = styled.div<{ $left?: number, $right?: number }>`
     position: absolute;
     z-index: 2;
-    left: ${props => props.$left ? props.$left : 0};
-    right: ${props => props.$right ? props.$right : 0};
+    left: ${props => props.$left ? props.$left : 0}%;
+    right: ${props => props.$right ? props.$right : 0}%;
     top: 0;
     bottom: 0;
     border-radius: 5px;
@@ -44,7 +44,7 @@ const RangeBetween = styled.div<{ $left?: string, $right?: string }>`
     
 `
 
-const Thumb = styled.div<{ $left?: string, $right?: string; }>`
+const Thumb = styled.div<{ $left?: number, $right?: number; }>`
     position: absolute;
     z-index: 5;
     width: var(--_thumb-size);
@@ -54,11 +54,11 @@ const Thumb = styled.div<{ $left?: string, $right?: string; }>`
     transition: box-shadow 0.3s ease-in-out;
 
     &.left {
-        left: ${props => props.$left};
+        left: ${props => props.$left}%;
     }
 
     &.right {
-        right: ${props => props.$right ? props.$right : 0};
+        right: ${props => props.$right ? props.$right : 0}%;
     }
 
 `
@@ -167,8 +167,8 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
     const [start, setStart] = useState(min);
     const [end, setEnd] = useState(max);
 
-    const [$left, set$left] = useState("0%");
-    const [$right, set$right] = useState("0%");
+    const [$left, set$left] = useState(0);
+    const [$right, set$right] = useState(0);
 
     const handleStartRangeChange = (e) => {
         const currentValue = Number(e.target.value);
@@ -177,7 +177,7 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
         }
 
         const percent = 100 / max;
-        const resultOffset = percent * (currentValue) + '%';
+        const resultOffset = percent * (currentValue);
 
         set$left(resultOffset);
         setStart(currentValue);
@@ -192,7 +192,7 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
         }
 
         const percent = 100 / max;
-        const resultOffset = 100 - (percent * currentValue) + '%';
+        const resultOffset = 100 - (percent * currentValue);
         set$right(resultOffset);
         setEnd(currentValue);
     }
@@ -217,7 +217,7 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
 
                 <TrackWrapper>
                     <Track></Track>
-                    <RangeBetween $left={$left} $right={$right}></RangeBetween>
+                    <RangeBetween $left={$left > 1 ? $left : 1} $right={$right > 1 ? $right : 1}></RangeBetween>
                     <LeftThumbWrapper>
                         <Thumb className="left" $left={$left}>
                             <ThumbText>{

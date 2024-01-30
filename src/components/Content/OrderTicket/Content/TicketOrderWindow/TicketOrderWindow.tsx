@@ -239,7 +239,7 @@ const TicketOrderWindow = () => {
             </FiltersBlock>
             <PriceBlock>
               <PriceText>Стоимость</PriceText>
-              <CustomDoubleRangeInput minValue={1200} maxValue={7000} maxRangeSizeCoefficient={0.2} labels={{ min: "от", max: "до" }}></CustomDoubleRangeInput>
+              <CustomDoubleRangeInput minValue={54345} maxValue={5152324} maxRangeSizeCoefficient={0.2} labels={{ min: "от", max: "до" }}></CustomDoubleRangeInput>
             </PriceBlock>
             <DirectionBlock>
               <DirectionHeader>                  
