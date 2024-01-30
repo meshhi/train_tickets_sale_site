@@ -1,13 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{$height?: string | number}>`
     width: 100%;
-    height: 100px;
     position: relative;
     display: grid;
-    --_height: 19px;
+    --_height: ${props => props.$height ? props.$height : 19}px;
     --_thumb-size: 24px;
+    align-items: center;
+    margin: ${props => props.$height ? props.$height * 2 : 19}px 0;
 `
 
 const TrackWrapper = styled.div`
@@ -31,7 +32,7 @@ const Track = styled.div`
     border: 1px solid white;
 `
 
-const RangeBetween = styled.div<{$left?: string, $right?: string}>`
+const RangeBetween = styled.div<{ $left?: string, $right?: string }>`
     position: absolute;
     z-index: 2;
     left: ${props => props.$left ? props.$left : 0};
@@ -43,7 +44,7 @@ const RangeBetween = styled.div<{$left?: string, $right?: string}>`
     
 `
 
-const Thumb = styled.div<{$left?: string, $right?: string;}>`
+const Thumb = styled.div<{ $left?: string, $right?: string; }>`
     position: absolute;
     z-index: 5;
     width: var(--_thumb-size);
@@ -97,33 +98,72 @@ const RangeInput = styled.input`
 `
 
 const LeftThumbWrapper = styled.div`
-      width: calc(100% - var(--_thumb-size));
-      height: 100%;
-      position: absolute;
-      display: flex;
-      align-items: center;
+    width: calc(100% - var(--_thumb-size));
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
 `
 
 const RightThumbWrapper = styled.div`
-      width: calc(100% - var(--_thumb-size));
-      height: 100%;
-      position: absolute;
-      display: flex;
-      align-items: center;
-      right: 0;
+    width: calc(100% - var(--_thumb-size));
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: 0;
 `
 
 const ThumbText = styled.div`
-      position: absolute;
-      bottom: calc(-1 * var(--_thumb-size));
-      width: 100%;
-      text-align: center;
-      color: white;
+    position: absolute;
+    bottom: calc(-1 * var(--_thumb-size));
+    width: 100%;
+    text-align: center;
+    color: white;
 `
 
-export const CustomDoubleRangeInput = () => {
-    const [min, setMin] = useState(1920);
-    const [max, setMax] = useState(7000);
+const RangeLabels = styled.div`
+    width: 98%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`
+
+const RangeLabel = styled.span`
+    display: block;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: white;
+`
+
+const ComponentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+`
+
+type CustomDoubleRangeInputProps = {
+    minValue: number,
+    maxValue: number,
+    maxRangeSizeCoefficient: number,
+    valueFormatter?: (value: any) => string,
+    labels?: {
+        min: string | number,
+        max: string | number,
+    },
+    $height?: string | number,
+}
+
+export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoefficient, valueFormatter, labels, $height }: CustomDoubleRangeInputProps): React.JSX.Element => {
+    const [zeroOffset, setZeroOffset] = useState<number>(minValue);
+    const [min, setMin] = useState<number>(minValue - zeroOffset);
+    const [max, setMax] = useState<number>(maxValue - zeroOffset);
     const [start, setStart] = useState(min);
     const [end, setEnd] = useState(max);
 
@@ -132,57 +172,72 @@ export const CustomDoubleRangeInput = () => {
 
     const handleStartRangeChange = (e) => {
         const currentValue = Number(e.target.value);
-        if (currentValue >= end) {
+        if (currentValue >= end - (maxRangeSizeCoefficient * max)) {
             return;
         }
 
         const percent = 100 / max;
-        const resultOffset = percent * (currentValue / max * 100) + '%';
-        console.log(resultOffset);
+        const resultOffset = percent * (currentValue) + '%';
 
         set$left(resultOffset);
         setStart(currentValue);
+
+        console.log($height);
     }
 
     const handleEndRangeChange = (e) => {
         const currentValue = Number(e.target.value);
-        if (currentValue <= start) {
+        if (currentValue <= start + (maxRangeSizeCoefficient * max)) {
             return;
         }
 
         const percent = 100 / max;
-
-        set$right(100 - (percent * currentValue) + '%');
+        const resultOffset = 100 - (percent * currentValue) + '%';
+        set$right(resultOffset);
         setEnd(currentValue);
     }
-    
-    return(
-        <InputContainer>
-            {/* <div className="range-labels">
-                <span className="range-label range-label-start">0</span>
-                <span className="range-label range-label-end">100</span>
-            </div> */}
-            <RangeInput type="range" min={min} value={start} max={max} name="" id=""
-            onInput={handleStartRangeChange}
-            />
-            <RangeInput type="range" min={min} value={end} max={max} name="" id=""
-            onInput={handleEndRangeChange}
-            />
-            
-            <TrackWrapper>
-                <Track></Track>
-                <RangeBetween $left={$left} $right={$right}></RangeBetween>
-                <LeftThumbWrapper>
-                    <Thumb className="left" $left={$left}>
-                        <ThumbText>{start}</ThumbText>
-                    </Thumb>
-                </LeftThumbWrapper>
-                <RightThumbWrapper>
-                    <Thumb className="right" $right={$right}>
-                        <ThumbText>{end}</ThumbText>
-                    </Thumb>
-                </RightThumbWrapper>
-            </TrackWrapper>
-        </InputContainer>
+
+    return (
+        <ComponentContainer>
+            {
+                labels
+                    ? <RangeLabels>
+                        <RangeLabel>{labels.min}</RangeLabel>
+                        <RangeLabel>{labels.max}</RangeLabel>
+                    </RangeLabels>
+                    : false
+            }
+            <InputContainer $height={$height}>
+                <RangeInput type="range" min={min} value={start} max={max} name="" id=""
+                    onInput={handleStartRangeChange}
+                />
+                <RangeInput type="range" min={min} value={end} max={max} name="" id=""
+                    onInput={handleEndRangeChange}
+                />
+
+                <TrackWrapper>
+                    <Track></Track>
+                    <RangeBetween $left={$left} $right={$right}></RangeBetween>
+                    <LeftThumbWrapper>
+                        <Thumb className="left" $left={$left}>
+                            <ThumbText>{
+                                valueFormatter
+                                    ? valueFormatter(start + zeroOffset)
+                                    : start + zeroOffset
+                            }</ThumbText>
+                        </Thumb>
+                    </LeftThumbWrapper>
+                    <RightThumbWrapper>
+                        <Thumb className="right" $right={$right}>
+                            <ThumbText>{
+                                valueFormatter
+                                    ? valueFormatter(end + zeroOffset)
+                                    : end + zeroOffset}</ThumbText>
+                        </Thumb>
+                    </RightThumbWrapper>
+                </TrackWrapper>
+            </InputContainer>
+        </ComponentContainer>
+
     )
 }

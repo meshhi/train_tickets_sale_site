@@ -25,6 +25,9 @@ const OrderInfoDetailsContainer = styled.div`
     height: 1113px;
     position: relative;
     bottom: 200px;
+    border: 1px solid #C4C4C4;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+    background-color: var(--main-color);
 `
 
 // HEADER
