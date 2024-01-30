@@ -17,7 +17,7 @@ const InputWrapper = styled.div`
   font-family: Roboto;
   font-size: 18px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400; 
   line-height: normal;
   line-height: 10px;
 `

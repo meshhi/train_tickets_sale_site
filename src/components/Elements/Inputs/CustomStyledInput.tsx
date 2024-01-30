@@ -19,4 +19,5 @@ export const CustomStyledInput = styled.input<{$icon?: string, $backgroundSize?:
   border-radius: 3px;
   outline: none;
   border: 0px;
+  cursor: pointer;
 `;

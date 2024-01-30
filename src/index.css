@@ -6,6 +6,7 @@
     --orange: #FFA800;
     --yellow: #FFB726;
     --smooth-yellow: #FFCA62;
+    --smooth-yellow-2: #FCDC9D;
     --smooth-grey: #E5E5E5;
     --smooth-grey-2: #F4F3F6;
     --smooth-grey-placeholder: #acacac;
@@ -21,7 +22,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    cursor: default;
+    /* cursor: default; */
 }
 
 body {

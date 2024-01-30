@@ -12,6 +12,7 @@ import rocket from '/src/assets/svg/train_filters/rocket.svg';
 import sit from '/src/assets/svg/train_filters/sit.svg';
 import wifi from '/src/assets/svg/train_filters/wifi.svg';
 import { CustomToggleButton } from '../../../../Elements/Buttons/CustomToggleButton';
+import { CustomDoubleRangeInput } from '../../../../Elements/Inputs/CustomDoubleRangeInput';
 
 const TicketOrderWindowContainer = styled.section`
     width: 100%;
@@ -21,7 +22,7 @@ const TicketOrderWindowContainer = styled.section`
 
 const TicketIssueWindow = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 95px 271px 193px;
   gap: 85px;
@@ -74,13 +75,15 @@ const FiltersBlock = styled.div`
   align-items: center;
   min-height: 352px;
   border-bottom: 1px solid var(--smooth-grey);
+  padding-block: 34px;
 `
 
 const FiltersItem = styled.div`
   display: flex;
   align-items: center;
+  gap: 35px;
   width: 72%;
-
+  justify-content: space-between;
 `
 
 const FiltersItemText = styled.div`
@@ -90,8 +93,39 @@ const FiltersItemText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-left: 34px;
-  margin-right: 95px;
+  flex-basis: 200px;
+`
+
+const FilterItemIcon = styled(Icon)`
+  min-width: 17px;
+`
+
+const FilterItemToggleButton = styled(CustomToggleButton)`
+
+`
+
+const PriceBlock = styled.div`
+  min-height: 181px;
+  width: 100%;
+  padding: 42px 33px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 21px;
+`
+
+const PriceText = styled.h2`
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`
+
+const PriceInputRange = styled(CustomDoubleRangeInput)`
+
 `
 
 const TicketIssueLastTickets = styled.form`
@@ -101,6 +135,8 @@ const TicketIssueLastTickets = styled.form`
 const TicketIssueWindowContent = styled.div`
   min-width: 962px;
 `
+
+
 
 const TicketOrderWindow = () => {
   return (
@@ -129,36 +165,40 @@ const TicketOrderWindow = () => {
               </DatesBlock>
               <FiltersBlock>
                 <FiltersItem>
-                  <Icon $srcImg={coupe} $width={17} $height={17}></Icon>
+                  <FilterItemIcon $srcImg={coupe} $width={17} $height={17}></FilterItemIcon>
                   <FiltersItemText>Купе</FiltersItemText>
-                  <CustomToggleButton></CustomToggleButton>
+                  <FilterItemToggleButton></FilterItemToggleButton>
                 </FiltersItem>
                 <FiltersItem>
-                  <Icon $srcImg={platzcart} $width={17} $height={17}></Icon>
+                  <FilterItemIcon $srcImg={platzcart} $width={17} $height={17}></FilterItemIcon>
                   <FiltersItemText>Плацкарт</FiltersItemText>
-                  <CustomToggleButton></CustomToggleButton>
+                  <FilterItemToggleButton></FilterItemToggleButton>
                 </FiltersItem>
                 <FiltersItem>
-                  <Icon $srcImg={sit} $width={17} $height={17}></Icon>
+                  <FilterItemIcon $srcImg={sit} $width={17} $height={17}></FilterItemIcon>
                   <FiltersItemText>Сидячий</FiltersItemText>
-                  <CustomToggleButton></CustomToggleButton>
+                  <FilterItemToggleButton></FilterItemToggleButton>
                 </FiltersItem>
                 <FiltersItem>
-                  <Icon $srcImg={lux} $width={17} $height={17}></Icon>
+                  <FilterItemIcon $srcImg={lux} $width={17} $height={17}></FilterItemIcon>
                   <FiltersItemText>Люкс</FiltersItemText>
-                  <CustomToggleButton></CustomToggleButton>
+                  <FilterItemToggleButton></FilterItemToggleButton>
                 </FiltersItem>
                 <FiltersItem>
-                  <Icon $srcImg={wifi} $width={17} $height={17}></Icon>
+                  <FilterItemIcon $srcImg={wifi} $width={17} $height={17}></FilterItemIcon>
                   <FiltersItemText>Wi-Fi</FiltersItemText>
-                  <CustomToggleButton></CustomToggleButton>
+                  <FilterItemToggleButton></FilterItemToggleButton>
                 </FiltersItem>
                 <FiltersItem>
-                  <Icon $srcImg={rocket} $width={17} $height={17}></Icon>
+                  <FilterItemIcon $srcImg={rocket} $width={17} $height={17}></FilterItemIcon>
                   <FiltersItemText>Экспресс</FiltersItemText>
-                  <CustomToggleButton></CustomToggleButton>
+                  <FilterItemToggleButton></FilterItemToggleButton>
                 </FiltersItem>
               </FiltersBlock>
+              <PriceBlock>
+                <PriceText>Стоимость</PriceText>
+                <PriceInputRange></PriceInputRange>
+              </PriceBlock>
             </TicketIssueSideFilter>
             <TicketIssueLastTickets></TicketIssueLastTickets>
           </TicketIssueWindowSidebar>
