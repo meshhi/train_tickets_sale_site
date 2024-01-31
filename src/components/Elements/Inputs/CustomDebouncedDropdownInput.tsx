@@ -124,7 +124,7 @@ export const CustomDebouncedDropdownInput =
 
     useEffect(() => {
       if (options.length > 0 && inputRef.current === document.activeElement) {
-        let suitableOption = options.find(option => option.name.startsWith(inputRef.current.value.toLowerCase()));
+        const suitableOption = options.find(option => option.name.startsWith(inputRef.current.value.toLowerCase()));
         setPlaceholderValue(suitableOption ? suitableOption.name : "");
         setDropdownOpen(true);
       } else {

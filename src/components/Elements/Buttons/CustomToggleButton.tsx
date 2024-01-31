@@ -60,7 +60,7 @@ export const CustomToggleButton = () => {
     <CustomToggleButtonContainer $active={isActive}>
         <CustomToggleButtonRound className="round" ></CustomToggleButtonRound>
         <CustomToggleButtonLine className="line"></CustomToggleButtonLine>
-        <CustomToggleButtonInput type="checkbox" onClick={(e) => setActive(prev => !prev)}/>
+        <CustomToggleButtonInput type="checkbox" onClick={() => setActive(prev => !prev)}/>
     </CustomToggleButtonContainer>
   )
 }

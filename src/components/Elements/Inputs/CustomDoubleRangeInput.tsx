@@ -8,7 +8,7 @@ const InputContainer = styled.div<{$height?: string | number}>`
     --_height: ${props => props.$height ? props.$height : 19}px;
     --_thumb-size: 24px;
     align-items: center;
-    margin: ${props => props.$height ? props.$height * 2 : 19}px 0;
+    // margin: ${props => props.$height ? props.$height * 2 : 19}px 0;
 `
 
 const TrackWrapper = styled.div`
@@ -148,6 +148,17 @@ const ComponentContainer = styled.div`
     gap: 16px;
 `
 
+const MainLabel = styled.h3<{$textAlign?: string}>`
+    color: #E5E5E5;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 100%;
+    text-align: ${props => props.$textAlign ? props.$textAlign : 'start'};
+`
+
 type CustomDoubleRangeInputProps = {
     minValue: number,
     maxValue: number,
@@ -158,9 +169,11 @@ type CustomDoubleRangeInputProps = {
         max: string | number,
     },
     $height?: string | number,
+    mainLabel?: string,
+    textAlign?: string
 }
 
-export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoefficient, valueFormatter, labels, $height }: CustomDoubleRangeInputProps): React.JSX.Element => {
+export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoefficient, valueFormatter, labels, $height, mainLabel, textAlign }: CustomDoubleRangeInputProps): React.JSX.Element => {
     const [zeroOffset, setZeroOffset] = useState<number>(minValue);
     const [min, setMin] = useState<number>(minValue - zeroOffset);
     const [max, setMax] = useState<number>(maxValue - zeroOffset);
@@ -199,6 +212,9 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
 
     return (
         <ComponentContainer>
+            <MainLabel $textAlign={textAlign}>
+                {mainLabel}
+            </MainLabel>
             {
                 labels
                     ? <RangeLabels>

@@ -197,10 +197,12 @@ const OrderInfoDetails = () => {
     const navigate = useNavigate();
 
     const handleBackToMainClick = (e : SyntheticEvent) => {
+        e;
         navigate('/');
     };
 
     const handleGiveMarkClick = (e : SyntheticEvent, mark: number) => {
+            e;
             alert("thanks for mark! " + mark);
     };
 

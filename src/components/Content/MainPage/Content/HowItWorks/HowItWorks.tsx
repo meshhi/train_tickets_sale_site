@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { LandingButton } from "../../../../Elements/Buttons/LandingButton";
 import { HowItWorksContainer, InnerContainer, InnerContainerHeader, Title, ListContainer, ListItem, ListIcon, ListText } from "./HowItWorksStyledItems";
 import monitor from "/src/assets/svg/how_it_works/monitor.svg";
