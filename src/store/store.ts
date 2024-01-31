@@ -5,8 +5,10 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 // api queries
 import { cityApi } from './services/city'
 
+import { directionApi } from './services/direction'
+
 // local states
-import ticketReducer from './slices/ticketSlice'
+import filterReducer from './slices/filterSlice'
 
 
 
@@ -14,12 +16,15 @@ export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
     [cityApi.reducerPath]: cityApi.reducer,
-    tickets: ticketReducer,
+    [directionApi.reducerPath]: directionApi.reducer,
+    filter: filterReducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(cityApi.middleware),
+    getDefaultMiddleware()
+      .concat(cityApi.middleware)
+      .concat(directionApi.middleware),
 })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

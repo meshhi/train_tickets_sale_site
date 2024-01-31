@@ -18,9 +18,7 @@ export const FilterBlockContainer = styled.div`
 export const FilterBlock = () => {
     return(
         <FilterBlockContainer>
-            <TicketFilterForm variant={"horizontal"}>
-
-            </TicketFilterForm>
+            <TicketFilterForm variant={"horizontal"}></TicketFilterForm>
         </FilterBlockContainer>
     )
 }

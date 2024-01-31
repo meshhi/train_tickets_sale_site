@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
 import { ProgressBar } from './ProgressBar/ProgressBar'
 import { TicketIssueSideFilter } from './SideFilter/TicketIssueSideFilter';
+import { LastTickets } from './LastTickets/LastTickets';
 
 const TicketOrderWindowContainer = styled.section`
     width: 100%;
@@ -21,10 +22,7 @@ const TicketIssueWindowSidebar = styled.div`
   max-width: 360px;
   display: flex;
   flex-direction: column;
-`
-
-export const TicketIssueLastTickets = styled.form`
-
+  gap: 94px;
 `
 
 export const TicketIssueWindowContent = styled.div`
@@ -38,9 +36,9 @@ const TicketOrderWindow = () => {
       <ProgressBar></ProgressBar>
       <TicketIssueWindow>
         <TicketIssueWindowSidebar>
-          <TicketIssueSideFilter>
-          </TicketIssueSideFilter>
-          <TicketIssueLastTickets></TicketIssueLastTickets>
+          <TicketIssueSideFilter></TicketIssueSideFilter>
+          <LastTickets>
+          </LastTickets>
         </TicketIssueWindowSidebar>
         <TicketIssueWindowContent>
           <Outlet></Outlet>

@@ -2,11 +2,14 @@ import React, { useCallback, useState, useEffect, useRef, MutableRefObject } fro
 import styled from 'styled-components'
 import debounce from "lodash/debounce";
 import { useDispatch } from 'react-redux';
+import { CityType } from '../../../store/services/types/api_types';
+
 
 const CustomContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  color: white;
 `
 
 const InputWrapper = styled.div`
@@ -22,7 +25,7 @@ const InputWrapper = styled.div`
   line-height: 10px;
 `
 
-const CustomStyledInput = styled.input<{$icon?: string, $placeholderValue?: string, $color?: boolean}>`
+const CustomStyledInput = styled.input<{$icon?: string, $placeholderColor?: string, $color?: boolean}>`
   width: 325px;
   height: 60px;
   padding: 19px 73px 11px 21px;
@@ -47,7 +50,7 @@ const CustomStyledInput = styled.input<{$icon?: string, $placeholderValue?: stri
   background-color: transparent;
 
   &:placeholder-shown {
-    color: ${props => props.$placeholderValue ? "transparent" : "black"};
+    color: ${props => props.$placeholderColor ? "transparent" : "black"};
   }
 `;
 
@@ -98,57 +101,86 @@ const StyledOption = styled.option`
 `;
 
 type CustomDebouncedDropdownInputProps = {
-  callback?: (e: React.FormEvent<HTMLInputElement>) => void,
-  debounceTime: number,
-  options: {
-    _id: string | number,
-    name: string,
-  }[],
   placeholder?: string,
   $icon?: string,
-  value?: string,
+  callback?: (e: React.FormEvent<HTMLInputElement>) => void,
+  debounceTime?: number,
+  options: [{
+    _id: string | number,
+    name: string,
+  }],
   action?: any,
-  defaultValue?: string,
+  defaultValue: string
 }
 
 export const CustomDebouncedDropdownInput =
-  ({ callback, debounceTime, options, placeholder, $icon, action, defaultValue }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
+  ({ placeholder, $icon, callback, debounceTime, options,  action, defaultValue }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
     const delayedInput = useCallback(debounce(callback, debounceTime), []);
     const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const [placeholderValue, setPlaceholderValue] = useState<string>("");
-
+    const [visibleInputValue, setVisibleInputValue] = useState<string>(defaultValue);
+    const [suitableOption, setSuitableOption] = useState<{}>();
     const [isInputColor, setInputColor] = useState<boolean>(true);
+
     const inputRef = useRef<HTMLInputElement>(null) as MutableRefObject<HTMLInputElement>;
 
     const dispatch = useDispatch();
 
+    const onKeyDown = (e) => {
+      if (e.key === "Tab" && inputRef.current === document.activeElement) {
+        e.preventDefault();
+        if (suitableOption) {
+          dispatch(action({
+            suitableOption
+          }));
+          setVisibleInputValue(suitableOption?.name);
+          setDropdownOpen(false);
+        }
+      }
+
+      if (e.keyCode === 40 && inputRef.current === document.activeElement) {
+        e.preventDefault();
+        setVisibleInputValue(placeholderValue);
+      }
+    };
+
     useEffect(() => {
       if (options.length > 0 && inputRef.current === document.activeElement) {
-        const suitableOption = options.find(option => option.name.startsWith(inputRef.current.value.toLowerCase()));
-        setPlaceholderValue(suitableOption ? suitableOption.name : "");
+        const validOption = options.find(option => option.name.startsWith(visibleInputValue.toLowerCase()));
+        if (validOption) {
+          setSuitableOption(validOption);
+        } else {
+          setSuitableOption(undefined);
+        }
         setDropdownOpen(true);
       } else {
-        setPlaceholderValue("");
+        setSuitableOption(undefined);
         setDropdownOpen(false);
       }
     }, [options])
 
+    useEffect(() => {
+      setPlaceholderValue(suitableOption ? suitableOption.name : "");
+    }, [suitableOption])
+
     return (
       <CustomContainer>
+        
         <InputWrapper>
           <CustomStyledInputPlaceholder defaultValue={placeholderValue}></CustomStyledInputPlaceholder>
           <CustomStyledInput
-            type="text"
-            onChange={(e) => {
-              delayedInput(e);
-              dispatch(action(e.target.value));
-            }}
-            $icon={$icon}
             ref={inputRef}
+            type="text"
             placeholder={placeholder}
-            $placeholderValue={placeholderValue}
+            $icon={$icon}
             $color={isInputColor}
-            defaultValue={defaultValue}
+            value={visibleInputValue}
+            onChange={(e) => {
+              setSuitableOption(undefined);
+              delayedInput(e);
+              setVisibleInputValue(e.target.value);
+            }}
+            onKeyDown={onKeyDown}
           />
         </InputWrapper>
         <StyledDatalist
@@ -157,14 +189,17 @@ export const CustomDebouncedDropdownInput =
           {options?.map(option =>
             <StyledOption
               key={option._id}
-              onClick={(e) => {
-                inputRef.current.value = e.currentTarget.value;
-                dispatch(action(e.currentTarget.value));
+              onClick={() => {
+                setVisibleInputValue(option.name);
+                dispatch(action({
+                  _id: option._id,
+                  name: option.name,
+                }));
                 setDropdownOpen(false);
-                setPlaceholderValue("");
+                setSuitableOption(undefined);
               }}
-              onMouseEnter={(e) => {
-                setPlaceholderValue(e.currentTarget.value);
+              onMouseEnter={() => {
+                setSuitableOption(option);
                 setInputColor(false);
               }}
               onMouseLeave={() => setInputColor(true)}

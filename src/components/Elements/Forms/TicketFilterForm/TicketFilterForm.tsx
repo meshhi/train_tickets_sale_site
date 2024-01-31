@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 // store
 import { useGetCityByNameQuery } from '/src/store/services/city.ts'
-import { useDispatch, useSelector } from 'react-redux';
-import { cityIn, cityOut } from '/src/store/slices/ticketSlice.ts';
+import { useSelector } from 'react-redux';
+import { from_city as from_city_action, to_city as to_city_action } from '/src/store/slices/filterSlice.ts';
 
 // UI
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
@@ -20,15 +20,19 @@ type TicketFilterFormProps = {
 }
 
 export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.Element => {
-    const [name, setName] = useState<string | null>(null);
+    const [cityName, setCityName] = useState<string | null>(null);
     const [rightDirection, setRightDirection] = useState<boolean>(true);
-    const { data: cities, error, isLoading } = useGetCityByNameQuery(name);
+
+    const { data: cities, error, isLoading } = useGetCityByNameQuery(cityName);
+    const { from_city, to_city } = useSelector(state => {
+        return (state.filter);
+    });
+
     const location = useLocation();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const handleCityInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
-        setName(e.target.value);
+        setCityName(e.target.value);
     }
 
     const handleChangeDirectionClick = (e: SyntheticEvent): void => {
@@ -37,65 +41,63 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
 
     const handleFindTicketsClick = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
         if (location.pathname === "/") {
             setTimeout(() => navigate("/orderticket"), 0);
         }
     }
 
-    const cityInValue = useSelector(state => state.tickets.cityIn);
-    const cityOutValue = useSelector(state => state.tickets.cityOut);
-
     return (
-            <TicketFilterFormTemplate $variant={variant}>
-                    <Inputs $variant={variant}>
-                        <InputsRow>
-                            <InputsLabel>Направление</InputsLabel>
-                            <InputsPlace $rightDirection={rightDirection}>
-                                <CustomDebouncedDropdownInput
-                                    callback={handleCityInputChange}
-                                    debounceTime={500}
-                                    options={Array.isArray(cities) ? cities : []}
-                                    placeholder="Куда..."
-                                    $icon={geo}
-                                    action={cityIn}
-                                    defaultValue={cityInValue}
-                                ></CustomDebouncedDropdownInput>
-                                <Icon
-                                    $srcImg={change_place}
-                                    $width={24}
-                                    $height={24}
-                                    $margin={"0 8px;"}
-                                    onClick={handleChangeDirectionClick}
-                                ></Icon>
-                                <CustomDebouncedDropdownInput
-                                    callback={handleCityInputChange}
-                                    debounceTime={500}
-                                    options={Array.isArray(cities) ? cities : []}
-                                    placeholder="Откуда..."
-                                    $icon={geo}
-                                    action={cityOut}
-                                    defaultValue={cityOutValue}
-                                ></CustomDebouncedDropdownInput>
-                            </InputsPlace>
-                        </InputsRow>
-                        <InputsRow>
-                            <InputsLabel>Дата</InputsLabel>
-                            <InputsDate $rightDirection={rightDirection}>
-                                <CustomDatePickInput
-                                    type="text"
-                                    $icon={calendar}
-                                    placeholder="ДД/ММ/ГГ"
-                                ></CustomDatePickInput>
-                                <CustomDatePickInput
-                                    type="text"
-                                    $icon={calendar}
-                                    placeholder="ДД/ММ/ГГ"
-                                ></CustomDatePickInput>
-                            </InputsDate>
-                        </InputsRow>
-                    </Inputs>
-                <FindTicketsButton onClick={handleFindTicketsClick}>Найти билеты</FindTicketsButton>
-            </TicketFilterFormTemplate>
+        <TicketFilterFormTemplate $variant={variant}>
+            <Inputs $variant={variant}>
+                <InputsRow>
+                    <InputsLabel>Направление</InputsLabel>
+                    <InputsPlace>
+                        <CustomDebouncedDropdownInput
+                            callback={handleCityInputChange}
+                            debounceTime={500}
+                            options={Array.isArray(cities) ? cities : []}
+                            placeholder="Куда..."
+                            $icon={geo}
+                            action={to_city_action}
+                            defaultValue={to_city.name}
+                        ></CustomDebouncedDropdownInput>
+                        <Icon
+                            $srcImg={change_place}
+                            $width={24}
+                            $height={24}
+                            $margin={"0 8px;"}
+                            onClick={handleChangeDirectionClick}
+                        ></Icon>
+                        <CustomDebouncedDropdownInput
+                            callback={handleCityInputChange}
+                            debounceTime={500}
+                            options={Array.isArray(cities) ? cities : []}
+                            placeholder="Откуда..."
+                            $icon={geo}
+                            action={from_city_action}
+                            defaultValue={from_city.name}
+                        ></CustomDebouncedDropdownInput>
+
+
+                    </InputsPlace>
+                </InputsRow>
+                <InputsRow>
+                    <InputsLabel>Дата</InputsLabel>
+                    <InputsDate>
+                        <CustomDatePickInput
+                            type="text"
+                            $icon={calendar}
+                            placeholder="ДД/ММ/ГГ"
+                        ></CustomDatePickInput>
+                        <CustomDatePickInput
+                            type="text"
+                            $icon={calendar}
+                            placeholder="ДД/ММ/ГГ"
+                        ></CustomDatePickInput>
+                    </InputsDate>
+                </InputsRow>
+            </Inputs>
+            <FindTicketsButton onClick={handleFindTicketsClick}>Найти билеты</FindTicketsButton>
+        </TicketFilterFormTemplate>
     );
 }
