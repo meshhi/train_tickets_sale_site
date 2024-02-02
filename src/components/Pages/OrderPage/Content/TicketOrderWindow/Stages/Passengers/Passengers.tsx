@@ -1,9 +1,7 @@
 import React from 'react'
 
-const Passengers = () => {
+export const Passengers = () => {
   return (
     <div>Passengers</div>
   )
 }
-
-export default Passengers

@@ -1,19 +1,20 @@
 import styled from 'styled-components'
 import PictureBlock from './Content/PictureBlock'
 import OrderInfoBlock from './Content/OrderInfoBlock/OrderInfoBlock'
+import React from 'react'
 
-const OrderCompletedContainer = styled.section`
+const CompletedContainer = styled.section`
     min-height: 100vh;
     width: 100%;
 `
 
-const OrderCompleted = () => {
+const CompletedPage = () => {
   return (
-    <OrderCompletedContainer className="order-completed">
+    <CompletedContainer className="order-completed-page">
         <PictureBlock></PictureBlock>
         <OrderInfoBlock></OrderInfoBlock>
-    </OrderCompletedContainer>
+    </CompletedContainer>
   )
 }
 
-export default OrderCompleted
+export default CompletedPage

@@ -1,3 +1,4 @@
+import React from 'react';
 import { AboutContainer, InnerContainer, Title, TextContainer, Bold, Text } from './AboutStyledItems';
 
 export default 

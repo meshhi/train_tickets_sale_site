@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import { from_city as from_city_action, to_city as to_city_action, date_start as date_start_action, date_end as date_end_action} from '/src/store/slices/filterSlice.ts';
 import { startOfDay } from "date-fns";
 
-export const TicketIssueSideFilter = () => {
+export const SideFilter = () => {
     const [isOpenTo, setOpenTo] = useState(false);
     const [isOpenOut, setOpenOut] = useState(false);
     const { from_city, to_city, date_start, date_end } = useSelector(state => {
@@ -34,7 +34,7 @@ export const TicketIssueSideFilter = () => {
         setOpenOut(prev => !prev);
     }
 
-    return (<TicketIssueSideFilterContainer>
+    return (<SideFilterContainer>
         <DatesBlock>
             <DatesBlockDateInputWrapper>
                 <DatesBlockDateLabel>Дата поездки</DatesBlockDateLabel>
@@ -143,5 +143,5 @@ export const TicketIssueSideFilter = () => {
                 ></CustomDoubleRangeInput>
             </DirectionBody>
         </DirectionBlock>
-    </TicketIssueSideFilterContainer>)
+    </SideFilterContainer>)
 }

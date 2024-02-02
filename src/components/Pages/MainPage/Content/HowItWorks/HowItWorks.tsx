@@ -3,6 +3,7 @@ import { HowItWorksContainer, InnerContainer, InnerContainerHeader, Title, ListC
 import monitor from "/src/assets/svg/how_it_works/monitor.svg";
 import building from "/src/assets/svg/how_it_works/building.svg";
 import web from "/src/assets/svg/how_it_works/web.svg";
+import React from "react";
 
 export default
     () => {

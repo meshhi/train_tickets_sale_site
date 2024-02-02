@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
 import { ProgressBar } from './ProgressBar/ProgressBar'
-import { TicketIssueSideFilter } from './SideFilter/SideFilter';
+import { SideFilter } from './SideFilter/SideFilter';
 import { LastTickets } from './LastTickets/LastTickets';
 
 const TicketOrderWindowContainer = styled.section`

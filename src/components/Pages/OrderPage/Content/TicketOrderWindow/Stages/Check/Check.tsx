@@ -1,9 +1,7 @@
 import React from 'react'
 
-const Check = () => {
+export const Check = () => {
   return (
     <div>check</div>
   )
 }
-
-export default Check

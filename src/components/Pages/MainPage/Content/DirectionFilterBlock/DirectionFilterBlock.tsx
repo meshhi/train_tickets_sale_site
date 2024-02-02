@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import direction_filter_bg from '/src/assets/png/filter_direction_bg.png';
+import filter_direction_bg from '/src/assets/png/filter_direction_bg.png';
 import { DirectionFilterForm } from '../../../../Forms/DirectionFilterForm/DirectionFilterForm';
 
 const DirectionFilterBlock = styled('section')`
     height: calc(100vh + .5rem);
     background-color: orange;
-    background-image: url(${direction_filter_bg});
+    background-image: url(${filter_direction_bg});
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
