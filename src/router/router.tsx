@@ -7,7 +7,7 @@ import MainPage from "../components/Content/MainPage/MainPage";
 import ErrorPage from "../components/Layout/ErrorPage";
 import { OrderTicket } from "../components/Content/OrderTicket/OrderTicket";
 import Passengers from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Passengers/Passengers";
-import Tickets from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Tickets/Tickets";
+import Directions from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Directions/Directions";
 import Payment from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Payment/Payment";
 import Check from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Check/Check";
 import OrderCompleted from "../components/Content/OrderCompleted/OrderCompleted";
@@ -27,8 +27,8 @@ export default createBrowserRouter([
           element: <OrderTicket />,
           children: [
             {
-              path: "tickets",
-              element: <Tickets />,
+              path: "directions",
+              element: <Directions />,
             },
             {
               path: "passengers",

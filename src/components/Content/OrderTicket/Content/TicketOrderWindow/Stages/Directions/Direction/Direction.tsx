@@ -1,7 +1,7 @@
 import { DirectionType } from "../../../../../../../../store/services/types/api_types"
 import styled from "styled-components"
 
-const TicketContainer = styled.div`
+const DirectionContainer = styled.div`
     width: 959px;
     height: 354px;
     display: flex;
@@ -39,15 +39,15 @@ interface Props extends React.PropsWithChildren {
     direction: DirectionType
 }
 
-const Ticket: React.FC<Props> = ({children, direction}) => {
+const Direction: React.FC<Props> = ({children, direction}) => {
     console.log(direction)
     return (
-        <TicketContainer>
+        <DirectionContainer>
             <TrainInfo>{direction.departure.train.name}</TrainInfo>
             <DirectionsInfo></DirectionsInfo>
             <PlaceInfo></PlaceInfo>
-        </TicketContainer>
+        </DirectionContainer>
     )
 }
 
-export default Ticket
+export default Direction

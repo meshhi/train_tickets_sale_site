@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useFetchMainFilter } from '/home/meshi/Desktop/diplo/src/api/useFetchMainFilter.ts'
+import { useFetchMainFilter } from '/src/api/useFetchMainFilter.ts'
 import { Spinner } from '../../../../../../Elements/Loaders/Spinner'
-import Ticket from './Ticket/Ticket'
+import Direction from './Direction/Direction'
 
-const TicketsContainer = styled.div`
+const DirectionsContainer = styled.div`
   width: 100%;
   // min-height: 700px;
 `
@@ -21,14 +21,14 @@ const FilterBlockSorts = styled.div`
   gap: 48px;
 `
 
-const TicketsList = styled.ul`
+const DirectionsList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `
 
 
-const Tickets = () => {
+const Directions = () => {
   const { data, error, loading } = useFetchMainFilter();
   
   useEffect(() => {
@@ -37,7 +37,7 @@ const Tickets = () => {
 
   return (
     <>
-      <TicketsContainer>
+      <DirectionsContainer>
         {loading ? <Spinner></Spinner> : false}
         {error ? error : false}
         <FilterBlock>
@@ -47,12 +47,12 @@ const Tickets = () => {
             <div>Показывать по </div>
           </FilterBlockSorts>
         </FilterBlock>
-        <TicketsList>
-          {data?.items?.map(direction => <Ticket direction={direction}>{direction.toString()}</Ticket>)}
-        </TicketsList>
-      </TicketsContainer>
+        <DirectionsList>
+          {data?.items?.map(direction => <Direction direction={direction}>{direction.toString()}</Direction>)}
+        </DirectionsList>
+      </DirectionsContainer>
     </>
   )
 }
 
-export default Tickets
+export default Directions

@@ -43,7 +43,7 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
     const handleFindTicketsClick = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (location.pathname === "/") {
-            setTimeout(() => navigate("/orderticket/tickets/"), 0);
+            setTimeout(() => navigate("/orderticket/directions/"), 0);
         }
     }
 

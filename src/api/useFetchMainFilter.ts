@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
-
-
-
+import { format } from "date-fns";
 export const useFetchMainFilter = () => {
-
     const [data,setData] = useState(null)
     const [error,setError] = useState(null)
     const [loading,setLoading] = useState(false)
@@ -16,8 +12,8 @@ export const useFetchMainFilter = () => {
     const filterParams = {
         from_city_id: filter.from_city._id,
         to_city_id: filter.to_city._id,
-        date_start: filter.date_start,
-        date_end: filter.date_end,
+        date_start: filter.date_start ? format(new Date(filter.date_start), "yyyy-MM-dd") : null,
+        date_end: filter.date_end ? format(new Date(filter.date_end), "yyyy-MM-dd") : null,
     }
     url.search = new URLSearchParams(filterParams).toString();
 
@@ -26,6 +22,7 @@ export const useFetchMainFilter = () => {
             async function(){
                 try{
                     setLoading(true);
+                    setError(null)
                     const response = await fetch(url);
                     const json = await response.json();
                     if (json?.error) setError(json.error);
