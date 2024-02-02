@@ -12,16 +12,21 @@ import arrow_up from '/src/assets/svg/icons/arrow_up.svg';
 import { useForm } from 'react-hook-form';
 
 // styled components
-import { BlockHeader, ContactIcon, ContactIconWrapper, ContactText, ContactUsBlock, ContactUsList, ContactUsListItem, CopyrightText, FooterContainer, FooterContent, FooterInfo, InnerContainer, LogoText, SubscribeBlock, SubscribeForm, SubscribeFormButton, SubscribeFormInput, SubscribeFormInputContainer, SubscribeIcon, SubscribeIcons, SubscribeIconsList, ToTopIcon } from "./FooterStyledItems";
-import { SyntheticEvent } from 'react';
+import { BlockHeader, ContactIcon, ContactIconWrapper, ContactText, ContactUsBlock, ContactUsList, ContactUsListItem, CopyrightText, FooterContainer, FooterContent, FooterInfo, InnerContainer, LogoText, SubscribeBlock, SubscribeForm, SubscribeFormButton, SubscribeFormInput, SubscribeFormInputContainer, SubscribeFormInputError, SubscribeIcon, SubscribeIcons, SubscribeIconsList, ToTopIcon } from "./FooterStyledItems";
+import { SyntheticEvent, useEffect } from 'react';
 
 const Footer = () => {
-    const { register, handleSubmit, formState: { errors }, reset} = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const onSubmit = (data) => {
         reset();
+        
         console.log(data);
     };
+
+    useEffect(() => {
+        console.log(errors)
+    },[errors])
 
     return (
         <FooterContainer>
@@ -66,21 +71,27 @@ const Footer = () => {
                             <BlockHeader>Подписка</BlockHeader>
                             <span style={{ "marginBottom": "22px" }}>Будьте в курсе событий</span>
                             <SubscribeFormInputContainer>
-                                <SubscribeFormInput 
-                                id="subscribe"
-                                {...register("subscribe", { 
-                                    required: true, 
-                                    maxLength: 30,
-                                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i 
-                                 })}
-                                        ></SubscribeFormInput>
-                                <SubscribeFormButton 
-                                type="submit"
+                                <SubscribeFormInput
+                                    id="subscribe"
+                                    {...register("subscribe", {
+                                        required: "Укажите e-mail",
+                                        pattern: {
+                                            value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                                            message: "Неверный e-mail"
+                                        },
+                                        validate: value => {
+                                            console.log(value)
+                                            return false
+                                        }
+                                    })}
+                                    placeholder={"john@doe.com"}
+                                ></SubscribeFormInput>
+                                {errors?.subscribe && errors?.subscribe?.type === "pattern" && (
+                                    <SubscribeFormInputError>{ errors?.subscribe?.message}</SubscribeFormInputError>
+                                )}
+                                <SubscribeFormButton
+                                    type="submit"
                                 >Отправить</SubscribeFormButton>
-
-                            {errors?.subscribe && errors?.subscribe?.type === "pattern" && (
-                                    <span>pattern err</span>
-                            )}
                             </SubscribeFormInputContainer>
                         </SubscribeForm>
                         <SubscribeIcons>
@@ -98,14 +109,14 @@ const Footer = () => {
             </FooterContent>
             <FooterInfo>
                 <LogoText>Лого</LogoText>
-                <ToTopIcon 
-                $srcImg={arrow_up} 
-                $width={36} 
-                $height={36}
-                onClick={() => window.scrollTo({
-                    top: 0,
-                    behavior: "smooth",
-                })}
+                <ToTopIcon
+                    $srcImg={arrow_up}
+                    $width={36}
+                    $height={36}
+                    onClick={() => window.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                    })}
                 ></ToTopIcon>
                 <CopyrightText>2024 WEB</CopyrightText>
             </FooterInfo>

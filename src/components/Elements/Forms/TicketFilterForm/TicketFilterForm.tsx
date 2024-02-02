@@ -1,5 +1,6 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form"
 
 // store
 import { useGetCityByNameQuery } from '/src/store/services/city.ts'
@@ -21,16 +22,28 @@ type TicketFilterFormProps = {
 }
 
 export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.Element => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [cityName, setCityName] = useState<string | null>(null);
     const [rightDirection, setRightDirection] = useState<boolean>(true);
 
     const { data: cities, error, isLoading } = useGetCityByNameQuery(cityName);
-    const { from_city, to_city, date_start, date_end } = useSelector(state => {
-        return (state.filter);
-    });
+    const { from_city, to_city, date_start, date_end } = useSelector(state => state.filter);
 
-    const location = useLocation();
-    const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+        if (location.pathname === "/a") {
+            setTimeout(() => navigate("/orderticket/directions/"), 0);
+        }
+    }
+
+
 
     const handleCityInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
         setCityName(e.target.value);
@@ -40,20 +53,17 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
         setRightDirection(prev => !prev);
     }
 
-    const handleFindTicketsClick = (e: React.FormEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        if (location.pathname === "/") {
-            setTimeout(() => navigate("/orderticket/directions/"), 0);
-        }
-    }
-
     return (
-        <TicketFilterFormTemplate $variant={variant}>
+        <TicketFilterFormTemplate 
+        onSubmit={handleSubmit(onSubmit)}
+        $variant={variant}>
             <Inputs $variant={variant}>
                 <InputsRow>
                     <InputsLabel>Направление</InputsLabel>
                     <InputsPlace>
                         <CustomDebouncedDropdownInput
+                            register={register}
+                            name={"to_city"}
                             callback={handleCityInputChange}
                             debounceTime={500}
                             options={Array.isArray(cities) ? cities : []}
@@ -70,6 +80,8 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                             onClick={handleChangeDirectionClick}
                         ></Icon>
                         <CustomDebouncedDropdownInput
+                            register={register}
+                            name={"from_city"}
                             callback={handleCityInputChange}
                             debounceTime={500}
                             options={Array.isArray(cities) ? cities : []}
@@ -78,8 +90,6 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                             action={from_city_action}
                             defaultValue={from_city.name}
                         ></CustomDebouncedDropdownInput>
-
-
                     </InputsPlace>
                 </InputsRow>
                 <InputsRow>
@@ -96,7 +106,9 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                     </InputsDate>
                 </InputsRow>
             </Inputs>
-            <FindTicketsButton onClick={handleFindTicketsClick}>Найти билеты</FindTicketsButton>
+            <FindTicketsButton 
+            type="submit"
+            >Найти билеты</FindTicketsButton>
         </TicketFilterFormTemplate>
     );
 }

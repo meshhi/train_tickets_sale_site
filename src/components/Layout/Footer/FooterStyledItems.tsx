@@ -104,12 +104,23 @@ export const SubscribeFormInputContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 60px;
+    position: relative;
 `
 
 export const SubscribeFormInput = styled(CustomStyledInput)`
     width: 68%;
     text-transform: none;
     cursor: text;
+`
+export const SubscribeFormInputError = styled.div`
+    --height: 40px;
+    font-size: 20px;
+    font-style: normal;
+    line-height: var(--height);
+    font-weight: 300;
+    position: absolute;
+    color: var(--yellow);
+    bottom: calc(0px - var(--height));
 `
 
 export const SubscribeFormButton = styled(LandingButton)`

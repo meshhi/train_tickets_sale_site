@@ -110,11 +110,14 @@ type CustomDebouncedDropdownInputProps = {
     name: string,
   }],
   action?: any,
-  defaultValue: string
+  defaultValue: string,
+  register: any, 
+  name: any,
+  onChangeProp: any
 }
 
 export const CustomDebouncedDropdownInput =
-  ({ placeholder, $icon, callback, debounceTime, options,  action, defaultValue }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
+  ({ placeholder, $icon, callback, debounceTime, options,  action, defaultValue, register, name }: CustomDebouncedDropdownInputProps): React.JSX.Element => {
     const delayedInput = useCallback(debounce(callback, debounceTime), []);
     const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const [placeholderValue, setPlaceholderValue] = useState<string>("");
@@ -125,6 +128,15 @@ export const CustomDebouncedDropdownInput =
     const inputRef = useRef<HTMLInputElement>(null) as MutableRefObject<HTMLInputElement>;
 
     const dispatch = useDispatch();
+
+    const handleInputChange = (e) => {
+      console.log('fafs')
+      // setDropdownOpen(true);
+      setSuitableOption(undefined);
+      delayedInput(e);
+      setVisibleInputValue(e.target.value);
+    }
+
 
     const onKeyDown = (e) => {
       if (e.key === "Tab" && inputRef.current === document.activeElement) {
@@ -175,12 +187,17 @@ export const CustomDebouncedDropdownInput =
             $icon={$icon}
             $color={isInputColor}
             value={visibleInputValue}
-            onChange={(e) => {
-              setSuitableOption(undefined);
-              delayedInput(e);
-              setVisibleInputValue(e.target.value);
-            }}
+            // onChange={(e) => {
+            //   setSuitableOption(undefined);
+            //   delayedInput(e);
+            //   setVisibleInputValue(e.target.value);
+            // }}
+            {...register(name, { 
+              required: true,
+              onChange: handleInputChange
+            })}
             onKeyDown={onKeyDown}
+            
           />
         </InputWrapper>
         <StyledDatalist
