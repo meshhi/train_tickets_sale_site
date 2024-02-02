@@ -1,6 +1,6 @@
 export type CityType = {
-    _id: string;
-    name: string;
+    _id?: string;
+    name?: string;
 }
 
 export type DirectionType = {

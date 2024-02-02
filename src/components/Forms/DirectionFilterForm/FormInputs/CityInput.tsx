@@ -1,44 +1,45 @@
 import { SyntheticEvent, useCallback, useEffect, useState } from "react";
 import { useGetCityByNameQuery } from "../../../../store/services/city";
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
-import { StyledInput } from "../../../Elements/Inputs/StyledInput";
 import { Container, InputWrapper, StyledDatalist, StyledInputAutocomplete, StyledInputMain, StyledOption } from "./StyledComponents";
 import { useFormContext } from "react-hook-form";
-import { Spinner } from "../../../Elements/Loaders/Spinner";
 import { debounce } from "lodash";
 import { CityType } from "../../../../store/services/types/api_types";
-import { useController } from "react-hook-form";
 
 interface Props extends React.PropsWithChildren {
-    name: string;
+    name: string,
+    onSubmit: any
 }
 
-export const CityInput: React.FC<Props> = ({ name }) => {
+export const CityInput: React.FC<Props> = ({ name, onSubmit }) => {
     const [cityQuery, setCityQuery] = useState<string>("");
     const { data, error, isLoading } = useGetCityByNameQuery(cityQuery);
-    const { register, handleSubmit, trigger, getValues, setValue, control } = useFormContext()
+    const { register, handleSubmit, setValue } = useFormContext()
     const [cities, setCities] = useState<CityType[]>([]);
     const [isOpened, setOpened] = useState<boolean>(false);
-    const [suitableOption, setSuitableOption] = useState<CityType>();
-    const [chosenCity, setChosenCity] = useState<CityType>();
-
-    const { field } = useController({
-        control,
-        name
-      });
+    const [suitableOption, setSuitableOption] = useState<CityType | null>();
+    const [chosenCity, setChosenCity] = useState<CityType | null>();
 
     const handleInputChange = useCallback(debounce((e) => {
         setCityQuery(e.target.value);
+        setChosenCity({
+            _id: undefined, 
+            name: e.target.value
+        });
     }, 500), []);
 
     const handleInputKeyDown = (e: SyntheticEvent) => {
         if (e.key === "Tab" && suitableOption) {
             setChosenCity(suitableOption);
+            setValue(name, suitableOption.name);
+            setOpened(false);
         }
     }
 
     const handleOptionClick = (e: SyntheticEvent, option: CityType) => {
         setSuitableOption(option);
+        setChosenCity(option);
+        setValue(name, option.name);
         setOpened(false);
     }
 
@@ -46,7 +47,6 @@ export const CityInput: React.FC<Props> = ({ name }) => {
         try {
             setCities(Array.from(data));
         } catch(e) {
-            console.log("CityInput: can`t transform data to array")
             setCities([]);
         }
     }, [data])
@@ -57,8 +57,14 @@ export const CityInput: React.FC<Props> = ({ name }) => {
             setSuitableOption(cities[0])
         } else {
             setOpened(false)
+            setSuitableOption(null)
         };
     }, [cities])
+
+    useEffect(() => {
+        handleSubmit((data) => onSubmit(data, chosenCity, name))();
+        setSuitableOption(null);
+    }, [chosenCity])
 
     return (
         <Container>
@@ -68,10 +74,6 @@ export const CityInput: React.FC<Props> = ({ name }) => {
                     $icon={geo}
                     defaultValue={suitableOption?.name}
                 />
-
-
-        
-
                 <StyledInputMain
                     type="text"
                     {...register(name, {
@@ -80,6 +82,7 @@ export const CityInput: React.FC<Props> = ({ name }) => {
                     })}
                     $icon={geo}
                     onKeyDown={handleInputKeyDown}
+                    $hide={!!suitableOption}
                 />
             </InputWrapper>
             <StyledDatalist
@@ -90,7 +93,7 @@ export const CityInput: React.FC<Props> = ({ name }) => {
                         key={option._id}
                         onClick={(e) => handleOptionClick(e, option)}
                         onMouseEnter={(e) => setSuitableOption(option)}
-                        // onMouseLeave={(e) => setSuitableOption({_id: null, name: null})}
+                        onMouseLeave={(e) => setSuitableOption(null)}
                     >{option.name}
                     </StyledOption>)}
             </StyledDatalist>

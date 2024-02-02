@@ -66,7 +66,7 @@ export const StyledInputAutocomplete = styled(StyledInput)`
   color: var(--smooth-black);
 `
 
-export const StyledInputMain = styled(StyledInput)`
+export const StyledInputMain = styled(StyledInput)<{$hide?: boolean}>`
   position: absolute;
   left: 0;
   right: 0;
@@ -74,5 +74,5 @@ export const StyledInputMain = styled(StyledInput)`
   bottom: 0;
   z-index: 2;
   background-color: transparent;
-  color: black;
+  color: ${props => props.$hide ? "transparent" : "black"};
 `

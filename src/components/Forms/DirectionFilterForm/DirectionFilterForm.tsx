@@ -9,6 +9,7 @@ import { Icon } from '../../Elements/Icons/Icon';
 import { Inputs, InputsDate, InputsLabel, InputsPlace, DirectionFilterFormTemplate, FindTicketsButton, InputsRow } from './StyledComponents';
 import { CityInput } from './FormInputs/CityInput';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface Props extends React.PropsWithChildren {
     variant: string,
@@ -17,16 +18,21 @@ interface Props extends React.PropsWithChildren {
 export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
     const location = useLocation();
     const navigate = useNavigate();
+    const filter = useSelector<any>(state => state.filter);
     const methods = useForm({
         defaultValues: {
-            to_city: "to",
-            from_city: "from"
+            to_city: filter.to_city.name,
+            from_city: filter.from_city.name
         },
         mode: "onBlur"
     })
 
-    const onSubmit = (data) => {
+    const onSubmit = (data, chosenCity, name) => {
         console.log("main submit");
+        console.log(data);
+        console.log(chosenCity);
+        console.log(name);
+        methods.reset();
         if (location.pathname === "/") {
             setTimeout(() => navigate("/order/directions/"), 0);
         }
@@ -43,6 +49,7 @@ export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
                         <InputsPlace>
                             <CityInput
                                 name="to_city"
+                                onSubmit={onSubmit}
                             ></CityInput>
                             <Icon
                                 $srcImg={change_place}
@@ -52,6 +59,7 @@ export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
                             ></Icon>
                             <CityInput
                                 name="from_city"
+                                onSubmit={onSubmit}
                             ></CityInput>
                         </InputsPlace>
                     </InputsRow>
