@@ -43,7 +43,7 @@ const Directions = () => {
         <FilterBlock>
           <div>Найдено {data?.total_count}</div>
           <FilterBlockSorts>
-            <div>Сортировать по пример </div>
+            <div>Сортировать по </div>
             <div>Показывать по </div>
           </FilterBlockSorts>
         </FilterBlock>
