@@ -15,10 +15,16 @@ import remove from '/src/assets/svg/train_filters/remove.svg';
 import { DateValueFormatter } from "../../../../../utils/utils";
 import { useEffect, useState } from "react";
 import { VARIANTS } from "/src/components/Elements/Inputs/CustomDatePickInput.tsx";
+import { useSelector } from "react-redux";
+import { from_city as from_city_action, to_city as to_city_action, date_start as date_start_action, date_end as date_end_action} from '/src/store/slices/filterSlice.ts';
+import { startOfDay } from "date-fns";
 
 export const TicketIssueSideFilter = () => {
     const [isOpenTo, setOpenTo] = useState(false);
     const [isOpenOut, setOpenOut] = useState(false);
+    const { from_city, to_city, date_start, date_end } = useSelector(state => {
+        return (state.filter);
+    });
 
     const handleOpenToClick = () => {
         setOpenTo(prev => !prev);
@@ -28,16 +34,26 @@ export const TicketIssueSideFilter = () => {
         setOpenOut(prev => !prev);
     }
 
+    useEffect(() => {
+
+        console.log("catched date changed")
+    }, [date_start, date_end])
+
     return (<TicketIssueSideFilterContainer>
         <DatesBlock>
             <DatesBlockDateInputWrapper>
                 <DatesBlockDateLabel>Дата поездки</DatesBlockDateLabel>
                 <DatesBlockDateInput variant={VARIANTS.MEDIUM}
+                defaultDate={+(startOfDay(new Date(date_start)))}
+                action={date_start_action}
                 ></DatesBlockDateInput>
             </DatesBlockDateInputWrapper>
             <DatesBlockDateInputWrapper>
                 <DatesBlockDateLabel>Дата возвращения</DatesBlockDateLabel>
-                <DatesBlockDateInput variant={VARIANTS.MEDIUM}
+                <DatesBlockDateInput 
+                variant={VARIANTS.MEDIUM}
+                defaultDate={+(startOfDay(new Date(date_end)))}
+                action={date_end_action}
                 ></DatesBlockDateInput>
             </DatesBlockDateInputWrapper>
         </DatesBlock>

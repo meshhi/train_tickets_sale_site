@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 // store
 import { useGetCityByNameQuery } from '/src/store/services/city.ts'
 import { useSelector } from 'react-redux';
-import { from_city as from_city_action, to_city as to_city_action } from '/src/store/slices/filterSlice.ts';
+import { from_city as from_city_action, to_city as to_city_action, date_start as date_start_action, date_end as date_end_action} from '/src/store/slices/filterSlice.ts';
 
 // UI
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
@@ -25,7 +25,7 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
     const [rightDirection, setRightDirection] = useState<boolean>(true);
 
     const { data: cities, error, isLoading } = useGetCityByNameQuery(cityName);
-    const { from_city, to_city } = useSelector(state => {
+    const { from_city, to_city, date_start, date_end } = useSelector(state => {
         return (state.filter);
     });
 
@@ -85,9 +85,13 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                 <InputsRow>
                     <InputsLabel>Дата</InputsLabel>
                     <InputsDate>
-                        <CustomDatePickInput defaultDate={+(startOfDay(new Date()))}
+                        <CustomDatePickInput 
+                        defaultDate={+(startOfDay(new Date(date_start)))}
+                        action={date_start_action}
                         ></CustomDatePickInput>
-                        <CustomDatePickInput defaultDate={+(startOfDay(new Date()))}
+                        <CustomDatePickInput 
+                        defaultDate={+(startOfDay(new Date(date_end)))}
+                        action={date_end_action}
                         ></CustomDatePickInput>
                     </InputsDate>
                 </InputsRow>

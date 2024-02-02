@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import { CustomStyledInput } from './CustomStyledInput'
 import calendar from '/src/assets/svg/icons/calendar.svg';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import Calendar from './Calendar/Calendar';
 import { format } from 'date-fns';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
     max-width: 100%;
@@ -18,9 +19,10 @@ export enum VARIANTS {
     BIG
 }
 
-export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, defaultDate} : {placeholder?: string, variant?: VARIANTS, defaultDate?: number}) => {
+export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, defaultDate, action} : {placeholder?: string, variant?: VARIANTS, defaultDate?: number}) => {
     const [visible, setVisible] = useState(false);
     const [inputValue, setInputValue] = useState(defaultDate ? format(new Date(defaultDate), "dd.MM.yyyy") : "");
+    const dispatch = useDispatch();
 
     let $height;
     let $backGroundSize;
@@ -43,14 +45,22 @@ export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, de
     }
 
     const inputHandler = (dateValue) => {
-        setInputValue(format(dateValue, "dd.MM.yyyy"));
+        const formattedDate = format(dateValue, "dd.MM.yyyy");
+        setInputValue(formattedDate);
+        dispatch(action(+dateValue));
+        console.log("dispatched date changed")
     }
+
+    useEffect(() => {
+        console.log("defaultDate chagned")
+        setInputValue(format(new Date(defaultDate), "dd.MM.yyyy"))
+    }, [defaultDate])
 
     return(
         <Container>
             <CustomInput 
             type="text" $icon={calendar} placeholder={placeholder} $height={$height} $backgroundSize={$backGroundSize}
-            onFocus={handleInputFocus}
+            onClick={handleInputFocus}
             value={inputValue}
             ></CustomInput>
             <Calendar

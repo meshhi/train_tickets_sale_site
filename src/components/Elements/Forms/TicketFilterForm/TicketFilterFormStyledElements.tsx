@@ -58,9 +58,9 @@ export const InputsLabel = styled('h2')`
     margin-left: 7px;
 `
 
-export const InputsPlace = styled.div<{ $rightDirection?: boolean }>`
+export const InputsPlace = styled.div<{ $leftDirection?: boolean }>`
     display: flex;
-    flex-direction: ${props => props.$rightDirection ? "row" : "row-reverse"};
+    flex-direction: ${props => props.$leftDirection ? "row-reverse" : "row"};
     align-items: center;
     justify-content: space-between;
 `

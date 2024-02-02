@@ -11,34 +11,64 @@ const CalendarContainer = styled.div`
 const CalendarItem = styled.div`
     --height: 250px;
     --width: 100%;
-    background-color: transparent;
+    background-color: white;
     min-width: var(--width);
     min-height: var(--height);
     position: absolute;
-    bottom: calc(-var(--height))px;
+    bottom: -var(--height);
     margin: 0 auto;
     z-index: 99999;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 40px);
+    border-radius: 6px;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 `
 
 const PrevBtn = styled.div`
-    background-color: yellow;
     grid-column: span 2;
+    border-bottom: 1px solid var(--smooth-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 `
+
+const PrevArrow = styled.div`
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    background-color: var(--black);
+    width: 6px;
+    height: 10px;
+`
+
 const NextBtn = styled.div`
-    background-color: blue;
     grid-column: span 2;
+    border-bottom: 1px solid var(--smooth-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`
+
+const NextArrow = styled.div`
+    clip-path: polygon(100% 50%, 0 0, 0 100%);
+    background-color: var(--black);
+    width: 6px;
+    height: 10px;
 `
 
 const DateAreaBtn = styled.div`
-    background-color: green;
     grid-column: span 3;
+    border-bottom: 1px solid var(--smooth-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
 `
 
 const Cell = styled.div<{ $inactive?: boolean }>`
-    background-color: purple;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,13 +79,16 @@ const Cell = styled.div<{ $inactive?: boolean }>`
     ` : ''}
 
     cursor: pointer;
+    border-radius: 3px;
 
     &:hover {
-        background-color: grey;
+        border: 1px solid var(--yellow);
     }
 
     &.active {
-        background-color: yellow;
+        
+        border: 1px solid var(--yellow);
+        background-color: var(--smooth-yellow);
     }
 `
 
@@ -106,11 +139,11 @@ const Calendar = ({ visible, defaultDate, inputHandler, handleInputFocus }) => {
             ?
             <CalendarContainer>
                 <CalendarItem>
-                    <PrevBtn onClick={handlePrevBtnClick}>Prev</PrevBtn>
+                    <PrevBtn onClick={handlePrevBtnClick}><PrevArrow></PrevArrow></PrevBtn>
                     <DateAreaBtn>
                         {monthNames[getMonth(pickDate)]}
                     </DateAreaBtn>
-                    <NextBtn onClick={handleNextBtnClick}>Next</NextBtn>
+                    <NextBtn onClick={handleNextBtnClick}><NextArrow></NextArrow></NextBtn>
                     {
                         Array.from({ length: prefixDays }).map((_, index) => <Cell $inactive={true} className="cell" key={index}>{getDaysInMonth(addMonths(pickDate, -1)) - index}</Cell>)
                     }

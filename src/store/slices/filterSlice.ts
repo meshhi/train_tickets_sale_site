@@ -44,12 +44,18 @@ const filterSlice = createSlice({
     to_city: (state, action) => {
       state.to_city = action.payload;
     },
+    date_start: (state, action) => {
+      state.date_start = action.payload;
+    },
+    date_end: (state, action) => {
+      state.date_end = action.payload;
+    },
   },
 });
 
 // Слайс генерирует действия, которые экспортируются отдельно
 // Действия генерируются автоматически из имен ключей редьюсеров
-export const { from_city, to_city, } = filterSlice.actions;
+export const { from_city, to_city, date_start, date_end } = filterSlice.actions;
 
 // По умолчанию экспортируется редьюсер, сгенерированный слайсом
 export default filterSlice.reducer;
