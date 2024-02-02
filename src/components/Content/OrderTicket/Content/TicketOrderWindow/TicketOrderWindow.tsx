@@ -13,7 +13,7 @@ const TicketOrderWindowContainer = styled.section`
 const TicketIssueWindow = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 95px 271px 193px;
   gap: 85px;
 `
@@ -26,7 +26,8 @@ const TicketIssueWindowSidebar = styled.div`
 `
 
 export const TicketIssueWindowContent = styled.div`
-  min-width: 962px;
+  width: 100%;
+  max-width: 959px;
 `
 
 const TicketOrderWindow = () => {
