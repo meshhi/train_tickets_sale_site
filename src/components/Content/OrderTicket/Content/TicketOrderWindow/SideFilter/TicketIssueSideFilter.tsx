@@ -34,11 +34,6 @@ export const TicketIssueSideFilter = () => {
         setOpenOut(prev => !prev);
     }
 
-    useEffect(() => {
-
-        console.log("catched date changed")
-    }, [date_start, date_end])
-
     return (<TicketIssueSideFilterContainer>
         <DatesBlock>
             <DatesBlockDateInputWrapper>

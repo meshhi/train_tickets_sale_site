@@ -21,7 +21,7 @@ export enum VARIANTS {
 
 export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, defaultDate, action} : {placeholder?: string, variant?: VARIANTS, defaultDate?: number}) => {
     const [visible, setVisible] = useState(false);
-    const [inputValue, setInputValue] = useState(defaultDate ? format(new Date(defaultDate), "dd.MM.yyyy") : "");
+    const [inputValue, setInputValue] = useState();
     const dispatch = useDispatch();
 
     let $height;
@@ -40,34 +40,32 @@ export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, de
             $backGroundSize = "40px 40px";
     }
 
-    const handleInputFocus = (e : SyntheticEvent) => {
+    const handleInputClick = (e : SyntheticEvent) => {
         setVisible(prev => !prev);
     }
 
-    const inputHandler = (dateValue) => {
+    const changeInputValue = (dateValue) => {
         const formattedDate = format(dateValue, "dd.MM.yyyy");
         setInputValue(formattedDate);
         dispatch(action(+dateValue));
-        console.log("dispatched date changed")
     }
 
     useEffect(() => {
-        console.log("defaultDate chagned")
-        setInputValue(format(new Date(defaultDate), "dd.MM.yyyy"))
+        setInputValue(defaultDate ? format(new Date(defaultDate), "dd.MM.yyyy") : "")
     }, [defaultDate])
 
     return(
         <Container>
             <CustomInput 
             type="text" $icon={calendar} placeholder={placeholder} $height={$height} $backgroundSize={$backGroundSize}
-            onClick={handleInputFocus}
+            onClick={handleInputClick}
             value={inputValue}
             ></CustomInput>
             <Calendar
             defaultDate={defaultDate}
             visible={visible}
-            inputHandler={inputHandler}
-            handleInputFocus={handleInputFocus}
+            changeInputValue={changeInputValue}
+            handleInputClick={handleInputClick}
             ></Calendar>
         </Container>
         )

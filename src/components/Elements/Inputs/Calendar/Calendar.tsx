@@ -92,9 +92,9 @@ const Cell = styled.div<{ $inactive?: boolean }>`
     }
 `
 
-const Calendar = ({ visible, defaultDate, inputHandler, handleInputFocus }) => {
+const Calendar = ({ visible, defaultDate, changeInputValue, handleInputClick }) => {
     const [pickDate, setPickDate] = useState(defaultDate ? new Date(defaultDate) : startOfDay(new Date()));
-    const [activeDate, setActiveDate] = useState(defaultDate ? new Date(defaultDate) : startOfDay(new Date()));
+    const [activeDate, setActiveDate] = useState(pickDate);
     const [cellValues, setCellValues] = useState([]);
     const [prefixDays, setPrefixDays] = useState(0);
     const [suffixDays, setSuffixDays] = useState(0);
@@ -108,9 +108,9 @@ const Calendar = ({ visible, defaultDate, inputHandler, handleInputFocus }) => {
     }
 
     const handleCellClick = (dateValue) => {
-        inputHandler(dateValue);
+        changeInputValue(dateValue);
         setActiveDate(dateValue);
-        handleInputFocus();
+        handleInputClick();
     }
 
     useEffect(() => {
