@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-export const CustomStyledInput = styled.input<{$icon?: string, $backgroundSize?: string}>`
-  width: 325px;
-  height: 60px;
+export const CustomStyledInput = styled.input<{$icon?: string, $backgroundSize?: string, $height?: number}>`
+  max-width: 100%;
+  height: ${props => props.$height ? props.$height : 60}px;
   padding: 19px 73px 11px 21px;
   font-family: Roboto;
   font-size: 18px;

@@ -30,15 +30,14 @@ export const TicketIssueWindowContent = styled.div`
 `
 
 const TicketOrderWindow = () => {
-
+  
   return (
     <TicketOrderWindowContainer>
       <ProgressBar></ProgressBar>
       <TicketIssueWindow>
         <TicketIssueWindowSidebar>
           <TicketIssueSideFilter></TicketIssueSideFilter>
-          <LastTickets>
-          </LastTickets>
+          <LastTickets></LastTickets>
         </TicketIssueWindowSidebar>
         <TicketIssueWindowContent>
           <Outlet></Outlet>

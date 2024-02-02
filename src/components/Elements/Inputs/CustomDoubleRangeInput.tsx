@@ -194,8 +194,6 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
 
         set$left(resultOffset);
         setStart(currentValue);
-
-        console.log($height);
     }
 
     const handleEndRangeChange = (e) => {

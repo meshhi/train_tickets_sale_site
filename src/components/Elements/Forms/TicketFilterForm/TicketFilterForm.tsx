@@ -8,12 +8,13 @@ import { from_city as from_city_action, to_city as to_city_action } from '/src/s
 
 // UI
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
-import calendar from '/src/assets/svg/icons/calendar.svg';
 import change_place from '/src/assets/png/change_place.png';
+import calendar from '/src/assets/svg/icons/calendar.svg';
 import { Icon } from '../../Icons/Icon';
 import { CustomDebouncedDropdownInput } from '../../Inputs/CustomDebouncedDropdownInput';
 import { CustomDatePickInput } from '../../Inputs/CustomDatePickInput';
 import { Inputs, InputsDate, InputsLabel, InputsPlace, TicketFilterFormTemplate, FindTicketsButton, InputsRow } from './TicketFilterFormStyledElements';
+import { format, startOfDay } from "date-fns";
 
 type TicketFilterFormProps = {
     variant: string,
@@ -42,7 +43,7 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
     const handleFindTicketsClick = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (location.pathname === "/") {
-            setTimeout(() => navigate("/orderticket"), 0);
+            setTimeout(() => navigate("/orderticket/tickets/"), 0);
         }
     }
 
@@ -84,15 +85,9 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                 <InputsRow>
                     <InputsLabel>Дата</InputsLabel>
                     <InputsDate>
-                        <CustomDatePickInput
-                            type="text"
-                            $icon={calendar}
-                            placeholder="ДД/ММ/ГГ"
+                        <CustomDatePickInput defaultDate={+(startOfDay(new Date()))}
                         ></CustomDatePickInput>
-                        <CustomDatePickInput
-                            type="text"
-                            $icon={calendar}
-                            placeholder="ДД/ММ/ГГ"
+                        <CustomDatePickInput defaultDate={+(startOfDay(new Date()))}
                         ></CustomDatePickInput>
                     </InputsDate>
                 </InputsRow>

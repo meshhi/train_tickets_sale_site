@@ -58,6 +58,4 @@ export type DirectionType = {
     have_wifi: boolean,
     is_express: boolean,
     min_price: number,
-    
-
 }

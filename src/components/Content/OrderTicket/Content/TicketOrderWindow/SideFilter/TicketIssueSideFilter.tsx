@@ -14,6 +14,7 @@ import add from '/src/assets/svg/train_filters/add.svg';
 import remove from '/src/assets/svg/train_filters/remove.svg';
 import { DateValueFormatter } from "../../../../../utils/utils";
 import { useEffect, useState } from "react";
+import { VARIANTS } from "/src/components/Elements/Inputs/CustomDatePickInput.tsx";
 
 export const TicketIssueSideFilter = () => {
     const [isOpenTo, setOpenTo] = useState(false);
@@ -31,18 +32,12 @@ export const TicketIssueSideFilter = () => {
         <DatesBlock>
             <DatesBlockDateInputWrapper>
                 <DatesBlockDateLabel>Дата поездки</DatesBlockDateLabel>
-                <DatesBlockDateInput
-                    $icon={calendar}
-                    $backgroundSize='20px 20px'
-                    placeholder="ДД/ММ/ГГ"
+                <DatesBlockDateInput variant={VARIANTS.MEDIUM}
                 ></DatesBlockDateInput>
             </DatesBlockDateInputWrapper>
             <DatesBlockDateInputWrapper>
                 <DatesBlockDateLabel>Дата возвращения</DatesBlockDateLabel>
-                <DatesBlockDateInput
-                    $icon={calendar}
-                    $backgroundSize='20px 20px'
-                    placeholder="ДД/ММ/ГГ"
+                <DatesBlockDateInput variant={VARIANTS.MEDIUM}
                 ></DatesBlockDateInput>
             </DatesBlockDateInputWrapper>
         </DatesBlock>
