@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { StyledInput } from "../../../Elements/Inputs/StyledInput";
 
 export const Container = styled.div`
   display: flex;
@@ -20,8 +21,8 @@ export const InputWrapper = styled.div`
   line-height: 10px;
 `
 
-export const StyledDatalist = styled.datalist<{$opened?: boolean}>`
-  display: ${props => props.$opened ? "flex" : "none"};
+export const StyledDatalist = styled.datalist<{$isOpened?: boolean}>`
+  display: ${props => props.$isOpened ? "flex" : "none"};
   flex-direction: column;
   width: 100%;
   position: absolute;
@@ -52,3 +53,26 @@ export const StyledOption = styled.option`
     background-color: var(--smooth-grey);
   }
 `;
+
+export const StyledInputAutocomplete = styled(StyledInput)`
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: white;
+  color: var(--smooth-black);
+`
+
+export const StyledInputMain = styled(StyledInput)`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: transparent;
+  color: black;
+`

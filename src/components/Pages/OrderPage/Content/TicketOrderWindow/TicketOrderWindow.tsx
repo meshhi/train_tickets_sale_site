@@ -37,7 +37,7 @@ const TicketOrderWindow = () => {
       <ProgressBar></ProgressBar>
       <TicketIssueWindow>
         <TicketIssueWindowSidebar>
-          <TicketIssueSideFilter></TicketIssueSideFilter>
+          <SideFilter></SideFilter>
           <LastTickets></LastTickets>
         </TicketIssueWindowSidebar>
         <TicketIssueWindowContent>

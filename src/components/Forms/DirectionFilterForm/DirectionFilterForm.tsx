@@ -17,30 +17,20 @@ interface Props extends React.PropsWithChildren {
 export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
     const location = useLocation();
     const navigate = useNavigate();
-    const methods = useForm()
+    const methods = useForm({
+        defaultValues: {
+            to_city: "to",
+            from_city: "from"
+        },
+        mode: "onBlur"
+    })
 
     const onSubmit = (data) => {
-        console.log(data);
+        console.log("main submit");
         if (location.pathname === "/") {
             setTimeout(() => navigate("/order/directions/"), 0);
         }
     }
-
-    useEffect(() => {
-        const subscription = methods.watch((value, { name, type }) => {
-                console.log(value, name, type);
-                setTimeout(() => {if (methods.formState.isValid) {
-                    console.log("form valid");
-                } else {
-                    console.log("form invalid");
-                }
-                console.log(methods.getValues())
-                }, 0)
-            }
-        )
-        return () => subscription.unsubscribe()
-      }, [methods.watch])
-
 
     return (
         <FormProvider {...methods}>
@@ -77,5 +67,5 @@ export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
                 >Найти билеты</FindTicketsButton>
             </DirectionFilterFormTemplate>
         </FormProvider>
-    );
+    )
 }

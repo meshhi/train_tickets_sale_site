@@ -22,10 +22,6 @@ const Footer = () => {
         reset();
     };
 
-    useEffect(() => {
-        console.log(errors)
-    },[errors])
-
     return (
         <FooterContainer>
             <FooterContent>

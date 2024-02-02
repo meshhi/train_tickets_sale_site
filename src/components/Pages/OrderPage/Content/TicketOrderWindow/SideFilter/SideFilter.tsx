@@ -86,7 +86,7 @@ export const SideFilter = () => {
         </FiltersBlock>
         <PriceBlock>
             <PriceText>Стоимость</PriceText>
-            <CustomDoubleRangeInput minValue={7000} maxValue={140000} maxRangeSizeCoefficient={0.2} labels={{ min: "от", max: "до" }}></CustomDoubleRangeInput>
+            <DoubleRangeInput minValue={7000} maxValue={140000} maxRangeSizeCoefficient={0.2} labels={{ min: "от", max: "до" }}></DoubleRangeInput>
         </PriceBlock>
         <DirectionBlock>
             <DirectionHeader>
@@ -105,15 +105,15 @@ export const SideFilter = () => {
                 ></Icon>
             </DirectionHeader>
             <DirectionBody $isOpen={isOpenTo}>
-                <CustomDoubleRangeInput
+                <DoubleRangeInput
                     minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время отбытия'
-                ></CustomDoubleRangeInput>
-                <CustomDoubleRangeInput
+                ></DoubleRangeInput>
+                <DoubleRangeInput
                     minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время прибытия'
                     textAlign='end'
-                ></CustomDoubleRangeInput>
+                ></DoubleRangeInput>
             </DirectionBody>
         </DirectionBlock>
         <DirectionBlock>
@@ -133,14 +133,14 @@ export const SideFilter = () => {
                 ></Icon>
             </DirectionHeader>
             <DirectionBody $isOpen={isOpenOut}>
-                <CustomDoubleRangeInput
+                <DoubleRangeInput
                     minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время отбытия'
-                ></CustomDoubleRangeInput>
-                <CustomDoubleRangeInput minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
+                ></DoubleRangeInput>
+                <DoubleRangeInput minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время прибытия'
                     textAlign='end'
-                ></CustomDoubleRangeInput>
+                ></DoubleRangeInput>
             </DirectionBody>
         </DirectionBlock>
     </SideFilterContainer>)
