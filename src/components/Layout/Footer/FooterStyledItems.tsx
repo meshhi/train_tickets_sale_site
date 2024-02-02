@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { LandingButton } from "../../Elements/Buttons/LandingButton"
 import { Icon } from "../../Elements/Icons/Icon"
-import { CustomStyledInput } from "../../Elements/Inputs/CustomStyledInput"
+import { StyledInput } from "../../Elements/Inputs/StyledInput"
 
 export const FooterContainer = styled('div')`
     width: 100%;
@@ -98,16 +98,29 @@ export const SubscribeForm = styled('form')`
     width: 100%;
 `
 
-export const SubscribeFormInputContainer = styled('div')`
+export const SubscribeFormInputContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     height: 60px;
+    position: relative;
 `
 
-export const SubscribeFormInput = styled(CustomStyledInput)`
-width: 68%;
+export const SubscribeFormInput = styled(StyledInput)`
+    width: 68%;
+    text-transform: none;
+    cursor: text;
+`
+export const SubscribeFormInputError = styled.div`
+    --height: 40px;
+    font-size: 20px;
+    font-style: normal;
+    line-height: var(--height);
+    font-weight: 300;
+    position: absolute;
+    color: var(--yellow);
+    bottom: calc(0px - var(--height));
 `
 
 export const SubscribeFormButton = styled(LandingButton)`

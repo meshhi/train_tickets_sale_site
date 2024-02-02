@@ -1,9 +1,9 @@
 import styled from "styled-components"
-import { CustomDatePickInput } from "../../../../../Elements/Inputs/CustomDatePickInput"
+import { DatePickInput } from "../../../../../Elements/Inputs/DatePickInput"
 import { Icon } from "../../../../../Elements/Icons/Icon"
-import { CustomToggleButton } from "../../../../../Elements/Buttons/CustomToggleButton"
+import { ToggleButton } from "../../../../../Elements/Buttons/ToggleButton"
 
-export const TicketIssueSideFilterContainer = styled.form`
+export const SideFilterContainer = styled.form`
   width: 360px;
   min-height: 1012px;
   background-color: var(--smooth-black-2);
@@ -31,7 +31,7 @@ export const DatesBlockDateLabel = styled.h3`
   margin-bottom: 8px;
 `
 
-export const DatesBlockDateInput = styled(CustomDatePickInput)`
+export const DatesBlockDateInput = styled(DatePickInput)`
   width: 100%;
   height: 43px;
 `
@@ -69,7 +69,7 @@ export const FilterItemIcon = styled(Icon)`
   min-width: 17px;
 `
 
-export const FilterItemToggleButton = styled(CustomToggleButton)`
+export const FilterItemToggleButton = styled(ToggleButton)`
 
 `
 

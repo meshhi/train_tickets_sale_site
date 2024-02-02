@@ -9,16 +9,24 @@ import phone from '/src/assets/svg/footer_contacts/phone.svg';
 import geo from '/src/assets/svg/footer_contacts/geo.svg';
 import skype from '/src/assets/svg/footer_contacts/skype.svg';
 import arrow_up from '/src/assets/svg/icons/arrow_up.svg';
+import { useForm } from 'react-hook-form';
 
 // styled components
-import { BlockHeader, ContactIcon, ContactIconWrapper, ContactText, ContactUsBlock, ContactUsList, ContactUsListItem, CopyrightText, FooterContainer, FooterContent, FooterInfo, InnerContainer, LogoText, SubscribeBlock, SubscribeForm, SubscribeFormButton, SubscribeFormInput, SubscribeFormInputContainer, SubscribeIcon, SubscribeIcons, SubscribeIconsList, ToTopIcon } from "./FooterStyledItems";
-import { SyntheticEvent } from 'react';
+import { BlockHeader, ContactIcon, ContactIconWrapper, ContactText, ContactUsBlock, ContactUsList, ContactUsListItem, CopyrightText, FooterContainer, FooterContent, FooterInfo, InnerContainer, LogoText, SubscribeBlock, SubscribeForm, SubscribeFormButton, SubscribeFormInput, SubscribeFormInputContainer, SubscribeFormInputError, SubscribeIcon, SubscribeIcons, SubscribeIconsList, ToTopIcon } from "./FooterStyledItems";
+import { SyntheticEvent, useEffect } from 'react';
 
 const Footer = () => {
-    const handleSubscribeClick = (e: SyntheticEvent) => {
-        e.preventDefault();
-        alert('Subscribe');
-    }
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+    const onSubmit = (data) => {
+        reset();
+        
+        console.log(data);
+    };
+
+    useEffect(() => {
+        console.log(errors)
+    },[errors])
 
     return (
         <FooterContainer>
@@ -59,12 +67,27 @@ const Footer = () => {
                         </ContactUsList>
                     </ContactUsBlock>
                     <SubscribeBlock>
-                        <SubscribeForm>
+                        <SubscribeForm onSubmit={handleSubmit(onSubmit)}>
                             <BlockHeader>Подписка</BlockHeader>
                             <span style={{ "marginBottom": "22px" }}>Будьте в курсе событий</span>
                             <SubscribeFormInputContainer>
-                                <SubscribeFormInput></SubscribeFormInput>
-                                <SubscribeFormButton onClick={handleSubscribeClick}>Отправить</SubscribeFormButton>
+                                <SubscribeFormInput
+                                    id="subscribe"
+                                    {...register("subscribe", {
+                                        required: "Укажите e-mail",
+                                        pattern: {
+                                            value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                                            message: "Неверный e-mail"
+                                        }
+                                    })}
+                                    placeholder={"john@doe.com"}
+                                ></SubscribeFormInput>
+                                {errors?.subscribe && errors?.subscribe?.type === "pattern" && (
+                                    <SubscribeFormInputError>{ errors?.subscribe?.message}</SubscribeFormInputError>
+                                )}
+                                <SubscribeFormButton
+                                    type="submit"
+                                >Отправить</SubscribeFormButton>
                             </SubscribeFormInputContainer>
                         </SubscribeForm>
                         <SubscribeIcons>
@@ -82,14 +105,14 @@ const Footer = () => {
             </FooterContent>
             <FooterInfo>
                 <LogoText>Лого</LogoText>
-                <ToTopIcon 
-                $srcImg={arrow_up} 
-                $width={36} 
-                $height={36}
-                onClick={() => window.scrollTo({
-                    top: 0,
-                    behavior: "smooth",
-                })}
+                <ToTopIcon
+                    $srcImg={arrow_up}
+                    $width={36}
+                    $height={36}
+                    onClick={() => window.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                    })}
                 ></ToTopIcon>
                 <CopyrightText>2024 WEB</CopyrightText>
             </FooterInfo>

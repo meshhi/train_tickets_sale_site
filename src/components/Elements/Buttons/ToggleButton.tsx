@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const CustomToggleButtonContainer = styled.div<{$active?: boolean}>`
+const ToggleButtonContainer = styled.div<{$active?: boolean}>`
   min-width: 72px;
   height: 37px;
   display: flex;
@@ -20,7 +20,7 @@ const CustomToggleButtonContainer = styled.div<{$active?: boolean}>`
   }
 `
 
-const CustomToggleButtonInput = styled.input`
+const ToggleButtonInput = styled.input`
   height: 100%;
   width: 100%;
   position: absolute;
@@ -29,7 +29,7 @@ const CustomToggleButtonInput = styled.input`
   cursor: pointer;
 `
 
-const CustomToggleButtonLine = styled.div`
+const ToggleButtonLine = styled.div`
   height: 21px;
   width: 100%;
   background-color: #fff;
@@ -39,7 +39,7 @@ const CustomToggleButtonLine = styled.div`
   transition: all 0.2s ease-in-out;
 `
 
-const CustomToggleButtonRound = styled.div`
+const ToggleButtonRound = styled.div`
   min-width: 28px;
   min-height: 28px;
   border-radius: 50%;
@@ -52,15 +52,15 @@ const CustomToggleButtonRound = styled.div`
 `
 
 
-export const CustomToggleButton = () => {
+export const ToggleButton = () => {
 
   const [isActive, setActive] = useState(false);
 
     return(
-    <CustomToggleButtonContainer $active={isActive}>
-        <CustomToggleButtonRound className="round" ></CustomToggleButtonRound>
-        <CustomToggleButtonLine className="line"></CustomToggleButtonLine>
-        <CustomToggleButtonInput type="checkbox" onClick={() => setActive(prev => !prev)}/>
-    </CustomToggleButtonContainer>
+    <ToggleButtonContainer $active={isActive}>
+        <ToggleButtonRound className="round" ></ToggleButtonRound>
+        <ToggleButtonLine className="line"></ToggleButtonLine>
+        <ToggleButtonInput type="checkbox" onClick={() => setActive(prev => !prev)}/>
+    </ToggleButtonContainer>
   )
 }

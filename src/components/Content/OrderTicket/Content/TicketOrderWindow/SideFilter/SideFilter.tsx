@@ -1,6 +1,6 @@
 import { Icon } from "../../../../../Elements/Icons/Icon"
-import { CustomDoubleRangeInput } from "../../../../../Elements/Inputs/CustomDoubleRangeInput"
-import { DatesBlock, DatesBlockDateInputWrapper, DatesBlockDateLabel, DatesBlockDateInput, FiltersBlock, FiltersItem, FilterItemIcon, FiltersItemText, FilterItemToggleButton, PriceBlock, PriceText, DirectionBlock, DirectionHeader, DirectionHeaderText, DirectionBody, TicketIssueSideFilterContainer } from "./TicketIssueSideFilterStyledComponents"
+import { DoubleRangeInput } from "../../../../../Elements/Inputs/DoubleRangeInput/DoubleRangeInput";
+import { DatesBlock, DatesBlockDateInputWrapper, DatesBlockDateLabel, DatesBlockDateInput, FiltersBlock, FiltersItem, FilterItemIcon, FiltersItemText, FilterItemToggleButton, PriceBlock, PriceText, DirectionBlock, DirectionHeader, DirectionHeaderText, DirectionBody, SideFilterContainer } from "./StyledComponents"
 import calendar from '/src/assets/svg/icons/calendar.svg';
 import coupe from '/src/assets/svg/train_filters/coupe.svg';
 import platzcart from '/src/assets/svg/train_filters/platzcart.svg';
@@ -14,7 +14,7 @@ import add from '/src/assets/svg/train_filters/add.svg';
 import remove from '/src/assets/svg/train_filters/remove.svg';
 import { DateValueFormatter } from "../../../../../utils/utils";
 import { useEffect, useState } from "react";
-import { VARIANTS } from "/src/components/Elements/Inputs/CustomDatePickInput.tsx";
+import { VARIANTS } from "../../../../../utils/utils";
 import { useSelector } from "react-redux";
 import { from_city as from_city_action, to_city as to_city_action, date_start as date_start_action, date_end as date_end_action} from '/src/store/slices/filterSlice.ts';
 import { startOfDay } from "date-fns";

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { LandingButton } from "../../Buttons/LandingButton";
+import { YellowLandingButton } from "../../Elements/Buttons/YellowLandingButton";
 
-export const TicketFilterFormTemplate = styled.form<{ $variant?: string }>`
+export const DirectionFilterFormTemplate = styled.form<{ $variant?: string }>`
     ${props => props.$variant === "horizontal"
     ?   `
         width: 77%;
@@ -41,13 +41,13 @@ export const Inputs = styled.div<{ $variant?: string }>`
     }
 `
 
-export const InputsRow = styled('div')`
+export const InputsRow = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 `
 
-export const InputsLabel = styled('h2')`
+export const InputsLabel = styled.h2`
     color: var(--main-color);
     font-family: Roboto;
     font-size: 30px;
@@ -58,34 +58,22 @@ export const InputsLabel = styled('h2')`
     margin-left: 7px;
 `
 
-export const InputsPlace = styled.div<{ $leftDirection?: boolean }>`
+export const InputsPlace = styled.div`
     display: flex;
-    flex-direction: ${props => props.$leftDirection ? "row-reverse" : "row"};
+    flex-direction: "row";
     align-items: center;
     justify-content: space-between;
 `
 
-export const InputsDate = styled.div<{ $rightDirection?: boolean }>`
+export const InputsDate = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
-    flex-direction: ${props => props.$rightDirection ? "row" : "row-reverse"};
-    `
+    flex-direction: "row"};
+`
 
-export const FindTicketsButton = styled(LandingButton)`
-    background-color: var(--orange);
-    color: var(--black);
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 52px;
-    margin-right: 21px;
-    border-color: var(--orange);
-    align-self: end;
-    &:active {
-        background-color: var(--smooth-grey-inactive);
-        color: var(--orange);
-        border-color: var(--orange);
-    }
+export const FindTicketsButton = styled(YellowLandingButton)`
+
 `
 

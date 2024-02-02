@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import ticket_filter_bg from '/src/assets/png/filter_ticket_bg.png';
-import { TicketFilterForm } from '../../../../Elements/Forms/TicketFilterForm/TicketFilterForm';
+import direction_filter_bg from '/src/assets/png/filter_direction_bg.png';
+import { DirectionFilterForm } from '../../../../Forms/DirectionFilterForm/DirectionFilterForm';
 
-const TicketFilterBlock = styled('section')`
+const DirectionFilterBlock = styled('section')`
     height: calc(100vh + .5rem);
     background-color: orange;
-    background-image: url(${ticket_filter_bg});
+    background-image: url(${direction_filter_bg});
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -43,11 +43,11 @@ const BoldText = styled('span')`
 export default
     () => {
         return (
-            <TicketFilterBlock id="ticketfilterblock">
+            <DirectionFilterBlock id="Directionfilterblock">
                 <InnerBlock>
                     <Title>Вся жизнь - <br></br><BoldText>путешествие!</BoldText></Title>
-                    <TicketFilterForm variant="standart"></TicketFilterForm>
+                    <DirectionFilterForm variant="standart"></DirectionFilterForm>
                 </InnerBlock>
-            </TicketFilterBlock>
+            </DirectionFilterBlock>
         )
     };
