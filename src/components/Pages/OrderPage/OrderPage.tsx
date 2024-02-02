@@ -1,16 +1,19 @@
 import styled from 'styled-components'
 import { FilterBlock } from './Content/FilterBlock/FilterBlock';
 import TicketOrderWindow from './Content/TicketOrderWindow/TicketOrderWindow';
+import React from 'react';
 
-const OrderTicketContainer = styled('div')`
+const OrderContainer = styled('div')`
   min-height: 100vh;
 `
 
-export const OrderTicket = () => {
+const OrderPage = () => {
   return(
-    <OrderTicketContainer>
+    <OrderContainer>
       <FilterBlock></FilterBlock>
       <TicketOrderWindow></TicketOrderWindow>
-    </OrderTicketContainer>
+    </OrderContainer>
   )
 }
+
+export default OrderPage

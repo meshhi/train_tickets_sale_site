@@ -1,3 +1,4 @@
+import React from "react"
 import { DirectionType } from "../../../../../../../../store/services/types/api_types"
 import styled from "styled-components"
 
@@ -39,8 +40,7 @@ interface Props extends React.PropsWithChildren {
     direction: DirectionType
 }
 
-const Direction: React.FC<Props> = ({children, direction}) => {
-    console.log(direction)
+export const Direction: React.FC<Props> = ({children, direction}) => {
     return (
         <DirectionContainer>
             <TrainInfo>{direction.departure.train.name}</TrainInfo>
@@ -49,5 +49,3 @@ const Direction: React.FC<Props> = ({children, direction}) => {
         </DirectionContainer>
     )
 }
-
-export default Direction

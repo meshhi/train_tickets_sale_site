@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useFetchMainFilter } from '/src/api/useFetchMainFilter.ts'
 import { Spinner } from '../../../../../../Elements/Loaders/Spinner'
-import Direction from './Direction/Direction'
+import { Direction } from './Direction/Direction'
 
 const DirectionsContainer = styled.div`
   width: 100%;
@@ -28,7 +28,7 @@ const DirectionsList = styled.ul`
 `
 
 
-const Directions = () => {
+export const Directions = () => {
   const { data, error, loading } = useFetchMainFilter();
   
   useEffect(() => {
@@ -54,5 +54,3 @@ const Directions = () => {
     </>
   )
 }
-
-export default Directions

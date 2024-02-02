@@ -8,6 +8,7 @@ import change_place from '/src/assets/png/change_place.png';
 import { Icon } from '../../Elements/Icons/Icon';
 import { Inputs, InputsDate, InputsLabel, InputsPlace, DirectionFilterFormTemplate, FindTicketsButton, InputsRow } from './StyledComponents';
 import { CityInput } from './FormInputs/CityInput';
+import React from 'react';
 
 interface Props extends React.PropsWithChildren {
     variant: string,
@@ -20,8 +21,8 @@ export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
 
     const onSubmit = (data) => {
         console.log(data);
-        if (location.pathname === "/a") {
-            setTimeout(() => navigate("/orderticket/directions/"), 0);
+        if (location.pathname === "/") {
+            setTimeout(() => navigate("/order/directions/"), 0);
         }
     }
 

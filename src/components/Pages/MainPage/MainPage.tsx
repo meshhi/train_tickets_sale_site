@@ -3,6 +3,7 @@ import DirectionFilterBlock from './Content/DirectionFilterBlock/DirectionFilter
 import About from './Content/About/About'
 import HowItWorks from './Content/HowItWorks/HowItWorks'
 import Reviews from './Content/Reviews/Reviews'
+import React from 'react'
 
 const StyledMainPage = styled('main')``
 

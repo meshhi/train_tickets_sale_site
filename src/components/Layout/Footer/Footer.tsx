@@ -20,8 +20,6 @@ const Footer = () => {
 
     const onSubmit = (data) => {
         reset();
-        
-        console.log(data);
     };
 
     useEffect(() => {
