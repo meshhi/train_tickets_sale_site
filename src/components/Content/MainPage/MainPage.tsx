@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import TicketFilterBlock from './Content/TicketFilterBlock/TicketFilterBlock'
+import DirectionFilterBlock from './Content/DirectionFilterBlock/DirectionFilterBlock'
 import About from './Content/About/About'
 import HowItWorks from './Content/HowItWorks/HowItWorks'
 import Reviews from './Content/Reviews/Reviews'
@@ -9,7 +9,7 @@ const StyledMainPage = styled('main')``
 const MainPage = () => {
   return (
     <StyledMainPage>
-      <TicketFilterBlock></TicketFilterBlock>
+      <DirectionFilterBlock></DirectionFilterBlock>
       <About></About>
       <HowItWorks></HowItWorks>
       <Reviews></Reviews>

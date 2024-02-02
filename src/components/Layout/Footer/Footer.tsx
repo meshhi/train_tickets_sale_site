@@ -78,10 +78,6 @@ const Footer = () => {
                                         pattern: {
                                             value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
                                             message: "Неверный e-mail"
-                                        },
-                                        validate: value => {
-                                            console.log(value)
-                                            return false
                                         }
                                     })}
                                     placeholder={"john@doe.com"}
