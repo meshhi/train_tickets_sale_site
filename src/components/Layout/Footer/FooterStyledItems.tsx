@@ -98,7 +98,7 @@ export const SubscribeForm = styled('form')`
     width: 100%;
 `
 
-export const SubscribeFormInputContainer = styled('div')`
+export const SubscribeFormInputContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -107,7 +107,9 @@ export const SubscribeFormInputContainer = styled('div')`
 `
 
 export const SubscribeFormInput = styled(CustomStyledInput)`
-width: 68%;
+    width: 68%;
+    text-transform: none;
+    cursor: text;
 `
 
 export const SubscribeFormButton = styled(LandingButton)`
