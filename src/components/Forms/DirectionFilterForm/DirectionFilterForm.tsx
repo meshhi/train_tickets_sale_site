@@ -19,6 +19,7 @@ export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const filter = useSelector<any>(state => state.filter);
+    console.log(filter)
     const methods = useForm({
         defaultValues: {
             to_city: filter.to_city.name,
@@ -28,11 +29,8 @@ export const DirectionFilterForm : React.FC<Props> = ({ variant }) => {
     })
 
     const onSubmit = (data, chosenCity, name) => {
-        console.log("main submit");
+        console.log("main submit from " + name);
         console.log(data);
-        console.log(chosenCity);
-        console.log(name);
-        methods.reset();
         if (location.pathname === "/") {
             setTimeout(() => navigate("/order/directions/"), 0);
         }

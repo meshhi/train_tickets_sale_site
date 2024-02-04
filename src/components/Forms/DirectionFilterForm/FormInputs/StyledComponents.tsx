@@ -73,6 +73,6 @@ export const StyledInputMain = styled(StyledInput)<{$hide?: boolean}>`
   top: 0;
   bottom: 0;
   z-index: 2;
-  background-color: transparent;
-  color: ${props => props.$hide ? "transparent" : "black"};
+  // background-color: transparent;
+  // color: ${props => props.$hide ? "transparent" : "black"};
 `

@@ -5,6 +5,7 @@ import { Container, InputWrapper, StyledDatalist, StyledInputAutocomplete, Style
 import { useFormContext } from "react-hook-form";
 import { debounce } from "lodash";
 import { CityType } from "../../../../store/services/types/api_types";
+import { Controller } from "react-hook-form";
 
 interface Props extends React.PropsWithChildren {
     name: string,
@@ -14,7 +15,7 @@ interface Props extends React.PropsWithChildren {
 export const CityInput: React.FC<Props> = ({ name, onSubmit }) => {
     const [cityQuery, setCityQuery] = useState<string>("");
     const { data, error, isLoading } = useGetCityByNameQuery(cityQuery);
-    const { register, handleSubmit, setValue } = useFormContext()
+    const { register, handleSubmit, setValue, control } = useFormContext()
     const [cities, setCities] = useState<CityType[]>([]);
     const [isOpened, setOpened] = useState<boolean>(false);
     const [suitableOption, setSuitableOption] = useState<CityType | null>();
@@ -23,13 +24,15 @@ export const CityInput: React.FC<Props> = ({ name, onSubmit }) => {
     const handleInputChange = useCallback(debounce((e) => {
         setCityQuery(e.target.value);
         setChosenCity({
-            _id: undefined, 
+            _id: undefined,
             name: e.target.value
         });
     }, 500), []);
 
     const handleInputKeyDown = (e: SyntheticEvent) => {
-        if (e.key === "Tab" && suitableOption) {
+        console.log(e.keyCode)
+        if (e.keyCode === 9) {e.preventDefault()}
+        if (e.keyCode === 9 && suitableOption) {
             setChosenCity(suitableOption);
             setValue(name, suitableOption.name);
             setOpened(false);
@@ -46,7 +49,7 @@ export const CityInput: React.FC<Props> = ({ name, onSubmit }) => {
     useEffect(() => {
         try {
             setCities(Array.from(data));
-        } catch(e) {
+        } catch (e) {
             setCities([]);
         }
     }, [data])
@@ -58,22 +61,21 @@ export const CityInput: React.FC<Props> = ({ name, onSubmit }) => {
         } else {
             setOpened(false)
             setSuitableOption(null)
-        };
+        }
     }, [cities])
 
     useEffect(() => {
         handleSubmit((data) => onSubmit(data, chosenCity, name))();
-        setSuitableOption(null);
     }, [chosenCity])
 
     return (
         <Container>
-            <InputWrapper>
-                <StyledInputAutocomplete
+            <InputWrapper className="input-wrapper">
+                {/* <StyledInputAutocomplete
                     type="text"
                     $icon={geo}
                     defaultValue={suitableOption?.name}
-                />
+                /> */}
                 <StyledInputMain
                     type="text"
                     {...register(name, {
@@ -84,6 +86,28 @@ export const CityInput: React.FC<Props> = ({ name, onSubmit }) => {
                     onKeyDown={handleInputKeyDown}
                     $hide={!!suitableOption}
                 />
+
+                {/* <Controller
+                    name={name}
+                    control={control}
+                    default={""}
+                    rules={{
+                        required: true,
+                        onChange: (e) => {
+                            console.log(e.target.value);
+                            handleInputChange(e);
+                        },
+                    }}
+                    render={({ field: { onChange, value } }) => <StyledInputMain
+                        className="fs"
+                        type="text"
+                        $icon={geo}
+                        onKeyDown={handleInputKeyDown}
+                        onChange={onChange}
+                    // $hide={!!suitableOption}
+                    />}
+                ></Controller> */}
+
             </InputWrapper>
             <StyledDatalist
                 $isOpened={isOpened}
@@ -98,6 +122,5 @@ export const CityInput: React.FC<Props> = ({ name, onSubmit }) => {
                     </StyledOption>)}
             </StyledDatalist>
         </Container>
-
     )
 }
