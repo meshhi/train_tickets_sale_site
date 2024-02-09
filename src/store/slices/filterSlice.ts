@@ -11,11 +11,20 @@ type InitialStateType = {
     _id?: string,
     name?: string,
   },
-  date_start?: string,
-  date_end?: string,
-  date_start_arrival?: string,
-  date_end_arrival?: string,
+  date_start?: string | number,
+  date_end?: string | number,
+  date_start_arrival?: string | number,
+  date_end_arrival?: string | number,
   have_first_class?: boolean,
+  have_second_class?: boolean,
+  have_third_class?: boolean,
+  have_fourth_class?: boolean,
+  have_wifi?: boolean,
+  have_air_conditioning?: boolean,
+  have_express?: boolean,
+  price_from: number,
+  price_to: number,
+
 }
 
 // Начальное значение
@@ -39,6 +48,19 @@ const initialState : InitialStateType = {
   have_wifi: false,
   have_air_conditioning: false,
   have_express: false,
+  price_from: 0,
+  price_to: 200000,
+  start_departure_hour_from: 0,
+  start_departure_hour_to: 0,
+  start_arrival_hour_from: 0,
+  start_arrival_hour_to: 0,
+  end_departure_hour_from: 0,
+  end_departure_hour_to: 0,
+  end_arrival_hour_from: 0,
+  end_arrival_hour_to: 0,
+  limit: undefined,
+  offset: undefined,
+  sort: undefined,
 };
 
 const filterSlice = createSlice({
@@ -85,6 +107,12 @@ const filterSlice = createSlice({
     have_express: (state, action) => {
       state.have_express = action.payload;
     },
+    price_from: (state, action) => {
+      state.price_from = action.payload;
+    },
+    price_to: (state, action) => {
+      state.price_to = action.payload;
+    },
   },
 });
 
@@ -104,6 +132,9 @@ export const {
   have_wifi,
   have_air_conditioning,
   have_express,
+  price_from,
+  price_to,
+  start_departure_hour_from,
 } = filterSlice.actions;
 
 // По умолчанию экспортируется редьюсер, сгенерированный слайсом

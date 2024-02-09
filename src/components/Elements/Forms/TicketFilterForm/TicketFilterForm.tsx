@@ -89,7 +89,9 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                         ></CustomDatePickInput>
                         <CustomDatePickInput 
                         defaultDate={+(startOfDay(new Date(date_end)))}
-                        action={date_end_action}
+                        action={
+                            date_end_action
+                        }
                         ></CustomDatePickInput>
                     </InputsDate>
                 </InputsRow>

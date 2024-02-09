@@ -65,16 +65,16 @@ export const TicketIssueSideFilter = () => {
             <DatesBlockDateInputWrapper>
                 <DatesBlockDateLabel>Дата поездки</DatesBlockDateLabel>
                 <DatesBlockDateInput variant={VARIANTS.MEDIUM}
-                    defaultDate={+(startOfDay(new Date(date_start)))}
-                    action={date_start_action}
+                    defaultDate={date_start ? +(startOfDay(new Date(date_start))) + 86401 : +(startOfDay(new Date(date_start_arrival)))}
+                    action={date_start_arrival_action}
                 ></DatesBlockDateInput>
             </DatesBlockDateInputWrapper>
             <DatesBlockDateInputWrapper>
                 <DatesBlockDateLabel>Дата возвращения</DatesBlockDateLabel>
                 <DatesBlockDateInput
                     variant={VARIANTS.MEDIUM}
-                    defaultDate={+(startOfDay(new Date(date_end)))}
-                    action={date_end_action}
+                    defaultDate={date_end ? +(startOfDay(new Date(date_end))) + 86401 : +(startOfDay(new Date(date_end_arrival)))}
+                    action={date_end_arrival_action}
                 ></DatesBlockDateInput>
             </DatesBlockDateInputWrapper>
         </DatesBlock>
@@ -130,7 +130,13 @@ export const TicketIssueSideFilter = () => {
         </FiltersBlock>
         <PriceBlock>
             <PriceText>Стоимость</PriceText>
-            <CustomDoubleRangeInput minValue={7000} maxValue={140000} maxRangeSizeCoefficient={0.2} labels={{ min: "от", max: "до" }}></CustomDoubleRangeInput>
+            <CustomDoubleRangeInput 
+            minValue={7000} 
+            maxValue={140000} 
+            maxRangeSizeCoefficient={0.2} 
+            labels={{ min: "от", max: "до" }}
+            action={}
+            ></CustomDoubleRangeInput>
         </PriceBlock>
         <DirectionBlock>
             <DirectionHeader>
