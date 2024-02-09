@@ -19,7 +19,11 @@ interface Props extends React.PropsWithChildren {
     variant: VARIANTS,
 }
 
+<<<<<<< HEAD:src/components/Elements/Inputs/DatePickInput.tsx
 export const DatePickInput : React.FC<Props> = ({placeholder = "ДД/ММ/ГГ", variant, defaultDate, action} : {placeholder?: string, variant?: VARIANTS, defaultDate?: number}) => {
+=======
+export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, defaultDate, action} : {placeholder?: string, variant?: VARIANTS, defaultDate?: number, action?: any}) => {
+>>>>>>> ubuntu:src/components/Elements/Inputs/CustomDatePickInput.tsx
     const [visible, setVisible] = useState(false);
     const [inputValue, setInputValue] = useState();
     const dispatch = useDispatch();

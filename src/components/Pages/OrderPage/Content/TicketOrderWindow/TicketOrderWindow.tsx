@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
 import { ProgressBar } from './ProgressBar/ProgressBar'
+<<<<<<< HEAD:src/components/Pages/OrderPage/Content/TicketOrderWindow/TicketOrderWindow.tsx
 import { SideFilter } from './SideFilter/SideFilter';
+=======
+import { TicketIssueSideFilter } from "./SideFilter/TicketIssueSideFilter";
+>>>>>>> ubuntu:src/components/Content/OrderTicket/Content/TicketOrderWindow/TicketOrderWindow.tsx
 import { LastTickets } from './LastTickets/LastTickets';
 
 const TicketOrderWindowContainer = styled.section`
