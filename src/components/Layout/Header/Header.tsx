@@ -21,7 +21,11 @@ const Header = () => {
   }, []);
 
   return (
-    <HeaderContainer $scrolled={scrolled}>
+    <HeaderContainer $scrolled={scrolled}
+    style={{
+      "opacity": location.pathname !== "/" && scrolled ? "0" : "1"
+    }}
+    >
       <HeaderLogo>Лого</HeaderLogo>
       <HeaderMenuContainer>
         <HeaderMenu>

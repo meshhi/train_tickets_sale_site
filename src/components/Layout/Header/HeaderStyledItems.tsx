@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div<{ $scrolled?: boolean; }>`
   width: 100%;
   height: 158px;
   top: ${props => props.$scrolled ? "-64px" : "0px"};
-  transition: top .3s linear;
+  transition: top .3s linear, opacity .5s ease-in-out;
   display: flex;
   flex-direction: column;
   justify-content: center;

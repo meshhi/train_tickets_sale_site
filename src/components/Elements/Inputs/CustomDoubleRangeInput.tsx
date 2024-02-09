@@ -170,10 +170,18 @@ type CustomDoubleRangeInputProps = {
     },
     $height?: string | number,
     mainLabel?: string,
-    textAlign?: string
+    textAlign?: string,
+    values: {
+        from: string | number,
+        to: string | number,
+    },
+    actions: {
+        from: any,
+        to: any,
+    }
 }
 
-export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoefficient, valueFormatter, labels, $height, mainLabel, textAlign }: CustomDoubleRangeInputProps): React.JSX.Element => {
+export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoefficient, valueFormatter, labels, $height, mainLabel, textAlign, values, actions }: CustomDoubleRangeInputProps): React.JSX.Element => {
     const [zeroOffset, setZeroOffset] = useState<number>(minValue);
     const [min, setMin] = useState<number>(minValue - zeroOffset);
     const [max, setMax] = useState<number>(maxValue - zeroOffset);

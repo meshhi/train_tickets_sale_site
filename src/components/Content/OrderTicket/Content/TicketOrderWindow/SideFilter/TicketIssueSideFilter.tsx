@@ -27,8 +27,19 @@ import {
     have_wifi as have_wifi_action, 
     have_air_conditioning as have_air_conditioning_action, 
     have_express as have_express_action,
-
-
+    price_from as price_from_action,
+    price_to as price_to_action,
+    start_departure_hour_from as start_departure_hour_from_action,
+    start_departure_hour_to as start_departure_hour_to_action,
+    start_arrival_hour_from as start_arrival_hour_from_action,
+    start_arrival_hour_to as start_arrival_hour_to_action,
+    end_departure_hour_from as end_departure_hour_from_action,
+    end_departure_hour_to as end_departure_hour_to_action,
+    end_arrival_hour_from as end_arrival_hour_from_action,
+    end_arrival_hour_to as end_arrival_hour_to_action,
+    limit as limit_action,
+    offset as offset_action,
+    sort as sort_action,
 } from '/src/store/slices/filterSlice.ts';
 import { startOfDay } from "date-fns";
 
@@ -47,7 +58,20 @@ export const TicketIssueSideFilter = () => {
         have_fourth_class,
         have_wifi,
         have_air_conditioning,
-        have_express
+        have_express,
+        price_from,
+        price_to,
+        start_departure_hour_from,
+        start_departure_hour_to,
+        start_arrival_hour_from,
+        start_arrival_hour_to,
+        end_departure_hour_from,
+        end_departure_hour_to,
+        end_arrival_hour_from,
+        end_arrival_hour_to,
+        limit,
+        offset,
+        sort,
     } = useSelector(state => {
         return (state.filter);
     });
@@ -135,7 +159,18 @@ export const TicketIssueSideFilter = () => {
             maxValue={140000} 
             maxRangeSizeCoefficient={0.2} 
             labels={{ min: "от", max: "до" }}
-            action={}
+            values={
+                {
+                    from: price_from,
+                    to: price_to
+                }
+            }
+            actions={
+                {
+                    from: price_from_action,
+                    to: price_to_action
+                }
+            }
             ></CustomDoubleRangeInput>
         </PriceBlock>
         <DirectionBlock>
@@ -158,11 +193,35 @@ export const TicketIssueSideFilter = () => {
                 <CustomDoubleRangeInput
                     minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время отбытия'
+                    values={
+                        {
+                            from: start_departure_hour_from,
+                            to: start_departure_hour_to
+                        }
+                    }
+                    actions={
+                        {
+                            from: start_departure_hour_from_action,
+                            to: start_departure_hour_to_action
+                        }
+                    }
                 ></CustomDoubleRangeInput>
                 <CustomDoubleRangeInput
                     minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время прибытия'
                     textAlign='end'
+                    values={
+                        {
+                            from: start_arrival_hour_from,
+                            to: start_arrival_hour_to
+                        }
+                    }
+                    actions={
+                        {
+                            from: start_arrival_hour_from_action,
+                            to: start_arrival_hour_to_action
+                        }
+                    }
                 ></CustomDoubleRangeInput>
             </DirectionBody>
         </DirectionBlock>
@@ -186,10 +245,34 @@ export const TicketIssueSideFilter = () => {
                 <CustomDoubleRangeInput
                     minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время отбытия'
+                    values={
+                        {
+                            from: end_departure_hour_from,
+                            to: end_departure_hour_to
+                        }
+                    }
+                    actions={
+                        {
+                            from: end_departure_hour_from_action,
+                            to: end_departure_hour_to_action
+                        }
+                    }
                 ></CustomDoubleRangeInput>
                 <CustomDoubleRangeInput minValue={0} maxValue={24} maxRangeSizeCoefficient={Math.round(1 / 24)} valueFormatter={DateValueFormatter} $height={10}
                     mainLabel='Время прибытия'
                     textAlign='end'
+                    values={
+                        {
+                            from: end_arrival_hour_from,
+                            to: end_arrival_hour_to
+                        }
+                    }
+                    actions={
+                        {
+                            from: end_arrival_hour_from_action,
+                            to: end_arrival_hour_to_action
+                        }
+                    }
                 ></CustomDoubleRangeInput>
             </DirectionBody>
         </DirectionBlock>

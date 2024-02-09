@@ -113,6 +113,39 @@ const filterSlice = createSlice({
     price_to: (state, action) => {
       state.price_to = action.payload;
     },
+    start_departure_hour_from: (state, action) => {
+      state.start_departure_hour_from = action.payload;
+    },
+    start_departure_hour_to: (state, action) => {
+      state.start_departure_hour_to = action.payload;
+    },
+    start_arrival_hour_from: (state, action) => {
+      state.start_arrival_hour_from = action.payload;
+    },
+    start_arrival_hour_to: (state, action) => {
+      state.start_arrival_hour_to = action.payload;
+    },
+    end_departure_hour_from: (state, action) => {
+      state.end_departure_hour_from = action.payload;
+    },
+    end_departure_hour_to: (state, action) => {
+      state.end_departure_hour_to = action.payload;
+    },
+    end_arrival_hour_from: (state, action) => {
+      state.end_arrival_hour_from = action.payload;
+    },
+    end_arrival_hour_to: (state, action) => {
+      state.end_arrival_hour_to = action.payload;
+    },
+    limit: (state, action) => {
+      state.limit = action.payload;
+    },
+    offset: (state, action) => {
+      state.offset = action.payload;
+    },
+    sort: (state, action) => {
+      state.sort = action.payload;
+    },
   },
 });
 
@@ -135,6 +168,16 @@ export const {
   price_from,
   price_to,
   start_departure_hour_from,
+  start_departure_hour_to,
+  start_arrival_hour_from,
+  start_arrival_hour_to,
+  end_departure_hour_from,
+  end_departure_hour_to,
+  end_arrival_hour_from,
+  end_arrival_hour_to,
+  limit,
+  offset,
+  sort,
 } = filterSlice.actions;
 
 // По умолчанию экспортируется редьюсер, сгенерированный слайсом
