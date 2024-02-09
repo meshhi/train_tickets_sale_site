@@ -10,8 +10,6 @@ import { directionApi } from './services/direction'
 // local states
 import filterReducer from './slices/filterSlice'
 
-
-
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice

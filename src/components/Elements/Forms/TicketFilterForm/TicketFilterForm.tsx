@@ -78,8 +78,6 @@ export const TicketFilterForm = ({ variant }: TicketFilterFormProps): React.JSX.
                             action={from_city_action}
                             defaultValue={from_city.name}
                         ></CustomDebouncedDropdownInput>
-
-
                     </InputsPlace>
                 </InputsRow>
                 <InputsRow>

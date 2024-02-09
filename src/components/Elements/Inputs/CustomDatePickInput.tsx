@@ -19,7 +19,7 @@ export enum VARIANTS {
     BIG
 }
 
-export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, defaultDate, action} : {placeholder?: string, variant?: VARIANTS, defaultDate?: number}) => {
+export const CustomDatePickInput = ({placeholder = "ДД/ММ/ГГ", variant, defaultDate, action} : {placeholder?: string, variant?: VARIANTS, defaultDate?: number, action?: any}) => {
     const [visible, setVisible] = useState(false);
     const [inputValue, setInputValue] = useState();
     const dispatch = useDispatch();

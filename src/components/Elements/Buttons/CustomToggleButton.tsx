@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 const CustomToggleButtonContainer = styled.div<{$active?: boolean}>`
@@ -52,15 +53,20 @@ const CustomToggleButtonRound = styled.div`
 `
 
 
-export const CustomToggleButton = () => {
-
-  const [isActive, setActive] = useState(false);
+export const CustomToggleButton = ({currentValue, action}) => {
+    const dispatch = useDispatch();
+    const [isActive, setActive] = useState(currentValue);
 
     return(
     <CustomToggleButtonContainer $active={isActive}>
         <CustomToggleButtonRound className="round" ></CustomToggleButtonRound>
         <CustomToggleButtonLine className="line"></CustomToggleButtonLine>
-        <CustomToggleButtonInput type="checkbox" onClick={() => setActive(prev => !prev)}/>
+        <CustomToggleButtonInput 
+        type="checkbox" 
+        onClick={(e) => {
+          setActive(!isActive);
+          dispatch(action(isActive))
+        }}/>
     </CustomToggleButtonContainer>
   )
 }
