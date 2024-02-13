@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import debounce from "lodash/debounce";
 
 const InputContainer = styled.div<{$height?: string | number}>`
     width: 100%;
@@ -182,14 +184,22 @@ type CustomDoubleRangeInputProps = {
 }
 
 export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoefficient, valueFormatter, labels, $height, mainLabel, textAlign, values, actions }: CustomDoubleRangeInputProps): React.JSX.Element => {
+    // default
     const [zeroOffset, setZeroOffset] = useState<number>(minValue);
     const [min, setMin] = useState<number>(minValue - zeroOffset);
     const [max, setMax] = useState<number>(maxValue - zeroOffset);
-    const [start, setStart] = useState(min);
-    const [end, setEnd] = useState(max);
+    // const [start, setStart] = useState(min);
+    // const [end, setEnd] = useState(max);
+
+    // from redux
+    const [start, setStart] = useState(Number(values.from ? values.from : min));
+    const [end, setEnd] = useState(Number(values.to ? values.to : max));
 
     const [$left, set$left] = useState(0);
     const [$right, set$right] = useState(0);
+
+    const dispatch = useDispatch();
+    const delayedDispatch = useCallback(debounce(dispatch, 1000), []);
 
     const handleStartRangeChange = (e) => {
         const currentValue = Number(e.target.value);
@@ -202,6 +212,7 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
 
         set$left(resultOffset);
         setStart(currentValue);
+        delayedDispatch(actions.from(currentValue));
     }
 
     const handleEndRangeChange = (e) => {
@@ -214,7 +225,18 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
         const resultOffset = 100 - (percent * currentValue);
         set$right(resultOffset);
         setEnd(currentValue);
+        delayedDispatch(actions.to(currentValue));
     }
+
+    useEffect(() => {
+        const percentStart = 100 / max;
+        const resultOffsetStart = percentStart * start;
+        set$left(resultOffsetStart);
+
+        const percentEnd = 100 / max;
+        const resultOffsetEnd = 100 - (percentEnd * end);
+        set$right(resultOffsetEnd);
+    }, [])
 
     return (
         <ComponentContainer>

@@ -8,7 +8,8 @@ export const useFetchMainFilter = () => {
     
     const url = new URL('https://students.netoservices.ru/fe-diplom/routes')
     const filter = useSelector(state => state.filter);
-    const filterParams = {
+
+    let filterParamsBase = {
         from_city_id: filter.from_city._id,
         to_city_id: filter.to_city._id,
         date_start: filter.date_start ? format(new Date(filter.date_start), "yyyy-MM-dd") : null,
@@ -23,6 +24,16 @@ export const useFetchMainFilter = () => {
         have_air_conditioning: filter.have_air_conditioning,
         have_express: filter.have_express,
     }
+
+    const filterParams = {}
+    for (let key in filterParamsBase) {
+        if (filterParamsBase[key] !== null && filterParamsBase[key] !== undefined) {
+            filterParams[key] = filterParamsBase[key];
+        }
+    }
+
+    console.log(filterParams)
+
     url.search = new URLSearchParams(filterParams).toString();
 
     useEffect(() => {

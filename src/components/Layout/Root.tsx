@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const Root = () => {
-  const state = useSelector(state => state);
+  // const state = useSelector(state => state);
   
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log(state);
+  // }, [state]);
 
   return (
     <>

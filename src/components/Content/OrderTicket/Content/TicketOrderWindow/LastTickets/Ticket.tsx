@@ -76,7 +76,6 @@ type TicketProps = {
 }
 
 export const Ticket = ({ fromCity, fromRailway, toCity, toRailway, minPrice }: TicketProps) => {
-    console.log(fromCity, fromRailway, toCity, toRailway, minPrice);
     return (
         <TicketContainer>
             <Directions>
