@@ -188,8 +188,6 @@ export const CustomDoubleRangeInput = ({ minValue, maxValue, maxRangeSizeCoeffic
     const [zeroOffset, setZeroOffset] = useState<number>(minValue);
     const [min, setMin] = useState<number>(minValue - zeroOffset);
     const [max, setMax] = useState<number>(maxValue - zeroOffset);
-    // const [start, setStart] = useState(min);
-    // const [end, setEnd] = useState(max);
 
     // from redux
     const [start, setStart] = useState(Number(values.from ? values.from : min));

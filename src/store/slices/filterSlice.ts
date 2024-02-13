@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { unstable_usePrompt } from 'react-router-dom';
 
-type InitialStateType = {
+export type InitialStateType = {
   from_city?: {
     _id?: string,
     name?: string,

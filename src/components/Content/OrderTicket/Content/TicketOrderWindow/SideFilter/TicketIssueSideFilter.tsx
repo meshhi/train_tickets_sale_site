@@ -107,7 +107,7 @@ export const TicketIssueSideFilter = () => {
                 <FilterItemIcon $srcImg={coupe} $width={17} $height={17}></FilterItemIcon>
                 <FiltersItemText>Купе</FiltersItemText>
                 <FilterItemToggleButton
-                    currentvalue={have_second_class}
+                    currentValue={have_second_class}
                     action={have_second_class_action}
                 ></FilterItemToggleButton>
             </FiltersItem>
@@ -115,7 +115,7 @@ export const TicketIssueSideFilter = () => {
                 <FilterItemIcon $srcImg={platzcart} $width={17} $height={17}></FilterItemIcon>
                 <FiltersItemText>Плацкарт</FiltersItemText>
                 <FilterItemToggleButton
-                    currentvalue={have_third_class}
+                    currentValue={have_third_class}
                     action={have_third_class_action}
                 ></FilterItemToggleButton>
             </FiltersItem>
@@ -123,7 +123,7 @@ export const TicketIssueSideFilter = () => {
                 <FilterItemIcon $srcImg={sit} $width={17} $height={17}></FilterItemIcon>
                 <FiltersItemText>Сидячий</FiltersItemText>
                 <FilterItemToggleButton
-                    currentvalue={have_fourth_class}
+                    currentValue={have_fourth_class}
                     action={have_fourth_class_action}
                 ></FilterItemToggleButton>
             </FiltersItem>
@@ -131,7 +131,7 @@ export const TicketIssueSideFilter = () => {
                 <FilterItemIcon $srcImg={lux} $width={17} $height={17}></FilterItemIcon>
                 <FiltersItemText>Люкс</FiltersItemText>
                 <FilterItemToggleButton
-                    currentvalue={have_first_class}
+                    currentValue={have_first_class}
                     action={have_first_class_action}
                 ></FilterItemToggleButton>
             </FiltersItem>
@@ -139,7 +139,7 @@ export const TicketIssueSideFilter = () => {
                 <FilterItemIcon $srcImg={wifi} $width={17} $height={17}></FilterItemIcon>
                 <FiltersItemText>Wi-Fi</FiltersItemText>
                 <FilterItemToggleButton
-                    currentvalue={have_wifi}
+                    currentValue={have_wifi}
                     action={have_wifi_action}
                 ></FilterItemToggleButton>
             </FiltersItem>
@@ -147,7 +147,7 @@ export const TicketIssueSideFilter = () => {
                 <FilterItemIcon $srcImg={rocket} $width={17} $height={17}></FilterItemIcon>
                 <FiltersItemText>Экспресс</FiltersItemText>
                 <FilterItemToggleButton
-                    currentvalue={have_express}
+                    currentValue={have_express}
                     action={have_express_action}
                 ></FilterItemToggleButton>
             </FiltersItem>
@@ -155,9 +155,9 @@ export const TicketIssueSideFilter = () => {
         <PriceBlock>
             <PriceText>Стоимость</PriceText>
             <CustomDoubleRangeInput 
-            minValue={7000} 
-            maxValue={140000} 
-            maxRangeSizeCoefficient={0.2} 
+            minValue={0}
+            maxValue={50000} 
+            maxRangeSizeCoefficient={0.1} 
             labels={{ min: "от", max: "до" }}
             values={
                 {

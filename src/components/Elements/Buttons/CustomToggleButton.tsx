@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import debounce from "lodash/debounce";
 
 const CustomToggleButtonContainer = styled.div<{$active?: boolean}>`
   min-width: 72px;
@@ -55,18 +56,23 @@ const CustomToggleButtonRound = styled.div`
 
 export const CustomToggleButton = ({currentValue, action}) => {
     const dispatch = useDispatch();
-    const [isActive, setActive] = useState(currentValue);
+    const delayedDispatch = useCallback(debounce(dispatch, 1000), []);
+    const [isActive, setActive] = useState(currentValue !== undefined ? currentValue : false);
 
     return(
-    <CustomToggleButtonContainer $active={isActive}>
-        <CustomToggleButtonRound className="round" ></CustomToggleButtonRound>
-        <CustomToggleButtonLine className="line"></CustomToggleButtonLine>
-        <CustomToggleButtonInput 
-        type="checkbox" 
-        onClick={(e) => {
-          setActive(!isActive);
-          dispatch(action(isActive))
-        }}/>
-    </CustomToggleButtonContainer>
+      <>
+        <CustomToggleButtonContainer $active={isActive}>
+            <CustomToggleButtonRound className="round" ></CustomToggleButtonRound>
+            <CustomToggleButtonLine className="line"></CustomToggleButtonLine>
+            <CustomToggleButtonInput 
+            type="checkbox"
+            checked={isActive}
+            onClick={() => {
+              
+              delayedDispatch(action(!isActive === false ? undefined : !isActive))
+              setActive(!isActive);
+            }}/>
+        </CustomToggleButtonContainer>
+      </>
   )
 }

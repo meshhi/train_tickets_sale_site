@@ -8,6 +8,8 @@ export const useFetchMainFilter = () => {
     
     const url = new URL('https://students.netoservices.ru/fe-diplom/routes')
     const filter = useSelector(state => state.filter);
+    // console.log("FILTER STATE: ")
+    // console.log(filter)
 
     let filterParamsBase = {
         from_city_id: filter.from_city._id,
@@ -23,6 +25,19 @@ export const useFetchMainFilter = () => {
         have_wifi: filter.have_wifi,
         have_air_conditioning: filter.have_air_conditioning,
         have_express: filter.have_express,
+        price_from: filter.price_from,
+        price_to: filter.price_to,
+        start_departure_hour_from: filter.start_departure_hour_from,
+        start_departure_hour_to: filter.start_departure_hour_to,
+        start_arrival_hour_from: filter.start_arrival_hour_from,
+        start_arrival_hour_to: filter.start_arrival_hour_to,
+        end_departure_hour_from: filter.end_departure_hour_from,
+        end_departure_hour_to: filter.end_departure_hour_to,
+        end_arrival_hour_from: filter.end_arrival_hour_from,
+        end_arrival_hour_to: filter.end_arrival_hour_to,
+        limit: filter.limit,
+        offset: filter.offset,
+        sort: filter.sort,
     }
 
     const filterParams = {}
@@ -32,6 +47,8 @@ export const useFetchMainFilter = () => {
         }
     }
 
+
+    console.log("FILTER PARAMS: ")
     console.log(filterParams)
 
     url.search = new URLSearchParams(filterParams).toString();

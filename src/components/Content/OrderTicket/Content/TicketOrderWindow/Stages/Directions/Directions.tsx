@@ -32,7 +32,8 @@ const Directions = () => {
   const { data, error, loading } = useFetchMainFilter();
   
   useEffect(() => {
-    console.log(error)
+    // console.log(error)
+    // console.log(data)
   }, [loading])
 
   return (
@@ -48,7 +49,7 @@ const Directions = () => {
           </FilterBlockSorts>
         </FilterBlock>
         <DirectionsList>
-          {data?.items?.map(direction => <Direction direction={direction}>{direction.toString()}</Direction>)}
+          {data?.items?.map(direction => <Direction key={direction.departure._id + direction.departure.from.datetime} direction={direction}>{direction.toString()}</Direction>)}
         </DirectionsList>
       </DirectionsContainer>
     </>
