@@ -77,6 +77,9 @@ const Directions = () => {
     if (!sort) {
       dispatch(sort_action(sortArray[0].value))
     }
+    if (!offset) {
+      dispatch(offset_action(0))
+    }
   }, [])
 
   return (
@@ -86,13 +89,12 @@ const Directions = () => {
           <FilterBlockSorts>
             <div>Сортировать по <DropdownList items={sortArray} currentValue={sort} action={sort_action}></DropdownList></div>
             <div>Показывать по {
-            showArray.map((item) => {
-              return <ShowNumber
-              $active={item === limit}
-              onClick={() => dispatch(limit_action(item))}
-              >{item}</ShowNumber>
-            })
-            
+              showArray.map((item) => {
+                return <ShowNumber
+                $active={item === limit}
+                onClick={() => dispatch(limit_action(item))}
+                >{item}</ShowNumber>
+              })
             }
             </div>
           </FilterBlockSorts>
