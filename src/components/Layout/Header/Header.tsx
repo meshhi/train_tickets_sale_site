@@ -23,7 +23,8 @@ const Header = () => {
   return (
     <HeaderContainer $scrolled={scrolled}
     style={{
-      "opacity": location.pathname !== "/" && scrolled ? "0" : "1"
+      "opacity": location.pathname !== "/" && scrolled ? "0" : "1",
+      "pointerEvents": location.pathname !== "/" && scrolled ? "none" : "auto",
     }}
     >
       <HeaderLogo>Лого</HeaderLogo>

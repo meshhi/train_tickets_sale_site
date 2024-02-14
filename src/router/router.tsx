@@ -1,5 +1,6 @@
 import {
     createBrowserRouter,
+    createMemoryRouter,
     RouterProvider,
   } from "react-router-dom";
 import Root from "../components/Layout/Root";
@@ -12,7 +13,7 @@ import Payment from "../components/Content/OrderTicket/Content/TicketOrderWindow
 import Check from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Check/Check";
 import OrderCompleted from "../components/Content/OrderCompleted/OrderCompleted";
 
-export default createBrowserRouter([
+export default createMemoryRouter([
     {
       path: "/",
       element: <Root />,

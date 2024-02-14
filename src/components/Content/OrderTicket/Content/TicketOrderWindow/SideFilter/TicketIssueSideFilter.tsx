@@ -37,9 +37,6 @@ import {
     end_departure_hour_to as end_departure_hour_to_action,
     end_arrival_hour_from as end_arrival_hour_from_action,
     end_arrival_hour_to as end_arrival_hour_to_action,
-    limit as limit_action,
-    offset as offset_action,
-    sort as sort_action,
 } from '/src/store/slices/filterSlice.ts';
 import { startOfDay } from "date-fns";
 
@@ -69,9 +66,6 @@ export const TicketIssueSideFilter = () => {
         end_departure_hour_to,
         end_arrival_hour_from,
         end_arrival_hour_to,
-        limit,
-        offset,
-        sort,
     } = useSelector(state => {
         return (state.filter);
     });
