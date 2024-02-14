@@ -104,7 +104,12 @@ const Directions = () => {
           {data?.items?.map(direction => <Direction key={direction.departure._id + direction.departure.from.datetime} direction={direction}>{direction.toString()}</Direction>)}
         </DirectionsList>
       </DirectionsContainer>
-      <Pagination></Pagination>
+      <Pagination
+      totalCount={data?.total_count}
+      offset={offset}
+      limit={limit}
+      action={offset_action}
+      ></Pagination>
     </>
   )
 }
