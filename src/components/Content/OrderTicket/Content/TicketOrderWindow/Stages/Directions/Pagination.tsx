@@ -13,14 +13,22 @@ const PaginationContainer = styled.div`
 const PaginationItem = styled.div<{$active: boolean}>`
     width: 85px;
     height: 75px;
-    background-color: ${props => props.$active ? "red" : "transparent"};
-    border: 1px solid orange;
+    background-color: ${props => props.$active ? "#ffa800" : "transparent"};
+    color: ${props => props.$active ? "white" : "#928f94"};
+    border: 3px solid ${props => props.$active ? "orange" : "#928f94"};
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
+
+    cursor: pointer;
+
+    &:hover {
+        border: 3px solid orange;
+        color: ${props => props.$active ? "white" : "orange"};
+    }
 
     &.active {
 

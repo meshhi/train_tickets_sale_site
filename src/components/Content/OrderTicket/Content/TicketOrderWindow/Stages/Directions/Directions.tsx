@@ -44,6 +44,7 @@ const DirectionsList = styled.ul`
 
 const ShowNumber = styled.span<{$active: boolean}>`
   font-weight: ${props => props.$active ? 500 : 300};
+  color: ${props => props.$active ? "black" : "inherit"};
   margin-right: 5px;
   cursor: pointer;
 
