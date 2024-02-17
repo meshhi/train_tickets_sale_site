@@ -35,9 +35,10 @@ interface Props extends PropsWithChildren {
 }
 
 export const Pagination : FC<Props> = ({totalCount = 0, offset = 0, limit = 5, action}) => {
-    const [maxPagination, setMaxPagination] = useState<number>(10);
+    const [maxPagination, setMaxPagination] = useState<number>(3);
     const [pagesList, setPagesList] = useState<number[]>();
     const [currentPage, setCurrentPage] = useState<number>();
+    const [currentPagesList, setcurrentPagesList] = useState<number[]>();
     const [totalPages, setTotalPages] = useState<number>();
     const dispatch = useDispatch();
 
@@ -58,7 +59,11 @@ export const Pagination : FC<Props> = ({totalCount = 0, offset = 0, limit = 5, a
             pagesListArray = [...(pagesListArray.slice(0, middleIndex)), ["..."], ...(pagesListArray.slice(pagesListArray.length + 1 - middleIndex, pagesListArray.length))];
             setPagesList(pagesListArray);
         }
-    }, [totalCount, limit, currentPage])
+    }, [totalCount, limit])
+
+    useLayoutEffect(() => {
+
+    }, [currentPage])
 
     useLayoutEffect(() => {
         console.log()

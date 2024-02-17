@@ -24,12 +24,16 @@ const FilterBlock = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 3rem;
+  font-weight: 400;
+  font-size: 18px;
+  color: #928f94;
 `
 
 const FilterBlockSorts = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 48px;
+
 `
 
 const DirectionsList = styled.ul`
