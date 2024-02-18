@@ -191,10 +191,79 @@ const Text = styled.p`
 `
 
 const SeatsPicker = styled.div`
+  display: none;
+  width: 100%;
+  min-height: 300px;
+  background-color: red;
+  transition: all 0.3s ease-out;
 
+  &.active {
+    display: flex;
+  }
 `
 
 const SeatsPickerInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
+const SeatsPickerInfoHeaderRow = styled.div`
+  width: 100%;
+  display: flex;
+  padding-inline: 2rem;
+  padding-block: 1rem;
+  justify-content: space-between; 
+  background: #ffd98f;
+`
+
+const SeatsPickerInfoWagonsList = styled.div`
+  width: 100%;
+  font-weight: 500;
+  font-size: 18px;
+  color: #2d2b2f;
+`
+
+const SeatsPickerInfoWagonsAddInfo = styled.p`
+  font-weight: 400;
+  font-size: 16px;
+  color: #292929;
+  min-width: 376px;
+`
+
+const SeatsPickerInfoContent = styled.div`
+  width: 100%;
+  display: flex;
+`
+
+const SeatsPickerInfoWagonNumber = styled.div`
+  flex: 1;
+  max-width: 191px;
+  min-height: 161px;
+  background: #ffd98f;
+  font-weight: 700;
+  font-size: 72px;
+  color: #292929;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 2rem;
+  gap: 5px;
+
+  & span {
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    color: #292929;
+  }
+`
+
+const SeatsPickerInfoSeats = styled.div`
+  padding: 1rem 2rem .5rem 2rem;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
 `
 
 const Wagon = styled.div`
@@ -345,8 +414,22 @@ const ChooseSeats = () => {
                 }
               </TrainTypeList>
             </TrainType>
-            <SeatsPicker>
-              <SeatsPickerInfo></SeatsPickerInfo>
+            <SeatsPicker className={activeTrainType ? "active" : false}>
+              <SeatsPickerInfo>
+                <SeatsPickerInfoHeaderRow>
+                  <SeatsPickerInfoWagonsList>Вагоны 07 09</SeatsPickerInfoWagonsList>
+                  <SeatsPickerInfoWagonsAddInfo>Нумерация вагонов начинается с головы поезда</SeatsPickerInfoWagonsAddInfo>
+                </SeatsPickerInfoHeaderRow>
+                <SeatsPickerInfoContent>
+                  <SeatsPickerInfoWagonNumber>
+                    07
+                    <span>вагон</span>
+                  </SeatsPickerInfoWagonNumber>
+                  <SeatsPickerInfoSeats>
+                    gag
+                  </SeatsPickerInfoSeats>
+                </SeatsPickerInfoContent>
+              </SeatsPickerInfo>
               <Wagon></Wagon>
             </SeatsPicker>
           </TicketPickContainer>
