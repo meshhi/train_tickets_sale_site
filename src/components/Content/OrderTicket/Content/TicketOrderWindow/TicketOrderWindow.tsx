@@ -27,7 +27,7 @@ const TicketIssueWindowSidebar = styled.div`
 
 export const TicketIssueWindowContent = styled.div`
   width: 100%;
-  max-width: 959px;
+  min-width: 959px;
 `
 
 const TicketOrderWindow = () => {

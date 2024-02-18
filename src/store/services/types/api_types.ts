@@ -3,6 +3,12 @@ export type CityType = {
     name: string;
 }
 
+export type PriceInfoType = {
+    bottom_price: number,
+    side_price: number,
+    top_price: number
+}
+
 export type DirectionType = {
     avaliable_seats: number,
     available_seats_info: {
@@ -11,7 +17,52 @@ export type DirectionType = {
         third?: number,
         fourth?: number,
     },
-    departure: {
+    departure?: {
+        _id: string,
+        avaliable_seats: number,
+        available_seats_info: {
+            first?: number,
+            second?: number,
+            third?: number,
+            fourth?: number,
+        },
+        duration: number,
+        from: {
+            railway_station_name: string,
+            datetime: number,
+            city: CityType
+        }
+        have_air_conditioning: boolean,
+        have_first_class: boolean,
+        have_second_class: boolean,
+        have_third_class: boolean,
+        have_fourth_class: boolean,
+        have_wifi: boolean,
+        is_express: boolean,
+        min_price: number,
+        price?: {
+            first?: number,
+            second?: number,
+            third?: number,
+            fourth?: number,
+        },
+        price_info?: {
+            first?: PriceInfoType,
+            second?: PriceInfoType,
+            third?: PriceInfoType,
+            fourth?: PriceInfoType,
+        },
+        to: {
+            railway_station_name: string,
+            datetime: number,
+            city: CityType
+        },
+        train: {
+            _id: string,
+            name: string,
+        }
+    },
+    arrival?: {
         _id: string,
         avaliable_seats: number,
         available_seats_info: {

@@ -1,6 +1,7 @@
 import {
     createBrowserRouter,
     createMemoryRouter,
+    createHashRouter,
     RouterProvider,
   } from "react-router-dom";
 import Root from "../components/Layout/Root";
