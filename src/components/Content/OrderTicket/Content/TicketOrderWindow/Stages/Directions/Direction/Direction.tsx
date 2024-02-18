@@ -10,6 +10,7 @@ import rocket from "/src/assets/png/last_tickets/rocket.png"
 import tea from "/src/assets/png/last_tickets/tea.png"
 import wifi from "/src/assets/png/last_tickets/wifi.png"
 import { useNavigate } from "react-router-dom"
+import { getDuration } from "../../../../../../../utils/utils"
 
 const DirectionContainer = styled.div`
     width: 100%;
@@ -51,13 +52,15 @@ const PlaceInfo = styled.div`
     padding-block: 30px;
 `
 
-export const IconCircle = styled.div`
+export const IconCircle = styled.div<{$color?: string, $width?: string, $height?: string}>`
     border-radius: 50%;
-    border: 3px solid white;
+    border: 3px solid ${props => props.$color ? props.$color : "white"};
     padding: 15px;
+    width: ${props => props.$width ? props.$width : "auto"};
+    height: ${props => props.$height ? props.$height : "auto"};
 `
 
-const TrainNumber = styled.div`
+export const TrainNumber = styled.div`
     font-weight: 700;
     font-size: 24px;
     text-align: center;
@@ -99,7 +102,7 @@ const DepartureInfoCityContainer = styled.div`
     font-size: 18px;
     color: #292929;
     text-transform: capitalize;
-    min-width: 120px;
+    min-width: 80px;
 `
 
 const DepartureInfoRailwayContainer = styled.div`
@@ -134,16 +137,10 @@ const DepartureInfoRoadTimeContainer = styled.div`
     }
 `
 
-export const DepartureInfoRoadTime = ({ time, reverse }) => {
-    const getDuration = (seconds) => {
-        const hours: number = Math.floor(seconds / 60 / 60);
-        const minutes: number = Math.ceil((time - (hours * 60 * 60)) / 60);
-        return `${hours}:${minutes}`
-    }
-
+export const DepartureInfoRoadTime = ({ time, reverse } : {time?: number, reverse?: boolean}) => {
     return (
         <DepartureInfoRoadTimeContainer>
-            <div className="time">{getDuration(time)}</div>
+            {time ? <div className="time">{getDuration(time)}</div> : false}
             <Icon
                 className={reverse ? "reverse" : false}
                 $srcImg={road_arrow}
@@ -239,7 +236,7 @@ const TipIcon = styled(Icon) <{ $active: boolean }>`
 `
 
 const Direction: React.FC<Props> = ({ children, direction }) => {
-    console.log(direction)
+    // console.log(direction)
     const navigate = useNavigate();
     return (
         <DirectionContainer>

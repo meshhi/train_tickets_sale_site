@@ -1,13 +1,14 @@
-import React, { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useGetSeatsQuery } from '../../../../../../../store/services/seats'
 import { LoadingScreen } from '../Directions/Directions'
-import { useSelector } from 'react-redux'
 import { BaseButton } from '../../../../../../Elements/Buttons/BaseButton'
-import { DepartureInfo, DepartureInfoRoadTime, IconCircle, TrainDirectionsList, TrainDirectionsListItem } from '../Directions/Direction/Direction'
+import { DepartureInfo, DepartureInfoRoadTime, IconCircle, TrainDirectionsList, TrainDirectionsListItem, TrainNumber } from '../Directions/Direction/Direction'
 import { Icon } from '../../../../../../Elements/Icons/Icon'
 import train_icon from "/src/assets/png/train_icon.png"
+import clock from "/src/assets/png/clock.png"
+import { getDuration } from '../../../../../../utils/utils'
 
 const ChooseSeatsContainer = styled.div`
   display: flex;
@@ -25,6 +26,13 @@ const Header = styled.h1`
   text-transform: uppercase;
   color: #292929;
   align-self: flex-start;
+`
+
+const HeaderInner = styled.h2`
+  font-weight: 700;
+  font-size: 30px;
+  color: #292929;
+  padding: 16px;
 `
 
 const PickTicketsContainer = styled.div`
@@ -52,12 +60,56 @@ const BackButtons = styled.div`
   padding-right: 16px;
 `
 
-const ChooseAnotherButton = styled(BaseButton)`
+const IconCircleContainer = styled.div`
 
 `
 
 const TrainInfo = styled.div`
+  display: flex;
+  background-color: var(--smooth-grey-2);
+  align-items: center;
+  justify-content: space-around;
+  min-height: 120px;
+`
 
+const StyledTrainDirectionsList = styled(TrainDirectionsList)`
+
+`
+
+const ClockInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
+const ClockText = styled.p`
+  display: flex;
+  flex-direction: column;
+`
+
+const TicketsCounters = styled.div`
+  display: flex;
+
+`
+
+const TicketsCountersList = styled.ul`
+  list-style-type: none;
+`
+
+const TicketsCountersItem = styled.li`
+  flex: 1;
+`
+
+const TrainType = styled.div`
+
+`
+
+const TrainTypeList = styled.ul`
+  list-style-type: none;
+`
+
+const TrainTypeListItem = styled.li`
+  flex: 1;
 `
 
 const ChooseSeats = () => {
@@ -76,8 +128,6 @@ const ChooseSeats = () => {
       {loading
       ? <LoadingScreen></LoadingScreen>
       : <PickTicketsContainer>
-          {/* <TicketPickContainer>
-          </TicketPickContainer> */}
           <TicketPickContainer>
             <BackButtons>
               <BaseButton
@@ -88,37 +138,72 @@ const ChooseSeats = () => {
                 Выбрать другой поезд
               </BaseButton>
             </BackButtons>
-
             <TrainInfo>
-              <TrainDirectionsList>
-                  <TrainDirectionsListItem>{state?.direction?.departure?.from?.city?.name}</TrainDirectionsListItem>
-                  <TrainDirectionsListItem style={{ "color": "black" }}>{state?.direction?.departure?.to?.city?.name}</TrainDirectionsListItem>
-              </TrainDirectionsList>
+                <IconCircleContainer>
+                    <IconCircle 
+                      $color="orange"
+                    >
+                        <Icon
+                            $srcImg={train_icon}
+                            $backgroundColor="orange"
+                            $width={15}
+                            $height={15}
+                        ></Icon>
+                    </IconCircle>
+                </IconCircleContainer>
+                  <StyledTrainDirectionsList>
+                    <TrainNumber>
+                        {state?.direction?.departure?.train?.name}
+                    </TrainNumber>
+                    <TrainDirectionsListItem>{state?.direction?.departure?.from?.city?.name}</TrainDirectionsListItem>
+                    <TrainDirectionsListItem style={{ "color": "black" }}>{state?.direction?.departure?.to?.city?.name}</TrainDirectionsListItem>
+                  </StyledTrainDirectionsList>
+                <DepartureInfo
+                    city={state?.direction?.departure?.to?.city?.name}
+                    time={state?.direction?.departure?.to?.datetime}
+                    railway={state?.direction?.departure?.to?.railway_station_name}
+                ></DepartureInfo>
+                <DepartureInfoRoadTime
+                    // time={state?.direction?.departure?.duration}
+                    reverse={true}
+                ></DepartureInfoRoadTime>
+                <DepartureInfo
+                    city={state?.direction?.departure?.from?.city?.name}
+                    time={state?.direction?.departure?.from?.datetime}
+                    railway={state?.direction?.departure?.from?.railway_station_name}
+                ></DepartureInfo>
+                <ClockInfo>
+                  <Icon
+                  $srcImg={clock}
+                  $backgroundColor='orange'
+                  $width={40}
+                  $height={40}
+                  ></Icon>
+                  <ClockText>
+                    <span>{getDuration(state?.direction?.departure?.duration).split(":")[0]} часов</span>
+                    <span>{getDuration(state?.direction?.departure?.duration).split(":")[1]} минут</span>
+                  </ClockText>
+                </ClockInfo>
+            </TrainInfo>
 
+            <TicketsCounters>
+              <HeaderInner>Количество билетов</HeaderInner>
+              <TicketsCountersList>
+                <TicketsCountersItem></TicketsCountersItem>
+                <TicketsCountersItem></TicketsCountersItem>
+                <TicketsCountersItem></TicketsCountersItem>
+              </TicketsCountersList>
+            </TicketsCounters>
 
-              <IconCircle>
-                    <Icon
-                        $srcImg={train_icon}
-                        $backgroundColor="white"
-                    ></Icon>
-                </IconCircle>
-              <DepartureInfo
-                  city={state?.direction?.departure?.to?.city?.name}
-                  time={state?.direction?.departure?.to?.datetime}
-                  railway={state?.direction?.departure?.to?.railway_station_name}
-              ></DepartureInfo>
-              <DepartureInfoRoadTime
-                  time={state?.direction?.departure?.duration}
-                  reverse={true}
-              ></DepartureInfoRoadTime>
-              <DepartureInfo
-                  city={state?.direction?.departure?.from?.city?.name}
-                  time={state?.direction?.departure?.from?.datetime}
-                  railway={state?.direction?.departure?.from?.railway_station_name}
-              ></DepartureInfo>
-
-              </TrainInfo>
-            
+            <TrainType>
+              <HeaderInner>Тип вагона</HeaderInner>
+              <TrainTypeList>
+                <TrainTypeListItem></TrainTypeListItem>
+                <TrainTypeListItem></TrainTypeListItem>
+                <TrainTypeListItem></TrainTypeListItem>
+                <TrainTypeListItem></TrainTypeListItem>
+              </TrainTypeList>
+            </TrainType>
           </TicketPickContainer>
         </PickTicketsContainer>
       }

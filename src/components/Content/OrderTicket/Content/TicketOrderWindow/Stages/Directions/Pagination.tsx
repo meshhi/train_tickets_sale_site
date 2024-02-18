@@ -51,11 +51,11 @@ export const Pagination : FC<Props> = ({totalCount = 0, offset = 0, limit = 5, a
     const dispatch = useDispatch();
 
     useLayoutEffect(() => {
-        console.log("totalCount" , totalCount)
-        console.log("offset" , offset)
-        console.log("limit" , limit)
-        console.log("pagesList", pagesList)
-        console.log("currentPage", currentPage)
+        // console.log("totalCount" , totalCount)
+        // console.log("offset" , offset)
+        // console.log("limit" , limit)
+        // console.log("pagesList", pagesList)
+        // console.log("currentPage", currentPage)
 
         const totalPagesCount = totalCount / limit;
         setTotalPages(totalPagesCount);
