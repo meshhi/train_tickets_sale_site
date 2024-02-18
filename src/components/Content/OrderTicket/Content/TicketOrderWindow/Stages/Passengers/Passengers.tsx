@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useGetSeatsQuery } from '../../../../../../../store/services/seats'
 import { LoadingScreen } from '../Directions/Directions'
@@ -42,7 +42,8 @@ const Passengers = () => {
   const params = useParams();
   const { state } = useLocation();
   const { data, error, loading } = useGetSeatsQuery(params.id);
-  const { data2, error2, loading2 } = useGetSeatsQuery(params.id);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(data)
@@ -55,10 +56,13 @@ const Passengers = () => {
       ? <LoadingScreen></LoadingScreen>
       : <PickTicketsContainer>
           <TicketPickContainer>
-            {data2.length}
           </TicketPickContainer>
           <TicketPickContainer>
-            {data.length}
+          <button
+          onClick={() => {
+            navigate(`/orderticket/directions/`)}
+          }
+          >back</button>
             {state.renderDepartureInfoProp}
           </TicketPickContainer>
         </PickTicketsContainer>

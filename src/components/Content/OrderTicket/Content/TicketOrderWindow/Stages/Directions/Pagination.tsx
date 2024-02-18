@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import styled from "styled-components"
 
 const PaginationContainer = styled.div`
-    margin-top: 1rem;
+    margin-top: 3rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -67,21 +67,25 @@ export const Pagination : FC<Props> = ({totalCount = 0, offset = 0, limit = 5, a
             pagesListArray = [...(pagesListArray.slice(0, middleIndex)), ["..."], ...(pagesListArray.slice(pagesListArray.length + 1 - middleIndex, pagesListArray.length))];
             setPagesList(pagesListArray);
         }
-    }, [totalCount, limit])
+    }, [totalCount, limit, currentPage, offset])
 
     useLayoutEffect(() => {
-
+        console.log(currentPage)
     }, [currentPage])
 
     useLayoutEffect(() => {
-        console.log()
+        console.log(
+            "SETTING CURRENT PAGE"
+        )
+        console.log(offset)
+        console.log(limit)
         setCurrentPage((offset / limit) + 1);
     }, [])
 
     const handlePageClick = (pageNumber) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber);
-            dispatch(action(pageNumber * limit));
+            dispatch(action((pageNumber - 1) * limit));
         }
     }
 

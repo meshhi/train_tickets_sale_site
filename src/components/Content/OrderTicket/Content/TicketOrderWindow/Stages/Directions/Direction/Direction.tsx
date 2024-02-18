@@ -12,7 +12,7 @@ import wifi from "/src/assets/png/last_tickets/wifi.png"
 import { useNavigate } from "react-router-dom"
 
 const DirectionContainer = styled.div`
-    width: 959px;
+    width: 100%;
     height: 354px;
     display: flex;
     border-radius: 1px;
@@ -51,7 +51,7 @@ const PlaceInfo = styled.div`
     padding-block: 30px;
 `
 
-const IconCircle = styled.div`
+export const IconCircle = styled.div`
     border-radius: 50%;
     border: 3px solid white;
     padding: 15px;
@@ -64,14 +64,14 @@ const TrainNumber = styled.div`
     color: #3e3c41;
 `
 
-const TrainDirectionsList = styled.ul`
+export const TrainDirectionsList = styled.ul`
     font-weight: 400;
     font-size: 16px;
     color: #928f94;
     list-style-type: none;
 `
 
-const TrainDirectionsListItem = styled.li`
+export const TrainDirectionsListItem = styled.li`
     text-transform: capitalize;
 `
 
@@ -109,7 +109,7 @@ const DepartureInfoRailwayContainer = styled.div`
     text-transform: capitalize;
 `
 
-const DepartureInfo = ({ city, time, railway }) =>
+export const DepartureInfo = ({ city, time, railway }) =>
     <DepartureInfoContainer>
         <DepartureInfoTimeContainer>{format(new Date(time * 1000), 'HH:mm')}</DepartureInfoTimeContainer>
         <DepartureInfoCityContainer>{city}</DepartureInfoCityContainer>
@@ -134,7 +134,7 @@ const DepartureInfoRoadTimeContainer = styled.div`
     }
 `
 
-const DepartureInfoRoadTime = ({ time, reverse }) => {
+export const DepartureInfoRoadTime = ({ time, reverse }) => {
     const getDuration = (seconds) => {
         const hours: number = Math.floor(seconds / 60 / 60);
         const minutes: number = Math.ceil((time - (hours * 60 * 60)) / 60);
@@ -387,26 +387,10 @@ const Direction: React.FC<Props> = ({ children, direction }) => {
                     </PlaceInfoConditions>
                     <ChoosePlaceButton
                         onClick={() => {
-                            navigate(`/orderticket/passengers/${direction?.departure?._id}`,
+                            navigate(`/orderticket/chooseseats/${direction?.departure?._id}`,
                                 { 
                                     state: {
-                                        renderDepartureInfoProp: <DepartureInfoRow>
-                                            <DepartureInfo
-                                                city={direction?.departure?.to?.city?.name}
-                                                time={direction?.departure?.to?.datetime}
-                                                railway={direction?.departure?.to?.railway_station_name}
-                                            ></DepartureInfo>
-                                            <DepartureInfoRoadTime
-                                                time={direction?.departure?.duration}
-                                                reverse={true}
-                                            ></DepartureInfoRoadTime>
-                                            <DepartureInfo
-                                                city={direction?.departure?.from?.city?.name}
-                                                time={direction?.departure?.from?.datetime}
-                                                railway={direction?.departure?.from?.railway_station_name}
-                                            ></DepartureInfo>
-                                        </DepartureInfoRow>,
-                                        renderArrivalInfoProp: <h1>arrival</h1>
+                                        direction
                                     }
                                 }
                             )

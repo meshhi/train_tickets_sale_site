@@ -13,6 +13,7 @@ import Directions from "../components/Content/OrderTicket/Content/TicketOrderWin
 import Payment from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Payment/Payment";
 import Check from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/Check/Check";
 import OrderCompleted from "../components/Content/OrderCompleted/OrderCompleted";
+import ChooseSeats from "../components/Content/OrderTicket/Content/TicketOrderWindow/Stages/ChooseSeats/ChooseSeats";
 
 export default createMemoryRouter([
     {
@@ -33,7 +34,11 @@ export default createMemoryRouter([
               element: <Directions />,
             },
             {
-              path: "passengers/:id",
+              path: "chooseseats/:id",
+              element: <ChooseSeats />,
+            },
+            {
+              path: "passengers",
               element: <Passengers />,
             },
             {

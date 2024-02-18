@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { ProgressBar } from './ProgressBar/ProgressBar'
 import { TicketIssueSideFilter } from "./SideFilter/TicketIssueSideFilter";
 import { LastTickets } from './LastTickets/LastTickets';
@@ -30,15 +30,29 @@ export const TicketIssueWindowContent = styled.div`
   min-width: 959px;
 `
 
+const TravelInfoSidebar = styled.div`
+
+`
+
 const TicketOrderWindow = () => {
-  
+  const location = useLocation();
   return (
     <TicketOrderWindowContainer>
       <ProgressBar></ProgressBar>
       <TicketIssueWindow>
         <TicketIssueWindowSidebar>
-          <TicketIssueSideFilter></TicketIssueSideFilter>
-          <LastTickets></LastTickets>
+          {
+            location.pathname.startsWith("/orderticket/directions") || location.pathname.startsWith("/orderticket/chooseseats")
+            ? <>
+                <TicketIssueSideFilter></TicketIssueSideFilter>
+                <LastTickets></LastTickets>
+              </>
+            : <TravelInfoSidebar>
+
+
+            </TravelInfoSidebar>
+          }
+          
         </TicketIssueWindowSidebar>
         <TicketIssueWindowContent>
           <Outlet></Outlet>

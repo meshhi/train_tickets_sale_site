@@ -18,18 +18,19 @@ export const ProgressBar = () => {
     const [actives, setActives] = useState([true, false, false, false])
     
     useEffect(() => {
-        if (location.pathname === "/orderticket/directions") {
+        if (location.pathname.startsWith("/orderticket/directions")) {
             setActives([true, false, false, false])
         }
-        if (location.pathname === "/orderticket/passengers") {
+        if (location.pathname.startsWith("/orderticket/passengers")) {
             setActives([true, true, false, false])
         }
-        if (location.pathname === "/orderticket/payment") {
+        if (location.pathname.startsWith("/orderticket/payment")) {
             setActives([true, true, true, false])
         }
-        if (location.pathname === "/orderticket/check") {
+        if (location.pathname.startsWith("/orderticket/check")) {
             setActives([true, true, true, true])
         }
+        console.log(location)
     }, [location])
     return(
         <ProgressBarContainer>
