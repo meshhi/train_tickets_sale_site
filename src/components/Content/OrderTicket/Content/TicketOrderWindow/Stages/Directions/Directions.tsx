@@ -61,6 +61,15 @@ const LoadingContainer = styled.div`
   background-color: var(--smooth-grey);
   border-radius: 5px;
 `
+
+export const LoadingScreen = () => {
+  return(
+    <LoadingContainer>
+      <Spinner></Spinner>
+    </LoadingContainer>
+  )
+}
+
 const showArray = [5, 10, 20];
 const sortArray = [
   {
@@ -114,10 +123,7 @@ const Directions = () => {
       </FilterBlock>
       <DirectionsContainer>
         {loading
-          ?
-          <LoadingContainer>
-            <Spinner></Spinner>
-          </LoadingContainer>
+          ? <LoadingScreen></LoadingScreen>
           :
           <DirectionsList>
             {data?.items?.map(direction => <Direction key={direction.departure._id + direction.departure.from.datetime} direction={direction}>{direction.toString()}</Direction>)}

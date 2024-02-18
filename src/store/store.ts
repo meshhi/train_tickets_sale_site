@@ -4,8 +4,8 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 
 // api queries
 import { cityApi } from './services/city'
-
 import { directionApi } from './services/direction'
+import { seatsApi } from './services/seats'
 
 // local states
 import filterReducer from './slices/filterSlice'
@@ -15,6 +15,7 @@ export const store = configureStore({
     // Add the generated reducer as a specific top-level slice
     [cityApi.reducerPath]: cityApi.reducer,
     [directionApi.reducerPath]: directionApi.reducer,
+    [seatsApi.reducerPath]: seatsApi.reducer,
     filter: filterReducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
@@ -22,7 +23,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(cityApi.middleware)
-      .concat(directionApi.middleware),
+      .concat(directionApi.middleware)
+      .concat(seatsApi.middleware)
+      ,
 })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

@@ -33,7 +33,7 @@ export default createMemoryRouter([
               element: <Directions />,
             },
             {
-              path: "passengers",
+              path: "passengers/:id",
               element: <Passengers />,
             },
             {

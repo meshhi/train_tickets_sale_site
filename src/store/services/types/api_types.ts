@@ -9,6 +9,33 @@ export type PriceInfoType = {
     top_price: number
 }
 
+type SeatInfo = {
+    index: number,
+    available: boolean
+}
+
+type CoachInfo = {
+    "_id": "65a7e30493154100421a1667",
+    "name": "СД-85",
+    "class_type": "fourth",
+    "have_wifi": true,
+    "have_air_conditioning": true,
+    "price": 0,
+    "top_price": 603,
+    "bottom_price": 738,
+    "side_price": 0,
+    "linens_price": 0,
+    "wifi_price": 281,
+    "is_linens_included": false,
+    "available_seats": 50,
+    "train": "65a7e30793154100421a1de6"
+}
+
+export type SeatsInfoType = {
+    coach: CoachInfo,
+    seats: SeatInfo[]
+}
+
 export type DirectionType = {
     avaliable_seats: number,
     available_seats_info: {

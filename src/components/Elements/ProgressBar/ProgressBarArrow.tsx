@@ -35,7 +35,7 @@ const ArrowPreBody = styled.div<{ $color?: string, $isActive?: boolean}>`
 `
 
 const ArrowHeadStyled = styled.div<{ $color?: string, $isActive?: boolean}>`
-    clip-path: polygon(100% 50%, 0 0, 0 100%);
+    clip-path: polygon(100% 50%, -1% 0, -1% 100%);
     background-color: ${props => props.$color ? `${props.$color}` : (props.$isActive ? "var(--orange)" : "var(--black)")};
     width: 100%;
     height: 100%;

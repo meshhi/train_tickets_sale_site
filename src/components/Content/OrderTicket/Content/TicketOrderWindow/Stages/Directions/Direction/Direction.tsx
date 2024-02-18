@@ -239,8 +239,8 @@ const TipIcon = styled(Icon) <{ $active: boolean }>`
 `
 
 const Direction: React.FC<Props> = ({ children, direction }) => {
+    console.log(direction)
     const navigate = useNavigate();
-
     return (
         <DirectionContainer>
             <TrainInfo>
@@ -386,9 +386,31 @@ const Direction: React.FC<Props> = ({ children, direction }) => {
                         ></TipIcon>
                     </PlaceInfoConditions>
                     <ChoosePlaceButton
-                    onClick={() => {
-                        navigate('/orderticket/passengers')
-                    }}
+                        onClick={() => {
+                            navigate(`/orderticket/passengers/${direction?.departure?._id}`,
+                                { 
+                                    state: {
+                                        renderDepartureInfoProp: <DepartureInfoRow>
+                                            <DepartureInfo
+                                                city={direction?.departure?.to?.city?.name}
+                                                time={direction?.departure?.to?.datetime}
+                                                railway={direction?.departure?.to?.railway_station_name}
+                                            ></DepartureInfo>
+                                            <DepartureInfoRoadTime
+                                                time={direction?.departure?.duration}
+                                                reverse={true}
+                                            ></DepartureInfoRoadTime>
+                                            <DepartureInfo
+                                                city={direction?.departure?.from?.city?.name}
+                                                time={direction?.departure?.from?.datetime}
+                                                railway={direction?.departure?.from?.railway_station_name}
+                                            ></DepartureInfo>
+                                        </DepartureInfoRow>,
+                                        renderArrivalInfoProp: <h1>arrival</h1>
+                                    }
+                                }
+                            )
+                        }}
                     >Выбрать места</ChoosePlaceButton>
                 </PlaceInfoBottom>
             </PlaceInfo>

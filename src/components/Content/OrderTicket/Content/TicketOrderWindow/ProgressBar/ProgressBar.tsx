@@ -30,7 +30,6 @@ export const ProgressBar = () => {
         if (location.pathname === "/orderticket/check") {
             setActives([true, true, true, true])
         }
-        
     }, [location])
     return(
         <ProgressBarContainer>
