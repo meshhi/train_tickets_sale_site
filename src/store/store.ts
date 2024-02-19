@@ -9,6 +9,7 @@ import { seatsApi } from './services/seats'
 
 // local states
 import filterReducer from './slices/filterSlice'
+import currentOrderReducer from './slices/currentOrderSlice'
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     [directionApi.reducerPath]: directionApi.reducer,
     [seatsApi.reducerPath]: seatsApi.reducer,
     filter: filterReducer,
+    currentOrder: currentOrderReducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

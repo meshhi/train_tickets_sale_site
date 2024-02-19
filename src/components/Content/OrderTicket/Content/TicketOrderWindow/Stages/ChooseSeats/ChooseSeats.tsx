@@ -14,7 +14,9 @@ import sit from '/src/assets/svg/train_filters/sit.svg'
 import lux from '/src/assets/svg/train_filters/lux.svg'
 import platzcart from '/src/assets/svg/train_filters/platzcart.svg'
 import coupe from '/src/assets/svg/train_filters/coupe.svg'
-import { SeatsInfoType } from '../../../../../../../store/services/types/api_types'
+import { SeatInfoType } from '../../../../../../../store/services/types/api_types'
+import { direction as direction_action } from '../../../../../../../store/slices/currentOrderSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ChooseSeatsContainer = styled.div`
   display: flex;
@@ -273,10 +275,21 @@ const SeatsPickerInfoSeats = styled.div`
 const Wagon = styled.div`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+`
 
-  & div {
-    padding: 1rem;
-  }
+const WagonSeatItem = styled.div<{$active: boolean, $available: boolean}>`
+  padding: 1rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: ${props => props.$available 
+    ? 
+      props.$active ? "orange" :"var(--smooth-grey)" 
+    : "var(--smooth-grey-inactive)"}
 `
 
 const WagonNumberPicker = styled.span<{$active: boolean}>`
@@ -285,6 +298,10 @@ const WagonNumberPicker = styled.span<{$active: boolean}>`
   color: ${props => props.$active ? "orange" : "#2d2b2f"};
   cursor: pointer;
   margin-inline: .5rem;
+`
+
+const ToPassengersButton = styled(BaseButton)`
+
 `
 
 const trainTypes = [
@@ -314,19 +331,64 @@ const trainTypes = [
   },
 ]
 
+const isSeatInBookedList = (seat : SeatInfoType, listA) => {
+  for (let key in listA) {
+    if (listA[key].list.includes(seat)) {
+      return true
+    }
+  }
+  return false
+}
 
 const ChooseSeats = () => {
   const params = useParams();
   const { state } = useLocation();
   const { data, error, loading } = useGetSeatsQuery(params.id);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [activeTrainType, setActiveTrainType] = useState<string>();
   const [currentWagon, setCurrentWagon] = useState<SeatsInfoType>();
+  const [validWagons, setValidWagons] = useState([]);
+  const [maxOld, setMaxOld] = useState(3);
+  const [maxChild, setMaxChild] = useState(2);
+  const [maxChildBase, setMaxChildBase] = useState(0);
+
+  const [currentTickets, setCurrentTickets] = useState<{
+    old: {
+      count: number,
+      list: SeatInfoType[]
+    },
+    child: {
+      count: number,
+      list: SeatInfoType[]
+    },
+    childBase: {
+      count: number,
+      list: SeatInfoType[]
+    },
+  }>({
+    old: {
+      count: maxOld,
+      list: []
+    },
+    child:  {
+      count: maxChild,
+      list: []
+    },
+    childBase:  {
+      count: maxChildBase,
+      list: []
+    },
+  });
+  const [currentTicketsList, setCurrentTicketsList] = useState([]);
+
+  const { direction } = useSelector(state => state.currentOrder);
 
   useEffect(() => {
     if (data) {
-      const filteredData = data?.filter(data => data?.coach?.class_type == activeTrainType)
+      const filteredData = data?.filter(data => data?.coach?.class_type == activeTrainType);
+      setValidWagons(filteredData);
       setCurrentWagon(filteredData[0]);
     }
   }, [activeTrainType])
@@ -340,6 +402,52 @@ const ChooseSeats = () => {
     setActiveTrainType(trainType.class_type);
   }
 
+  const handleWagonSeatClick = (e, item) => {
+    if (isSeatInBookedList(item, currentTickets)) {
+
+      setCurrentTickets(prev => {
+        for (let key in prev) {
+          if (prev[key].list.includes(item)) {
+            prev[key].list.splice(prev[key].list.indexOf(item), 1);
+            return {...prev};
+          }
+        }
+        return({...prev})
+      })
+    } else {
+      setCurrentTickets(prev => {
+        for (let key in prev) {
+          if (prev[key].list.length < prev[key].count) {
+            prev[key].list.push(item);
+            return {...prev};
+          }
+        }
+        console.log("no more places")
+        return({...prev})
+      })
+      console.log("now in list, added.")
+    }
+  }
+
+  const handleToPassengersClick = () => {
+    dispatch(direction_action(state.direction));
+    navigate(`/orderticket/passengers/`)
+  }
+
+  useEffect(() => {
+    console.log("store changed direction")
+    console.log(direction)
+  }, [direction])
+
+  useEffect(() => {
+    console.log(currentTicketsList)
+    let list = []
+    for (let key in currentTickets) {
+      list = list.concat(currentTickets[key].list);
+    }
+    setCurrentTicketsList(list)
+  }, [currentTickets])
+
   return (
     <ChooseSeatsContainer>
       <Header>Выбор мест</Header>
@@ -349,10 +457,7 @@ const ChooseSeats = () => {
           <TicketPickContainer>
             <BackButtons>
               <BaseButton
-                onClick={() => {
-                    avigate(`/orderticket/directions/`)
-                  }
-                }
+                onClick={() => navigate(`/orderticket/directions/`)}
               >
                 Выбрать другой поезд
               </BaseButton>
@@ -408,17 +513,17 @@ const ChooseSeats = () => {
               <HeaderInner>Количество билетов</HeaderInner>
               <TicketsCountersList>
                 <TicketsCountersItem className="parent">
-                  <TicketsCountersCount value={"Взрослых — 2"}></TicketsCountersCount>
+                  <TicketsCountersCount value={`Взрослых — ${maxOld}`}></TicketsCountersCount>
                   <TicketsCountersText>Можно добавить еще
                     3 пассажиров </TicketsCountersText>
                 </TicketsCountersItem>
                 <TicketsCountersItem className="child">
-                  <TicketsCountersCount value={"Детских — 1"}></TicketsCountersCount>
+                  <TicketsCountersCount value={`Детских — ${maxChild}`}></TicketsCountersCount>
                   <TicketsCountersText>Можно добавить еще 3 детей до 10 лет.Свое место в вагоне, как у взрослых, но дешевле
                     в среднем на 50-65% </TicketsCountersText>
                 </TicketsCountersItem>
                 <TicketsCountersItem>
-                  <TicketsCountersCount value={"Детских «без места» — 0"}></TicketsCountersCount>
+                  <TicketsCountersCount value={`Детских «без места» — ${maxChildBase}`}></TicketsCountersCount>
                   <TicketsCountersText></TicketsCountersText>
                 </TicketsCountersItem>
               </TicketsCountersList>
@@ -430,13 +535,12 @@ const ChooseSeats = () => {
                 {
                   trainTypes.map((trainType) =>
                     <TrainTypeListItem
-                      $active={(activeTrainType === trainType.class_type) ? "active" : false}
+                      $active={activeTrainType === trainType.class_type}
                       key={trainType.id}
                       onClick={() => handleTrainTypeClick(trainType)}
                     >
                       <Icon
                         $srcImg={trainType.src}
-
                       >
                       </Icon>
                       <Text>{trainType.text}</Text>
@@ -450,12 +554,12 @@ const ChooseSeats = () => {
                 <SeatsPicker className={activeTrainType ? "active" : false}>
                   <SeatsPickerInfo>
                     <SeatsPickerInfoHeaderRow>
-                      <SeatsPickerInfoWagonsList>Вагоны {data.map(item =>
+                      <SeatsPickerInfoWagonsList>Вагоны {validWagons.map(item =>
                         <WagonNumberPicker
-                          key={item.coach._id}
+                          key={item?.coach._id}
                           onClick={() => setCurrentWagon(item)}
-                          $active={item.coach._id === currentWagon?.coach?._id}
-                        >{item.coach.name}
+                          $active={item?.coach._id === currentWagon?.coach?._id}
+                        >{item?.coach.name}
                         </WagonNumberPicker>)}
                       </SeatsPickerInfoWagonsList>
                       <SeatsPickerInfoWagonsAddInfo>Нумерация вагонов начинается с головы поезда</SeatsPickerInfoWagonsAddInfo>
@@ -497,10 +601,15 @@ const ChooseSeats = () => {
                   <Wagon>
                     {
                       currentWagon?.seats.map(item => 
-                      <div>
+                      <WagonSeatItem
+                      $available={item.available}
+                      $active={isSeatInBookedList(item, currentTickets)}
+                      onClick={(e) => {
+                        handleWagonSeatClick(e, item);
+                      }}
+                      >
                         {item.index}
-                        {item.available ? "available" : "not"}
-                      </div>)
+                      </WagonSeatItem>)
                     }
                   </Wagon>
                 </SeatsPicker>
@@ -509,8 +618,16 @@ const ChooseSeats = () => {
           </TicketPickContainer>
         </PickTicketsContainer>
       }
+      <ToPassengersButton
+        $active={currentTicketsList.length}
+        onClick={handleToPassengersClick}
+      >
+        Далее
 
+      </ToPassengersButton>
     </ChooseSeatsContainer>
+
+
   )
 }
 

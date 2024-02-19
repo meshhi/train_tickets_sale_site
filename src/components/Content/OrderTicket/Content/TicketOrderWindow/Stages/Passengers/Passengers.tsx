@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useGetSeatsQuery } from '../../../../../../../store/services/seats'
 import { LoadingScreen } from '../Directions/Directions'
+
 const PassengersContainer = styled.div`
   display: flex;
   width: 100%;
@@ -40,34 +41,29 @@ const TicketPickContainer = styled.div`
 
 const Passengers = () => {
   const params = useParams();
-  const { state } = useLocation();
-  const { data, error, loading } = useGetSeatsQuery(params.id);
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
   return (
     <PassengersContainer>
       <Header>Выбор мест</Header>
-      {loading
-      ? <LoadingScreen></LoadingScreen>
-      : <PickTicketsContainer>
-          <TicketPickContainer>
-          </TicketPickContainer>
-          <TicketPickContainer>
+      <PickTicketsContainer>
+        <TicketPickContainer>
+        </TicketPickContainer>
+        <TicketPickContainer>
           <button
-          onClick={() => {
-            navigate(`/orderticket/directions/`)}
-          }
+            onClick={() => {
+              navigate(-1);
+            }
+            }
           >back</button>
-            {state.renderDepartureInfoProp}
-          </TicketPickContainer>
-        </PickTicketsContainer>
-      }
-      
+                    <button
+              onClick={() => {
+                navigate(`/orderticket/check/`)
+              }
+            }
+          >next</button>
+          
+        </TicketPickContainer>
+      </PickTicketsContainer>
     </PassengersContainer>
   )
 }

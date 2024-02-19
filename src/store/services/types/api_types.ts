@@ -9,7 +9,7 @@ export type PriceInfoType = {
     top_price: number
 }
 
-type SeatInfo = {
+export type SeatInfoType = {
     index: number,
     available: boolean
 }
@@ -33,7 +33,7 @@ type CoachInfo = {
 
 export type SeatsInfoType = {
     coach: CoachInfo,
-    seats: SeatInfo[]
+    seats: SeatInfoType[]
 }
 
 export type DirectionType = {

@@ -235,7 +235,7 @@ const TipIcon = styled(Icon) <{ $active: boolean }>`
     background-color:${props => props.$active ? "orange" : "#C4C4C4"};
 `
 
-const Direction: React.FC<Props> = ({ children, direction }) => {
+export const Direction: React.FC<Props> = ({ children, direction }) => {
     // console.log(direction)
     const navigate = useNavigate();
     return (
