@@ -14,6 +14,7 @@ import sit from '/src/assets/svg/train_filters/sit.svg'
 import lux from '/src/assets/svg/train_filters/lux.svg'
 import platzcart from '/src/assets/svg/train_filters/platzcart.svg'
 import coupe from '/src/assets/svg/train_filters/coupe.svg'
+import { SeatsInfoType } from '../../../../../../../store/services/types/api_types'
 
 const ChooseSeatsContainer = styled.div`
   display: flex;
@@ -161,7 +162,7 @@ const TrainTypeList = styled.ul`
   display: flex;
 `
 
-const TrainTypeListItem = styled.li`
+const TrainTypeListItem = styled.li<{$active: boolean}>`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -174,13 +175,17 @@ const TrainTypeListItem = styled.li`
 
   font-weight: 400;
   font-size: 24px;
-  color: #928f94;
+  color: ${props => props.$active ? "orange" : "#928f94"};
+
+  div {
+    transition: all 0.3s ease-out;
+    background-color: ${props => props.$active ? "orange" : "#928f94"};
+  }
 
   &:hover, &.active {
     color: orange;
 
     div {
-      transition: all 0.3s ease-out;
       background-color: orange;
     }
   }
@@ -194,11 +199,11 @@ const SeatsPicker = styled.div`
   display: none;
   width: 100%;
   min-height: 300px;
-  background-color: red;
   transition: all 0.3s ease-out;
 
   &.active {
     display: flex;
+    flex-direction: column;
   }
 `
 
@@ -237,8 +242,7 @@ const SeatsPickerInfoContent = styled.div`
 `
 
 const SeatsPickerInfoWagonNumber = styled.div`
-  flex: 1;
-  max-width: 191px;
+  width: auto;
   min-height: 161px;
   background: #ffd98f;
   font-weight: 700;
@@ -248,7 +252,7 @@ const SeatsPickerInfoWagonNumber = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-left: 2rem;
+  padding-inline: 2rem;
   gap: 5px;
 
   & span {
@@ -267,31 +271,49 @@ const SeatsPickerInfoSeats = styled.div`
 `
 
 const Wagon = styled.div`
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
 
+  & div {
+    padding: 1rem;
+  }
+`
+
+const WagonNumberPicker = styled.span<{$active: boolean}>`
+  font-weight: 700;
+  font-size: 18px;
+  color: ${props => props.$active ? "orange" : "#2d2b2f"};
+  cursor: pointer;
+  margin-inline: .5rem;
 `
 
 const trainTypes = [
   {
     id: 1,
     src: sit,
-    text: "Сидячий"
+    text: "Сидячий",
+    class_type: "fourth"
   },
   {
     id: 2,
     src: platzcart,
-    text: "Плацкарт"
+    text: "Плацкарт",
+    class_type: "third"
   },
   {
     id: 3,
     src: coupe,
-    text: "Купе"
+    text: "Купе",
+    class_type: "second"
   },
   {
     id: 4,
     src: lux,
-    text: "Люкс"
+    text: "Люкс",
+    class_type: "first"
   },
 ]
+
 
 const ChooseSeats = () => {
   const params = useParams();
@@ -300,13 +322,22 @@ const ChooseSeats = () => {
   const navigate = useNavigate();
 
   const [activeTrainType, setActiveTrainType] = useState<string>();
+  const [currentWagon, setCurrentWagon] = useState<SeatsInfoType>();
+
+  useEffect(() => {
+    if (data) {
+      const filteredData = data?.filter(data => data?.coach?.class_type == activeTrainType)
+      setCurrentWagon(filteredData[0]);
+    }
+  }, [activeTrainType])
 
   useEffect(() => {
     console.log(data)
+    console.log(state)
   }, [data])
 
   const handleTrainTypeClick = (trainType) => {
-    setActiveTrainType(trainType.text);
+    setActiveTrainType(trainType.class_type);
   }
 
   return (
@@ -319,8 +350,8 @@ const ChooseSeats = () => {
             <BackButtons>
               <BaseButton
                 onClick={() => {
-                  navigate(`/orderticket/directions/`)
-                }
+                    avigate(`/orderticket/directions/`)
+                  }
                 }
               >
                 Выбрать другой поезд
@@ -352,7 +383,6 @@ const ChooseSeats = () => {
                 railway={state?.direction?.departure?.to?.railway_station_name}
               ></DepartureInfo>
               <DepartureInfoRoadTime
-                // time={state?.direction?.departure?.duration}
                 reverse={true}
               ></DepartureInfoRoadTime>
               <DepartureInfo
@@ -398,40 +428,84 @@ const ChooseSeats = () => {
               <HeaderInner>Тип вагона</HeaderInner>
               <TrainTypeList>
                 {
-                  trainTypes.map((trainType) => 
-                  <TrainTypeListItem
-                    className={(activeTrainType === trainType.text) ? "active" : false}
-                    key={trainType.id}
-                    onClick={() => handleTrainTypeClick(trainType)}
-                  >
-                    <Icon
-                      $srcImg={trainType.src}
-  
+                  trainTypes.map((trainType) =>
+                    <TrainTypeListItem
+                      $active={(activeTrainType === trainType.class_type) ? "active" : false}
+                      key={trainType.id}
+                      onClick={() => handleTrainTypeClick(trainType)}
                     >
-                    </Icon>
-                    <Text>{trainType.text}</Text>
-                  </TrainTypeListItem>)
+                      <Icon
+                        $srcImg={trainType.src}
+
+                      >
+                      </Icon>
+                      <Text>{trainType.text}</Text>
+                    </TrainTypeListItem>)
                 }
               </TrainTypeList>
             </TrainType>
-            <SeatsPicker className={activeTrainType ? "active" : false}>
-              <SeatsPickerInfo>
-                <SeatsPickerInfoHeaderRow>
-                  <SeatsPickerInfoWagonsList>Вагоны 07 09</SeatsPickerInfoWagonsList>
-                  <SeatsPickerInfoWagonsAddInfo>Нумерация вагонов начинается с головы поезда</SeatsPickerInfoWagonsAddInfo>
-                </SeatsPickerInfoHeaderRow>
-                <SeatsPickerInfoContent>
-                  <SeatsPickerInfoWagonNumber>
-                    07
-                    <span>вагон</span>
-                  </SeatsPickerInfoWagonNumber>
-                  <SeatsPickerInfoSeats>
-                    gag
-                  </SeatsPickerInfoSeats>
-                </SeatsPickerInfoContent>
-              </SeatsPickerInfo>
-              <Wagon></Wagon>
-            </SeatsPicker>
+            {
+              currentWagon
+                ?
+                <SeatsPicker className={activeTrainType ? "active" : false}>
+                  <SeatsPickerInfo>
+                    <SeatsPickerInfoHeaderRow>
+                      <SeatsPickerInfoWagonsList>Вагоны {data.map(item =>
+                        <WagonNumberPicker
+                          key={item.coach._id}
+                          onClick={() => setCurrentWagon(item)}
+                          $active={item.coach._id === currentWagon?.coach?._id}
+                        >{item.coach.name}
+                        </WagonNumberPicker>)}
+                      </SeatsPickerInfoWagonsList>
+                      <SeatsPickerInfoWagonsAddInfo>Нумерация вагонов начинается с головы поезда</SeatsPickerInfoWagonsAddInfo>
+                    </SeatsPickerInfoHeaderRow>
+                    <SeatsPickerInfoContent>
+                      <SeatsPickerInfoWagonNumber>
+                        {currentWagon?.coach?.name}
+                        <span>вагон</span>
+                      </SeatsPickerInfoWagonNumber>
+                      <SeatsPickerInfoSeats>
+                        места
+                        {currentWagon?.coach?.available_seats}
+
+                        Нижние
+                        {currentWagon?.coach?.bottom_price}
+
+                        Верхние
+                        {currentWagon?.coach?.top_price}
+
+                        Боковые
+                        {currentWagon?.coach?.side_price}
+
+                        обслуживание ФПК
+
+                        кондиционер
+                        {currentWagon?.coach?.have_air_conditioning}
+
+                        have_wifi
+                        {currentWagon?.coach?.have_wifi}
+
+                        is_linens_included
+                        {currentWagon?.coach?.is_linens_included}
+
+                        кондиционер
+                        {currentWagon?.coach?.have_air_conditioning}
+                      </SeatsPickerInfoSeats>
+                    </SeatsPickerInfoContent>
+                  </SeatsPickerInfo>
+                  <Wagon>
+                    {
+                      currentWagon?.seats.map(item => 
+                      <div>
+                        {item.index}
+                        {item.available ? "available" : "not"}
+                      </div>)
+                    }
+                  </Wagon>
+                </SeatsPicker>
+                : false
+            }
           </TicketPickContainer>
         </PickTicketsContainer>
       }
