@@ -87,6 +87,11 @@ export const Pagination : FC<Props> = ({totalCount = 0, offset = 0, limit = 5, a
             setCurrentPage(pageNumber);
             dispatch(action((pageNumber - 1) * limit));
         }
+
+        window.scrollTo({
+            top: 500,
+            behavior: "smooth",
+        })
     }
 
     return(

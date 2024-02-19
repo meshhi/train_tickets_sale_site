@@ -3,6 +3,7 @@ import { unstable_usePrompt } from 'react-router-dom';
 
 export type InitialStateType = {
     direction?: any,
+    passengers_seats?: any,
 }
 
 const initialState : InitialStateType = {
@@ -17,11 +18,15 @@ const currentOrderSlice = createSlice({
       direction: (state, action) => {
         state.direction = action.payload;
       },
+      passengers_seats: (state, action) => {
+        state.passengers_seats = action.payload;
+      },
     },
   });
 
 export const { 
     direction,
+    passengers_seats
 } = currentOrderSlice.actions;
 
 export default currentOrderSlice.reducer;

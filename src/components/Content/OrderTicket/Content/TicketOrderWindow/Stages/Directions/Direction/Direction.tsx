@@ -268,7 +268,7 @@ export const Direction: React.FC<Props> = ({ children, direction }) => {
                                 railway={direction?.arrival?.to?.railway_station_name}
                             ></DepartureInfo>
                             <DepartureInfoRoadTime
-                                time={"20:00"}
+                                time={direction?.arrival?.duration}
                                 reverse={false}
                             ></DepartureInfoRoadTime>
                             <DepartureInfo

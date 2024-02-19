@@ -15,7 +15,10 @@ import lux from '/src/assets/svg/train_filters/lux.svg'
 import platzcart from '/src/assets/svg/train_filters/platzcart.svg'
 import coupe from '/src/assets/svg/train_filters/coupe.svg'
 import { SeatInfoType } from '../../../../../../../store/services/types/api_types'
-import { direction as direction_action } from '../../../../../../../store/slices/currentOrderSlice'
+import {
+  direction as direction_action,
+  passengers_seats as passengers_seats_action
+} from '../../../../../../../store/slices/currentOrderSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const ChooseSeatsContainer = styled.div`
@@ -383,7 +386,7 @@ const ChooseSeats = () => {
   });
   const [currentTicketsList, setCurrentTicketsList] = useState([]);
 
-  const { direction } = useSelector(state => state.currentOrder);
+  const { direction, passengers_seats } = useSelector(state => state.currentOrder);
 
   useEffect(() => {
     if (data) {
@@ -431,6 +434,7 @@ const ChooseSeats = () => {
 
   const handleToPassengersClick = () => {
     dispatch(direction_action(state.direction));
+    dispatch(passengers_seats_action(currentTickets));
     navigate(`/orderticket/passengers/`)
   }
 
@@ -623,7 +627,6 @@ const ChooseSeats = () => {
         onClick={handleToPassengersClick}
       >
         Далее
-
       </ToPassengersButton>
     </ChooseSeatsContainer>
 

@@ -21,7 +21,7 @@ export const ProgressBar = () => {
         if (location.pathname.startsWith("/orderticket/directions")) {
             setActives([true, false, false, false])
         }
-        if (location.pathname.startsWith("/orderticket/passengers")) {
+        if (location.pathname.startsWith("/orderticket/passengers") || location.pathname.startsWith("/orderticket/chooseseats")) {
             setActives([true, true, false, false])
         }
         if (location.pathname.startsWith("/orderticket/payment")) {

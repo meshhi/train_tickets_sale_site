@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useGetSeatsQuery } from '../../../../../../../store/services/seats'
 import { LoadingScreen } from '../Directions/Directions'
+import { useSelector } from 'react-redux'
 
 const PassengersContainer = styled.div`
   display: flex;
@@ -38,18 +39,46 @@ const TicketPickContainer = styled.div`
   min-height: 20%;
   background-color: yellow;
 `
+const PassengersList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
+
+const PassengerCard = styled.div`
+  background-color: yellow;
+`
 
 const Passengers = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const { passengers_seats } = useSelector(state => state.currentOrder);
+  const [maxCardNumber, setMaxCardNumber] = useState<number>(0);
+  const [maxOldCount, setMaxOldCount] = useState<number>(0);
+  const [maxChildCount, setMaxChildCount] = useState<number>(0);
+  const [maxChildBaseCount, setMaxChildBaseCount] = useState<number>(0);
+
+  useEffect(() => {
+    let maxCount = 0;
+    if (passengers_seats) {
+      for (let key in passengers_seats) {
+        if (key == 'old') {
+          setMaxOldCount(passengers_seats[key].list.length);
+        }
+        if (key == 'child') {
+          setMaxChildCount(passengers_seats[key].list.length);
+        }
+        if (key == 'childBase') {
+          setMaxChildBaseCount(passengers_seats[key].list.length);
+        }
+        maxCount += passengers_seats[key].list.length;
+      }
+    }
+    setMaxCardNumber(maxCount);
+  }, [passengers_seats])
   return (
     <PassengersContainer>
-      <Header>Выбор мест</Header>
-      <PickTicketsContainer>
-        <TicketPickContainer>
-        </TicketPickContainer>
-        <TicketPickContainer>
-          <button
+                <button
             onClick={() => {
               navigate(-1);
             }
@@ -61,9 +90,25 @@ const Passengers = () => {
               }
             }
           >next</button>
-          
-        </TicketPickContainer>
-      </PickTicketsContainer>
+      <PassengersList>
+        можно добавить взрослых
+        {
+          maxOldCount
+        }
+
+        можно добавить детей
+        {
+          maxChildCount
+        }
+
+        можно добавить детей база
+        {
+          maxChildBaseCount
+        }
+        <PassengerCard>
+
+        </PassengerCard>
+      </PassengersList>
     </PassengersContainer>
   )
 }
