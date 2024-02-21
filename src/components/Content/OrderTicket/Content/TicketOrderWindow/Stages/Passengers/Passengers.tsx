@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useGetSeatsQuery } from '../../../../../../../store/services/seats'
 import { LoadingScreen } from '../Directions/Directions'
 import { useSelector } from 'react-redux'
+import { PassengerCard } from './PassengerCard'
 
 const PassengersContainer = styled.div`
   display: flex;
@@ -43,10 +44,7 @@ const PassengersList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`
-
-const PassengerCard = styled.div`
-  background-color: yellow;
+  width: 100%;
 `
 
 const Passengers = () => {
@@ -90,8 +88,7 @@ const Passengers = () => {
               }
             }
           >next</button>
-      <PassengersList>
-        можно добавить взрослых
+                  можно добавить взрослых
         {
           maxOldCount
         }
@@ -105,6 +102,8 @@ const Passengers = () => {
         {
           maxChildBaseCount
         }
+      <PassengersList>
+
         <PassengerCard>
 
         </PassengerCard>

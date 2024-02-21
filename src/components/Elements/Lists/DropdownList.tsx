@@ -41,7 +41,7 @@ interface Props<T, K> extends PropsWithChildren {
     action?: any;
 }
 
-export const DropdownList : FC<Props<{title: string, value: string}, string>> = ({items, currentValue, action}) => {
+export const DropdownList : FC<Props<{title: string, value: string}, string>> = ({items, currentValue, action, handler}) => {
     const [opened, setOpened] = useState<boolean>(false);
     const dispatch = useDispatch();
 
@@ -55,6 +55,10 @@ export const DropdownList : FC<Props<{title: string, value: string}, string>> = 
                 .map(item => <DropdownListMenuItem
                     onClick={() => {
                         setOpened(false)
+                        if (!action) {
+                            handler(item);
+                            return
+                        }
                         dispatch(action(item.value))
                     }}
                 >{item.title}</DropdownListMenuItem>)
